@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<Mable.Classes.Building.Buildinginfo>
+
+@using PagedList.Mvc
+
+<style>
+    #map {
+        height: 100%;
+    }
+
+    html. body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<script>
+    var map;
+    var service;
+    var infowindow;
+
+
+
+    function initialize() {
+        var pyrmont = new google.maps.LatLng(-37.812479, 144.96150);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: pyrmont,
+            zoom: 15
+        });
+
+        var keyword = '@ViewBag.searchKeyWord';
+        var request = {
+            location: pyrmont,
+            radius: '500',
+            query: keyword
+        };
+
+        infowindow = new google.maps.InfoWindow()
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, callback);
+    }
+
+    function callback(results, status) {
+        //TODO: GET buildings from view and compare
+        //var buildings = '@ViewBag.buildings'
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                var place = results[i];
+                createMarker(results[i]);
+                listResult(place);
+            }
+        }
+    }
+
+    function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            visible: true,
+        });
+        marker.setMap(map);
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+        });
+    }
+
+    function listResult(place) {
+
+    }
+</script>
+
+<div style="height:500px; width:500px">
+    <div id="map"></div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+
