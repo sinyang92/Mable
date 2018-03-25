@@ -12,6 +12,7 @@ using PagedList;
 using MoreLinq;
 using static Mable.Classes.SearchResponse;
 using System.Diagnostics;
+using System.Device.Location;
 
 namespace Mable.Controllers
 {
@@ -65,8 +66,6 @@ namespace Mable.Controllers
             }
             */
 
-            TempData["buildings"] = buildings;
-
             /*
              Get the search result from Google Place API
              */
@@ -90,19 +89,58 @@ namespace Mable.Controllers
                 //Debug.WriteLine(jsonString);
                 var detailResponse = JsonConvert.DeserializeObject<PlaceDetail.Rootobject>(jsonString);
                 PlaceDetail.Result detailResult = detailResponse.result;
-                Debug.WriteLine(detailResult.name);
-                place_details.Add(detailResult);
+                //Debug.WriteLine(detailResult.name);
+
+                foreach (Buildinginfo b in buildings)
+                {
+                    if (b.location != null && Has_Accessible_Info(b.location.coordinates[1], b.location.coordinates[0],
+                        detailResult.geometry.location.lat, detailResult.geometry.location.lng))
+                    {
+                        detailResult.accessibility_rating = b.accessibility_rating;
+                        place_details.Add(detailResult);
+                    }
+                }
             }
+            TempData["place_details"] = place_details;
+
             int pageNumber = (page ?? 1);
             int pageSize = 10;
             return View(place_details.ToPagedList(pageNumber, pageSize));
          }
+
+        public ActionResult ResultDetail(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<PlaceDetail.Result> place_details = (List<PlaceDetail.Result>)TempData["place_details"];
+            TempData["place_details"] = place_details;
+            PlaceDetail.Result detail = place_details.Where(d => d.id == id).First();
+            if (detail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(detail);
+        }
 
         public string Download_JSON(string url)
         {
             WebClient client = new WebClient();
             string JSONstring = client.DownloadString(url);
             return JSONstring;
+        }
+
+        public Boolean Has_Accessible_Info(float lat1, float lng1, float lat2, float lng2)
+        {
+            var point1 = new GeoCoordinate(lat1, lng1);
+            var point2 = new GeoCoordinate(lat2, lng2);
+            var distance = point1.GetDistanceTo(point2);
+            if (distance < 50)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

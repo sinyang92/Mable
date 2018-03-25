@@ -35,6 +35,8 @@ namespace Mable.Classes
             public int utc_offset { get; set; }
             public string vicinity { get; set; }
             public string website { get; set; }
+            // customized attribute
+            public string accessibility_rating { get; set; }
         }
 
         public class Geometry

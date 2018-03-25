@@ -84,13 +84,22 @@
         <th>
             Rating
         </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Accessibility Rating
+        </th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.name</td>
             <td>@item.rating</td>
-            
+            <td>@item.adr_address</td>
+            <td>@item.accessibility_rating</td>
+            <td>@Html.ActionLink("Details", "ResultDetail", new { id = item.id })
+            </td>
            
     </tr>
 
