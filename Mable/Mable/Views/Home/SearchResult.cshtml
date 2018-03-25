@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Mable.Classes.Building.Buildinginfo>
+﻿@model PagedList.IPagedList<Mable.Classes.PlaceDetail.Result>
 
 @using PagedList.Mvc
 
@@ -76,5 +76,33 @@
     <div id="map"></div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Rating
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.name</td>
+            <td>@item.rating</td>
+            
+           
+    </tr>
 
+}
+</table>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("SearchResult", new
+{ page }))
+
+<!--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+-->

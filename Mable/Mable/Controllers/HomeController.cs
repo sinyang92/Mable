@@ -10,6 +10,8 @@ using System.IO;
 using static Mable.Classes.Building;
 using PagedList;
 using MoreLinq;
+using static Mable.Classes.SearchResponse;
+using System.Diagnostics;
 
 namespace Mable.Controllers
 {
@@ -65,9 +67,35 @@ namespace Mable.Controllers
 
             TempData["buildings"] = buildings;
 
+            /*
+             Get the search result from Google Place API
+             */
+            url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
+                keyword + "+in+Melbourne&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
+            jsonString = Download_JSON(url);
+            //Debug.WriteLine(jsonString);
+            var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);
+            SearchResponse.Result[] searchResult = searchResponse.results;
+
+            /*
+             For each search result, get the detail from Google Detail API
+             */
+            List<PlaceDetail.Result> place_details = new List<PlaceDetail.Result>();
+            foreach (Result r in searchResult)
+            {
+                var place_id = r.place_id;
+                url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" +
+                    place_id + "&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
+                jsonString = Download_JSON(url);
+                //Debug.WriteLine(jsonString);
+                var detailResponse = JsonConvert.DeserializeObject<PlaceDetail.Rootobject>(jsonString);
+                PlaceDetail.Result detailResult = detailResponse.result;
+                Debug.WriteLine(detailResult.name);
+                place_details.Add(detailResult);
+            }
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(buildings.ToPagedList(pageNumber, pageSize));
+            return View(place_details.ToPagedList(pageNumber, pageSize));
          }
 
         public string Download_JSON(string url)
@@ -75,11 +103,6 @@ namespace Mable.Controllers
             WebClient client = new WebClient();
             string JSONstring = client.DownloadString(url);
             return JSONstring;
-        }
-
-        public string Clean_JSON(string JSONstring)
-        {
-            return JSONstring.Substring(1, JSONstring.Length - 2);
         }
     }
 }
