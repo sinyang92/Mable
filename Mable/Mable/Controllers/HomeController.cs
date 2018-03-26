@@ -16,6 +16,7 @@ using System.Device.Location;
 
 namespace Mable.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
