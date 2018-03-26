@@ -37,6 +37,7 @@ namespace Mable.Classes
             public string website { get; set; }
             // customized attribute
             public string accessibility_rating { get; set; }
+            public string photo_reference { get; set; }
         }
 
         public class Geometry

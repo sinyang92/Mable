@@ -89,6 +89,7 @@ namespace Mable.Controllers
                 //Debug.WriteLine(jsonString);
                 var detailResponse = JsonConvert.DeserializeObject<PlaceDetail.Rootobject>(jsonString);
                 PlaceDetail.Result detailResult = detailResponse.result;
+                detailResult.photo_reference = r.photos[0].photo_reference;
                 //Debug.WriteLine(detailResult.name);
 
                 foreach (Buildinginfo b in buildings)
@@ -121,6 +122,8 @@ namespace Mable.Controllers
             {
                 return HttpNotFound();
             }
+
+
             return View(detail);
         }
 
