@@ -69,9 +69,11 @@ namespace Mable.Controllers
 
             /*
              Get the search result from Google Place API
+             Centre: Melbourne CBD
+             Distance: 14 km
              */
             url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
-                keyword + "+in+Melbourne&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
+                keyword + "&location=-37.808163434,144.957829502&radius=14000&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
             jsonString = Download_JSON(url);
             //Debug.WriteLine(jsonString);
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);
@@ -90,18 +92,30 @@ namespace Mable.Controllers
                 //Debug.WriteLine(jsonString);
                 var detailResponse = JsonConvert.DeserializeObject<PlaceDetail.Rootobject>(jsonString);
                 PlaceDetail.Result detailResult = detailResponse.result;
-                detailResult.photo_reference = r.photos[0].photo_reference;
+                if (r.photos != null)
+                {
+                    detailResult.photo_reference = r.photos[0].photo_reference;
+                }
+                
                 //Debug.WriteLine(detailResult.name);
 
                 foreach (Buildinginfo b in buildings)
                 {
-                    if (b.location != null && Has_Accessible_Info(b.location.coordinates[1], b.location.coordinates[0],
-                        detailResult.geometry.location.lat, detailResult.geometry.location.lng))
+                    if (b.location != null)
                     {
-                        detailResult.accessibility_rating = b.accessibility_rating;
-                        place_details.Add(detailResult);
+                        if (Has_Accessible_Info(b.location.coordinates[1], b.location.coordinates[0],
+                        detailResult.geometry.location.lat, detailResult.geometry.location.lng))
+                        {
+                            detailResult.accessibility_rating = b.accessibility_rating;
+                        }
+                        else
+                        {
+                            detailResult.accessibility_rating = "N/A";
+                        }
                     }
                 }
+                place_details.Add(detailResult);
+                place_details.DistinctBy(p => p.name).ToList();
             }
             TempData["place_details"] = place_details;
 
