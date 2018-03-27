@@ -38,7 +38,7 @@ namespace Mable.Controllers
             return View();
         }
 
-        public ActionResult SearchResult(string keyword, int? page)
+        public ActionResult SearchResult(string keyword, string sortOrder, int? page)
         {
             ViewBag.searchKeyWord = keyword;
 
@@ -116,6 +116,17 @@ namespace Mable.Controllers
                 }
                 place_details.Add(detailResult);
                 place_details.DistinctBy(p => p.name).ToList();
+
+                ViewBag.AccessibilitySortParam = String.IsNullOrEmpty(sortOrder) ? "accessibility_rating" : "";
+                switch (sortOrder)
+                {
+                    case "accessibility_rating":
+                        place_details = place_details.OrderByDescending(d => d.accessibility_rating).ToList();
+                        break;
+                    default:
+                        place_details = place_details.OrderByDescending(d => d.name).ToList();
+                        break;
+                }
             }
             TempData["place_details"] = place_details;
 
