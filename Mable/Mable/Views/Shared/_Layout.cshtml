@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
 
-    <link href="~/Content/mable-style.css?version=1.0" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/mable-style.css?version=1.0" rel="stylesheet" type="text/css">
 
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
@@ -44,12 +44,12 @@
 
                     <i class="fas fa-ellipsis-h"></i>
 
-           
+
 
 
                 </button>
 
-                <a class="navbar-brand" href="#"><span>MABLE</span></a>
+                @Html.ActionLink("MABLE", "Index", "Home", null, new { @class = "navbar-brand" })
 
             </div>
 
@@ -65,7 +65,7 @@
 
                     <li class="">
 
-                        <a href="#">Map</a>
+                        <a href="#" >Map</a>
 
                     </li>
 

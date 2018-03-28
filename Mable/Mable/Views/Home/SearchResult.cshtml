@@ -81,6 +81,10 @@
 
 <div class="row">
 
+    <!--Start No Results Message -->
+    <div class="col-sm-8 col-sm-offset-2">
+
+    </div>
 
     @foreach (var item in Model)
     {
@@ -96,8 +100,9 @@
                     <i class="fas fa-star"></i> @item.rating
                 </figcaption>
                 <div class="col-lg-2">
-                    <div class="mable-CardResult-disRating">
-                        Accessibility Rating
+                    <div class="mable-CardResult-accRating">
+                        <p>Accessibility Rating</p>
+                        <i class="fas fa-universal-access"></i> 
                         @item.accessibility_rating
                     </div>
                    
