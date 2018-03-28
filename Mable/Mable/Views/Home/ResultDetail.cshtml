@@ -1,4 +1,11 @@
-﻿@model Mable.Classes.PlaceDetail.Result
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+}
+
+@model Mable.Classes.PlaceDetail.Result
+
+
 
 <script>
     function initMap() {
@@ -40,8 +47,7 @@
 <div style="height:500px; width:500px">
     <div id="map" style="height:100%"></div>
 </div>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
 </script>
 
 <a href="javascript:history.back()">Back</a>

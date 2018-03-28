@@ -12,14 +12,12 @@
 
     <script type="text/javascript" src='@Url.Content("~/Scripts/jquery-1.10.2.min.js")'></script>
 
-    @*@Styles.Render("~/Content/css")
-
-        @Scripts.Render("~/bundles/modernizr")*@
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
 
     <link href="~/Content/mable-style.css?version=1.0" rel="stylesheet" type="text/css">
@@ -44,11 +42,10 @@
 
                     <span class="sr-only">Toggle navigation</span>
 
-                    <span class="icon-bar"></span>
+                    <i class="fas fa-ellipsis-h"></i>
 
-                    <span class="icon-bar"></span>
+           
 
-                    <span class="icon-bar"></span>
 
                 </button>
 
@@ -107,26 +104,6 @@
     </div>
 
 
-
-    @*<div class="container body-content">
-
-            @RenderBody()
-
-            <hr />
-
-            <footer>
-
-                <p>&copy; @DateTime.Now.Year - Designed by X-MON</p>
-
-            </footer>
-
-        </div>*@
-
-
-
-    @*@Scripts.Render("~/bundles/jquery")
-
-        @Scripts.Render("~/bundles/bootstrap")*@
 
     @RenderSection("scripts", required: false)
 
