@@ -5816,6 +5816,9 @@ button.close {
 
 .mable-homeSearch {
   padding: 50px; }
+  @media only screen and (max-width: 600px) {
+    .mable-homeSearch {
+      padding: 30px; } }
   .mable-homeSearch .title {
     display: inline-block;
     font-size: 48px;
@@ -5827,6 +5830,9 @@ button.close {
   .mable-homeSearch form {
     width: 70%;
     display: inline-block; }
+    @media only screen and (max-width: 600px) {
+      .mable-homeSearch form {
+        width: 100%; } }
     .mable-homeSearch form input {
       border-radius: 100px;
       padding: 10px;
@@ -5903,6 +5909,14 @@ button.close {
 .navbar.navbar-default.navbar-static-top .container-fluid {
   padding: 10px 25px; }
 
+a.navbar-brand {
+  font-size: 22px;
+  color: #FFCF00 !important;
+  letter-spacing: 4px;
+  text-align: left;
+  line-height: 28px;
+  font-weight: 600; }
+
 .mable-CardResult {
   background: #ffffff;
   border-radius: 10px;
@@ -5916,3 +5930,46 @@ h1.mable-CardResult-title {
   font-size: 22px !important;
   font-weight: 500;
   margin: 5px 0 5px 0; }
+
+.mable-detail {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  padding-top: 55px; }
+  .mable-detail .mable-detail-image img {
+    height: 200px;
+    max-width: 400px;
+    object-fit: cover;
+    -webkit-box-shadow: 15px -15px 0px 0px #ffd000;
+    -moz-box-shadow: 15px -15px 0px 0px #ffd000;
+    box-shadow: 15px -15px 0px 0px #ffd000; }
+  .mable-detail .mable-detail-map {
+    margin-top: 50px; }
+
+.mable-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+#map {
+  width: 100%;
+  height: 100%; }
+
+input.chk-btn {
+  display: none; }
+
+input.chk-btn + label {
+  border: 1px solid grey;
+  background: ghoswhite;
+  padding: 5px 5px;
+  cursor: pointer;
+  border-radius: 5px; }
+
+input.chk-btn:not(:checked) + label:hover {
+  box-shadow: 0px 1px 3px; }
+
+input.chk-btn + label:active,
+input.chk-btn:checked + label {
+  box-shadow: 0px 0px 3px inset;
+  background: #8cc472; }

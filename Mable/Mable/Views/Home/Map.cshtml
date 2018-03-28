@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Map";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="buttons">
+    <input type="checkbox" name="filter" id="sensor" class='chk-btn' onclick="applyFilter(this)">
+    @*Urban parking data*@
+    <label for='sensor'>Real-time on-street parking</label>
+    <input type="checkbox" name="filter" id="toilet" class='chk-btn' onclick="applyFilter(this)">
+    <label for='toilet'>Public Toilet</label>
+    <input type="checkbox" name="filter" id="park" class='chk-btn' onclick="applyFilter(this)">
+    @*Parking building*@
+    <label for='park'>Off-street parking</label>
+</div>
+<input id="input" type="text" placeholder="Search Place">
+<div id="map">
+</div>
+
+<script type="text/javascript" src="~/Content/js/map-google.js">
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
+</script>
+

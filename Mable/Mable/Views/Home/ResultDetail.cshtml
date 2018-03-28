@@ -1,0 +1,106 @@
+﻿
+@{
+
+                Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+}
+
+@model Mable.Classes.PlaceDetail.Result
+
+
+
+
+
+
+
+<div class="section">
+    <div class="container-fluid">
+        <div class="row">
+           
+            <!-- Start Details Content -->
+            <div class="col-sm-8 col-sm-offset-2 mable-detail">
+                <!-- Image and Place Details -->
+                <div class="row ">
+                    <!-- Place Photo -->
+                    <div class="col-md-4 mable-detail-image">
+                        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
+                        <div class="mable-detail-imageShadow"></div>
+                    </div>
+                    <!-- End Photo -->
+                    <!-- Place details -->
+                    <div class="col-md-8">
+                        <!-- back button -->
+                        <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back</a>
+                        <!-- Place Title -->
+                        <h1>
+                            @Model.name
+                        </h1>
+                        <div class="mable-detail-accRating">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <div class="mable-detail-rating">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="mable-detail-description">
+                            Place description
+                        </div>
+                        <div class="mable-detail-price">
+
+                        </div>
+
+                    </div>
+                    <!-- End place details -->
+                </div>
+                <!-- Start place Map -->
+                <div class="row mable-detail-map clearfix">
+                    <div class="col-md-12">
+                        <div name="place location" id="map" style="height:300px"></div>
+                    </div>
+                </div>
+                <!-- End place map -->
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<script>
+    function initMap() {
+        var lat = @Model.geometry.location.lat;
+        var lng = @Model.geometry.location.lng;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: lat, lng: lng},
+          zoom: 15
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+
+        service.getDetails({
+          placeId: '@Model.place_id'
+        }, function(place, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                'Place ID: ' + place.place_id + '<br>' +
+                place.formatted_address + '</div>');
+              infowindow.open(map, this);
+            });
+          }
+        });
+      }
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
+</script>
