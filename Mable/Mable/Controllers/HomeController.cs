@@ -8,7 +8,6 @@ using System.Net;
 using Mable.Classes;
 using System.IO;
 using static Mable.Classes.Building;
-using PagedList;
 using MoreLinq;
 using static Mable.Classes.SearchResponse;
 using System.Diagnostics;
@@ -38,7 +37,7 @@ namespace Mable.Controllers
             return View();
         }
 
-        public ActionResult SearchResult(string keyword, string sortOrder, int? page)
+        public ActionResult SearchResult(string keyword)
         {
             ViewBag.searchKeyWord = keyword;
 
@@ -73,12 +72,11 @@ namespace Mable.Controllers
              Distance: 14 km
              */
             url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
-                keyword + "&location=-37.808163434,144.957829502&radius=14000&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
+                keyword + "&location=-37.808163434,144.957829502&radius=14000&region=au&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
             jsonString = Download_JSON(url);
             //Debug.WriteLine(jsonString);
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);
             SearchResponse.Result[] searchResult = searchResponse.results;
-
             /*
              For each search result, get the detail from Google Detail API
              */
@@ -107,32 +105,32 @@ namespace Mable.Controllers
                         detailResult.geometry.location.lat, detailResult.geometry.location.lng))
                         {
                             detailResult.accessibility_rating = b.accessibility_rating;
+                            detailResult.accessibility_description = b.accessibility_type_description;
+                            break;
                         }
                         else
                         {
                             detailResult.accessibility_rating = "N/A";
+                            detailResult.accessibility_description = "N/A";
                         }
                     }
                 }
                 place_details.Add(detailResult);
-                place_details.DistinctBy(p => p.name).ToList();
 
-                ViewBag.AccessibilitySortParam = String.IsNullOrEmpty(sortOrder) ? "accessibility_rating" : "";
-                switch (sortOrder)
-                {
-                    case "accessibility_rating":
-                        place_details = place_details.OrderByDescending(d => d.accessibility_rating).ToList();
-                        break;
-                    default:
-                        place_details = place_details.OrderByDescending(d => d.name).ToList();
-                        break;
-                }
+                // sort by accessibility rating first, then sort by rating
+                place_details = place_details.OrderBy(p => p.accessibility_rating, new CustomComparer()).
+                    ThenByDescending(p => p.rating).ToList();
+               
             }
             TempData["place_details"] = place_details;
 
-            int pageNumber = (page ?? 1);
-            int pageSize = 10;
-            return View(place_details.ToPagedList(pageNumber, pageSize));
+            // Uncomment this to enable paged display
+            // Also need to modify view
+
+            //int pageNumber = (page ?? 1);
+            //int pageSize = 10;
+            //return View(place_details.ToPagedList(pageNumber, pageSize));
+            return View(place_details);
          }
 
         public ActionResult ResultDetail(string id)
@@ -170,6 +168,31 @@ namespace Mable.Controllers
                 return true;
             }
             return false;
+        }
+
+        // Custom sort method to sort the number first then string
+        class CustomComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                int xVal, yVal;
+                var xIsVal = int.TryParse(x, out xVal);
+                var yIsVal = int.TryParse(y, out yVal);
+                if (xIsVal && yIsVal)
+                {
+                    // descending order
+                    return yVal.CompareTo(xVal);
+                }
+                if (!xIsVal && !yIsVal)
+                {
+                    return x.CompareTo(y);
+                }
+                if (xIsVal)
+                {
+                    return -1;
+                }
+                return 1;
+            }
         }
     }
 }
