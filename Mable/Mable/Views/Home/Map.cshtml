@@ -4,18 +4,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="buttons">
-    <input type="checkbox" name="filter" id="sensor" class='chk-btn' onclick="applyFilter(this)">
-    @*Urban parking data*@
-    <label for='sensor'>Real-time on-street parking</label>
-    <input type="checkbox" name="filter" id="toilet" class='chk-btn' onclick="applyFilter(this)">
-    <label for='toilet'>Public Toilet</label>
-    <input type="checkbox" name="filter" id="park" class='chk-btn' onclick="applyFilter(this)">
-    @*Parking building*@
-    <label for='park'>Off-street parking</label>
+<style>
+    #input {
+        z-index: 0;
+        position: absolute;
+        left: 125px;
+        top: 8px !important;
+        width: 40%;
+    }
+
+    .map-tooltip {
+        color: #D1C9BE;
+        margin-right: 10px;
+    }
+</style>
+<div class="row" style="margin-bottom: 25px;">
+    <div class="col-sm-2" style=" max-width: 140px !important; padding-left:20px;" >
+        <p style="display: inline-block; font-size:22px; ">
+            Options
+        </p>
+        <i class="fas fa-info-circle map-tooltip" data-toggle="tooltip" title="Hooray!"></i>
+    </div>
+        @*<div id="buttons" style="display: inline-block;">*@
+            <div class="col-sm-3">
+                <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="applyFilter(this)">
+                @*Urban parking data*@
+                <label for='sensor' class="btn btn-default btn-block">Real-time on-street parking</label>
+                
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="applyFilter(this)">
+                <label for='toilet' class="btn btn-default btn-block">Public Toilet</label>
+            </div>
+            <div class="col-sm-3">
+                <input type="checkbox" name="filter" id="park" class='btn-map' onclick="applyFilter(this)">
+                @*Parking building*@
+                <label for='park' class="btn btn-default btn-block">Off-street parking</label>
+                </div>
+            @*</div>*@
+
+        
 </div>
-<input id="input" type="text" placeholder="Search Place">
-<div id="map">
+<div class="row">
+    <input id="input" type="text" placeholder="Search Place" class="form-control">
+
+    <div style="height:80vh; width:100%;">
+        <div id="map" style="height:100%;">
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="~/Content/js/map-google.js">
@@ -23,3 +59,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

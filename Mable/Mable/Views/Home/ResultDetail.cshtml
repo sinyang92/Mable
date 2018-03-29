@@ -21,7 +21,7 @@
                 <!-- Image and Place Details -->
                 <div class="row ">
                     <!-- Place Photo -->
-                    <div class="col-md-4 mable-detail-image">
+                    <div class="col-md-4 mable-detail-image text-center">
                         <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
                         <div class="mable-detail-imageShadow"></div>
                     </div>
@@ -36,15 +36,19 @@
                         </h1>
                         <div class="mable-detail-accRating">
                             <i class="fas fa-universal-access"></i>
+                            @Model.accessibility_description
                         </div>
                         <div class="mable-detail-rating">
                             <i class="fas fa-star"></i>
                         </div>
-                        <div class="mable-detail-description">
-                            Place description
+                        <div class="mable-detail-website">
+                            @Model.website
                         </div>
                         <div class="mable-detail-price">
 
+                        </div>
+                        <div>
+                            @Model.formatted_address
                         </div>
 
                     </div>

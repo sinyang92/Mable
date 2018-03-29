@@ -133,6 +133,11 @@ namespace Mable.Controllers
             return View(place_details);
          }
 
+        public ActionResult Map()
+        {
+            return View();
+        }
+
         public ActionResult ResultDetail(string id)
         {
             if (id == null)

@@ -5956,6 +5956,23 @@ h1.mable-CardResult-title {
   width: 100%;
   height: 100%; }
 
+input.btn-map {
+  display: none; }
+
+input.btn-map + label {
+  cursor: pointer; }
+
+input.btn-map:not(:checked) + label:hover {
+  background: #E9E3E0; }
+
+input.btn-map + label:active,
+input.btn-map:checked + label {
+  background: #D1C9BE; }
+
+#map {
+  width: 100%;
+  height: 100%; }
+
 input.chk-btn {
   display: none; }
 
