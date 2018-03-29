@@ -29,17 +29,17 @@
     </div>
     @*<div id="buttons" style="display: inline-block;">*@
     <div class="col-sm-3">
-        <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="applyFilter(this)">
+        <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
         @*Urban parking data*@
         <label for='sensor' class="btn btn-default btn-block">Real-time on-street parking</label>
 
     </div>
     <div class="col-sm-2">
-        <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="applyFilter(this)">
+        <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="showToilet(this)">
         <label for='toilet' class="btn btn-default btn-block">Public Toilet</label>
     </div>
     <div class="col-sm-3">
-        <input type="checkbox" name="filter" id="park" class='btn-map' onclick="applyFilter(this)">
+        <input type="checkbox" name="filter" id="park" class='btn-map' onclick="showPark(this)">
         @*Parking building*@
         <label for='park' class="btn btn-default btn-block">Off-street parking</label>
     </div>

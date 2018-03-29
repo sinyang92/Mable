@@ -5857,19 +5857,21 @@ button.close {
     bottom: 10px;
     position: relative;
     margin-right: 10px; }
-  #mable-menuSearch input {
-    border-radius: 100px;
-    padding: 10px;
-    border: 1px white;
-    background: #E9E3E0;
-    vertical-align: text-bottom;
-    width: 300px;
-    padding-top: 5px; }
-    @media only screen and (max-width: 600px) {
-      #mable-menuSearch input {
-        width: 70%; } }
-    #mable-menuSearch input:focus {
-      outline-width: 0; }
+  #mable-menuSearch form {
+    display: inline-block; }
+    #mable-menuSearch form input {
+      border-radius: 100px;
+      padding: 10px;
+      border: 1px white;
+      background: #E9E3E0;
+      vertical-align: text-bottom;
+      width: 300px;
+      padding-top: 5px; }
+      @media only screen and (max-width: 600px) {
+        #mable-menuSearch form input {
+          width: 70%; } }
+      #mable-menuSearch form input:focus {
+        outline-width: 0; }
 
 .mable-homeCallToAction {
   position: absolute;
@@ -5917,6 +5919,9 @@ a.navbar-brand {
   line-height: 28px;
   font-weight: 600; }
 
+.navbar {
+  margin-bottom: 0 !important; }
+
 .mable-CardResult {
   background: #ffffff;
   border-radius: 10px;
@@ -5937,8 +5942,6 @@ h1.mable-CardResult-title {
   border-radius: 10px;
   padding-top: 55px; }
   .mable-detail .mable-detail-image img {
-    height: 200px;
-    max-width: 400px;
     object-fit: cover;
     -webkit-box-shadow: 15px -15px 0px 0px #ffd000;
     -moz-box-shadow: 15px -15px 0px 0px #ffd000;
