@@ -24,9 +24,9 @@ Clone this repo to your local machine using https://github.com/sruparel15/Mable.
 * [GitHub](https://github.com/) - Version control
 
 ## Authors
-1. Andres Harrera
-2. Lexi Qiang
-3. Shixi Yang
-4. Srushti Ruparel
+1. Andres Herrera
+2. Srushti Ruparel
+3. Lexi Qiang
+4. Sin Yang
 
 ## Artefacts
