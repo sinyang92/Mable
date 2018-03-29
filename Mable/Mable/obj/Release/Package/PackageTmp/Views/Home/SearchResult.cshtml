@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+}
+
+
+@model List<Mable.Classes.PlaceDetail.Result>
+
+@using PagedList.Mvc
+
+<style>
+    /*#map {
+        height: 100%;
+    }
+
+    html.body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }*/
+
+
+</style>
+<script>
+    var map;
+    var service;
+    var infowindow;
+
+
+
+    function initialize() {
+        var pyrmont = new google.maps.LatLng(-37.812479, 144.96150);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: pyrmont,
+            zoom: 15
+        });
+
+        var keyword = '@ViewBag.searchKeyWord';
+        var request = {
+            location: pyrmont,
+            radius: '500',
+            query: keyword
+        };
+
+        infowindow = new google.maps.InfoWindow()
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, callback);
+    }
+
+    function callback(results, status) {
+        //TODO: GET buildings from view and compare
+        //var buildings = '@ViewBag.buildings'
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                var place = results[i];
+                createMarker(results[i]);
+                listResult(place);
+            }
+        }
+    }
+
+    function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            visible: true,
+        });
+        marker.setMap(map);
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+        });
+    }
+
+    function listResult(place) {
+
+    }
+</script>
+
+<div class="row">
+
+    <!--Start No Results Message -->
+    <div class="col-sm-8 col-sm-offset-2">
+
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <figure class="col-sm-8 col-sm-offset-2  mable-CardResult">
+            <div class="row">
+                <figcaption class="col-lg-8">
+                    <h1 class="mable-CardResult-title">
+                        @item.name
+                    </h1>
+                    <div class="mable-CardResult-address">
+                        @*@item.formatted_address*@
+                        @item.vicinity
+                    </div>
+                    <i class="fas fa-star"></i> @item.rating
+                </figcaption>
+                <div class="col-lg-2">
+                    <div class="mable-CardResult-accRating">
+                        <p>Accessibility Rating</p>
+                        <i class="fas fa-universal-access"></i> 
+                        @item.accessibility_rating
+                    </div>
+                   
+                </div>
+                <div class="col-lg-2">
+                    <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
+                    
+                </div>
+            </div>
+        </figure>
+    }
+</div>
+@*END ROW*@
+
+    @*<table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Rating
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Accessibility Rating
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.name</td>
+                <td>@item.rating</td>
+                <td>@item.adr_address</td>
+                <td>@item.accessibility_rating</td>
+                <td>
+                    @Html.ActionLink("Details", "ResultDetail", new { id = item.id })
+                </td>
+
+            </tr>
+
+        }
+    </table>*@
+
+
+    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("SearchResult", new
+    { page }))*@
+
+    <!--
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+    -->

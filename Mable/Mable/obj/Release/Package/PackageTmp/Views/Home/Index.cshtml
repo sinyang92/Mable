@@ -1,0 +1,74 @@
+﻿<div class="section">
+
+    <div class="container">
+
+        <!-- Search -->
+
+        <div class="row">
+
+            <div class="mable-homeSearch col-md-12">
+
+                <div class="title">Search</div>
+
+                @using (Html.BeginForm("SearchResult", "Home"))
+
+                {
+
+                    @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more" })
+
+                }
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- End Section -->
+
+
+
+<div class="section">
+
+    <div class="container-fluid">
+
+        <!-- 2 buttons -->
+
+        <div class="row mable-homeCallToAction">
+
+            <div class="callToAction-collection col-lg-8 bg-primary">
+
+                <h6>Collection</h6>
+
+                <p>Discover new experiences in the City of Melbourne.</p>
+
+            </div>
+
+            <div class="callToAction-about bg-success col-lg-4">
+
+                <h6>Heading</h6>
+
+                <p>Learn more about us.</p>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
