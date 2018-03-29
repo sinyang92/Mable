@@ -59,8 +59,8 @@ function initMap() {
     });
 
     var icon1 = {
-        url: "images/marker1.png", // url
-        scaledSize: new google.maps.Size(20, 20), // scaled size
+        url: "../Content/images/on-street-parking.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
@@ -89,8 +89,8 @@ function initMap() {
         });
 
     var icon2 = {
-        url: "images/marker2.png", // url
-        scaledSize: new google.maps.Size(20, 20), // scaled size
+        url: "../Content/images/public-toilets.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
@@ -119,8 +119,8 @@ function initMap() {
         });
 
     var icon3 = {
-        url: "images/marker3.png", // url
-        scaledSize: new google.maps.Size(20, 20), // scaled size
+        url: "../Content/images/off-street-parking.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };

@@ -272,7 +272,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\mable-style.css" />
+    <Content Include="Content\css\mable-style.css" />
+    <Content Include="Content\images\marker1.png" />
+    <Content Include="Content\images\marker2.png" />
+    <Content Include="Content\images\marker3.png" />
+    <Content Include="Content\images\off-street-parking.png" />
+    <Content Include="Content\images\on-street-parking.png" />
+    <Content Include="Content\images\public-toilets.png" />
+    <Content Include="Content\js\map-google.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -330,6 +337,7 @@
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Home\ResultDetail.cshtml" />
     <Content Include="Views\Shared\_LayoutSearch.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

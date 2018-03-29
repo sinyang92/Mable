@@ -3,7 +3,7 @@
 }
 
 
-@model PagedList.IPagedList<Mable.Classes.PlaceDetail.Result>
+@model List<Mable.Classes.PlaceDetail.Result>
 
 @using PagedList.Mvc
 
@@ -95,7 +95,8 @@
                         @item.name
                     </h1>
                     <div class="mable-CardResult-address">
-                        @item.formatted_address
+                        @*@item.formatted_address*@
+                        @item.vicinity
                     </div>
                     <i class="fas fa-star"></i> @item.rating
                 </figcaption>
