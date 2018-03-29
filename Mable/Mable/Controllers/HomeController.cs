@@ -40,6 +40,7 @@ namespace Mable.Controllers
         public ActionResult SearchResult(string keyword)
         {
             ViewBag.searchKeyWord = keyword;
+            ViewBag.HasResult = true;
 
             var url = "https://data.melbourne.vic.gov.au/resource/q8hp-qgps.json";
             var jsonString = Download_JSON(url);
@@ -77,6 +78,10 @@ namespace Mable.Controllers
             //Debug.WriteLine(jsonString);
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);
             SearchResponse.Result[] searchResult = searchResponse.results;
+            if (searchResult.Length == 0)
+            {
+                ViewBag.HasResult = false;
+            }
             /*
              For each search result, get the detail from Google Detail API
              */
