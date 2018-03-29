@@ -1,21 +1,14 @@
 ﻿
 @{
 
-                Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
 
 @model Mable.Classes.PlaceDetail.Result
-
-
-
-
-
-
-
 <div class="section">
     <div class="container-fluid">
         <div class="row">
-           
+
             <!-- Start Details Content -->
             <div class="col-sm-8 col-sm-offset-2 mable-detail">
                 <!-- Image and Place Details -->
@@ -35,14 +28,14 @@
                             @Model.name
                         </h1>
                         <div class="mable-detail-accRating">
-                            <i class="fas fa-universal-access"></i>
+                            <i class="fas fa-universal-access" data-toggle=“tooltip” title='Accessibility Description'></i>
                             @Model.accessibility_description
                         </div>
                         <div class="mable-detail-rating">
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star" data-toggle=“tooltip” title='Accessibility Rating'></i>
                         </div>
                         <div class="mable-detail-website">
-                            @Model.website
+                            <a href="@Model.website">@Model.website</a>
                         </div>
                         <div class="mable-detail-price">
 
@@ -67,12 +60,6 @@
     </div>
 
 </div>
-
-
-
-
-
-
 
 <script>
     function initMap() {
@@ -107,4 +94,10 @@
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(‘[data - toggle=“tooltip”]’).tooltip();
+    });
 </script>

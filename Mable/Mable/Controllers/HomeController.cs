@@ -15,7 +15,7 @@ using System.Device.Location;
 
 namespace Mable.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -94,7 +94,7 @@ namespace Mable.Controllers
                 {
                     detailResult.photo_reference = r.photos[0].photo_reference;
                 }
-                
+
                 //Debug.WriteLine(detailResult.name);
 
                 foreach (Buildinginfo b in buildings)
@@ -120,7 +120,7 @@ namespace Mable.Controllers
                 // sort by accessibility rating first, then sort by rating
                 place_details = place_details.OrderBy(p => p.accessibility_rating, new CustomComparer()).
                     ThenByDescending(p => p.rating).ToList();
-               
+
             }
             TempData["place_details"] = place_details;
 
@@ -131,7 +131,7 @@ namespace Mable.Controllers
             //int pageSize = 10;
             //return View(place_details.ToPagedList(pageNumber, pageSize));
             return View(place_details);
-         }
+        }
 
         public ActionResult Map()
         {
