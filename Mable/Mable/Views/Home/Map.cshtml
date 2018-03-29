@@ -19,31 +19,33 @@
     }
 </style>
 <div class="row" style="margin-bottom: 25px;">
-    <div class="col-sm-2" style=" max-width: 140px !important; padding-left:20px;" >
+    <div class="col-sm-2" style=" max-width: 140px !important; padding-left:20px;">
         <p style="display: inline-block; font-size:22px; ">
             Options
         </p>
-        <i class="fas fa-info-circle map-tooltip" data-toggle="tooltip" title="Hooray!"></i>
-    </div>
-        @*<div id="buttons" style="display: inline-block;">*@
-            <div class="col-sm-3">
-                <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="applyFilter(this)">
-                @*Urban parking data*@
-                <label for='sensor' class="btn btn-default btn-block">Real-time on-street parking</label>
-                
-            </div>
-            <div class="col-sm-2">
-                <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="applyFilter(this)">
-                <label for='toilet' class="btn btn-default btn-block">Public Toilet</label>
-            </div>
-            <div class="col-sm-3">
-                <input type="checkbox" name="filter" id="park" class='btn-map' onclick="applyFilter(this)">
-                @*Parking building*@
-                <label for='park' class="btn btn-default btn-block">Off-street parking</label>
-                </div>
-            @*</div>*@
+        <span type="button" data-toggle="modal" data-target="#mapLegend"><i class="fas fa-info-circle map-tooltip"></i></span>
 
         
+    </div>
+    @*<div id="buttons" style="display: inline-block;">*@
+    <div class="col-sm-3">
+        <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="applyFilter(this)">
+        @*Urban parking data*@
+        <label for='sensor' class="btn btn-default btn-block">Real-time on-street parking</label>
+
+    </div>
+    <div class="col-sm-2">
+        <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="applyFilter(this)">
+        <label for='toilet' class="btn btn-default btn-block">Public Toilet</label>
+    </div>
+    <div class="col-sm-3">
+        <input type="checkbox" name="filter" id="park" class='btn-map' onclick="applyFilter(this)">
+        @*Parking building*@
+        <label for='park' class="btn btn-default btn-block">Off-street parking</label>
+    </div>
+    @*</div>*@
+
+
 </div>
 <div class="row">
     <input id="input" type="text" placeholder="Search Place" class="form-control">
@@ -64,3 +66,22 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
+
+<!-- Modal -->
+<div id="mapLegend" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>Legend</p>
+            </div>
+           
+        </div>
+
+    </div>
+</div>

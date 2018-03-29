@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var pageName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!DOCTYPE html>
 
 <html>
 
@@ -22,6 +25,14 @@
 
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
+
+    <style>
+        .navbar-nav li.active a
+        {
+        font-weight: 600;
+        color: black:
+            }
+    </style>
 </head>
 
 <body>
@@ -50,19 +61,19 @@
 
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li class="active">
+                    <li class="@(pageName == "Index" ? "active" : "")">
 
                         @Html.ActionLink("Discover", "Index", "Home")
 
                     </li>
 
-                    <li class="">
+                    <li class="@(pageName == "Map" ? "active" : "")">
 
                         @Html.ActionLink("Map", "Map", "Home")
 
                     </li>
 
-                    <li>
+                    <li class="@(pageName == "About" ? "active" : "")">
 
                         @Html.ActionLink("About", "About", "Home")
 

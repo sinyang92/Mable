@@ -14,6 +14,24 @@ function initMap() {
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+    var locInfoWindow = new google.maps.InfoWindow({ map: map });
+    // Try HTML5 geolocation
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            locInfoWindow.setPosition(pos);
+            locInfoWindow.setContent('Your current location');
+            map.setCenter(pos);
+        }, function () {
+            handleLocationError(true, locInfoWindow, map.getCenter());
+        });
+    } else {
+        handleLocationError(false, locInfoWindow, map.getCenter());
+    }
+
     // Bias the SearchBox results towards current map's viewport
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
@@ -203,4 +221,8 @@ function applyFilter() {
 
 }
 
+function handleLocationError(browserHasGeolocation, infowindow, pos) {
+    infowindow.setPosition(pos);
+    infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
+}
 

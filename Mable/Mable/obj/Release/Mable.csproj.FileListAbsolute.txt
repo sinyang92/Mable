@@ -142,3 +142,4 @@ E:\Github\Mable\Mable\Mable\obj\Release\Mable.csproj.CoreCompileInputs.cache
 E:\Github\Mable\Mable\Mable\obj\Release\Mable.csproj.CopyComplete
 E:\Github\Mable\Mable\Mable\obj\Release\Mable.dll
 E:\Github\Mable\Mable\Mable\obj\Release\Mable.pdb
+E:\Github\Mable\Mable\Mable\obj\Release\Mable.csprojResolveAssemblyReference.cache

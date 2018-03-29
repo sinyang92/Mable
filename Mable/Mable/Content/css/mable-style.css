@@ -5814,12 +5814,15 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-.mable-homeSearch {
+.mable-homeSearch,
+#mable-menuSearch {
   padding: 50px; }
   @media only screen and (max-width: 600px) {
-    .mable-homeSearch {
+    .mable-homeSearch,
+    #mable-menuSearch {
       padding: 30px; } }
-  .mable-homeSearch .title {
+  .mable-homeSearch .title,
+  #mable-menuSearch .title {
     display: inline-block;
     font-size: 48px;
     color: #000000;
@@ -5827,20 +5830,32 @@ button.close {
     text-align: left;
     font-weight: 300;
     padding-right: 20px; }
-  .mable-homeSearch form {
+  .mable-homeSearch form,
+  .mable-homeSearch .navbar-nav,
+  #mable-menuSearch form,
+  #mable-menuSearch .navbar-nav {
     width: 70%;
     display: inline-block; }
     @media only screen and (max-width: 600px) {
-      .mable-homeSearch form {
+      .mable-homeSearch form,
+      .mable-homeSearch .navbar-nav,
+      #mable-menuSearch form,
+      #mable-menuSearch .navbar-nav {
         width: 100%; } }
-    .mable-homeSearch form input {
+    .mable-homeSearch form input,
+    .mable-homeSearch .navbar-nav input,
+    #mable-menuSearch form input,
+    #mable-menuSearch .navbar-nav input {
       border-radius: 100px;
       padding: 10px;
       border: 1px white;
       background: #E9E3E0;
       vertical-align: text-bottom;
       width: 100%; }
-      .mable-homeSearch form input:focus {
+      .mable-homeSearch form input:focus,
+      .mable-homeSearch .navbar-nav input:focus,
+      #mable-menuSearch form input:focus,
+      #mable-menuSearch .navbar-nav input:focus {
         outline-width: 0; }
 
 #mable-menuSearch {
@@ -5917,6 +5932,9 @@ a.navbar-brand {
   line-height: 28px;
   font-weight: 600; }
 
+.navbar {
+  margin-bottom: 0 !important; }
+
 .mable-CardResult {
   background: #ffffff;
   border-radius: 10px;
@@ -5937,8 +5955,6 @@ h1.mable-CardResult-title {
   border-radius: 10px;
   padding-top: 55px; }
   .mable-detail .mable-detail-image img {
-    height: 200px;
-    max-width: 400px;
     object-fit: cover;
     -webkit-box-shadow: 15px -15px 0px 0px #ffd000;
     -moz-box-shadow: 15px -15px 0px 0px #ffd000;

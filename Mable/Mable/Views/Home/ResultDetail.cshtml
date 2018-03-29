@@ -15,12 +15,12 @@
                 <div class="row ">
                     <!-- Place Photo -->
                     <div class="col-md-4 mable-detail-image text-center">
-                        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
-                        <div class="mable-detail-imageShadow"></div>
+                        <img class="img-responsive" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
+                        
                     </div>
                     <!-- End Photo -->
                     <!-- Place details -->
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="padding-left: 40px;">
                         <!-- back button -->
                         <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back</a>
                         <!-- Place Title -->
@@ -32,7 +32,9 @@
                             @Model.accessibility_description
                         </div>
                         <div class="mable-detail-rating">
+                           
                             <i class="fas fa-star" data-toggle=“tooltip” title='Accessibility Rating'></i>
+                        @Model.rating
                         </div>
                         <div class="mable-detail-website">
                             <a href="@Model.website">@Model.website</a>
@@ -71,6 +73,24 @@
         });
 
         var infowindow = new google.maps.InfoWindow();
+
+        // Try HTML5 geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                infowindow.setPosition(pos);
+                infowindow.setContent('Your current location');
+                //map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infowindow, map.getCenter());
+            });
+        } else {
+            handleLocationError(false, infowindow, map.getCenter());
+        }
+
         var service = new google.maps.places.PlacesService(map);
 
         service.getDetails({
@@ -89,7 +109,12 @@
             });
           }
         });
-      }
+    }
+
+    function handleLocationError(browserHasGeolocation, infowindow, pos) {
+        infowindow.setPosition(pos);
+        infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
+    }
 </script>
 
 

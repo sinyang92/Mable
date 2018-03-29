@@ -15,7 +15,7 @@ using System.Device.Location;
 
 namespace Mable.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -168,7 +168,7 @@ namespace Mable.Controllers
             var point1 = new GeoCoordinate(lat1, lng1);
             var point2 = new GeoCoordinate(lat2, lng2);
             var distance = point1.GetDistanceTo(point2);
-            if (distance < 50)
+            if (distance < 10)
             {
                 return true;
             }
