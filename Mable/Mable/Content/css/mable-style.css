@@ -5814,15 +5814,12 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-.mable-homeSearch,
-#mable-menuSearch {
+.mable-homeSearch {
   padding: 50px; }
   @media only screen and (max-width: 600px) {
-    .mable-homeSearch,
-    #mable-menuSearch {
+    .mable-homeSearch {
       padding: 30px; } }
-  .mable-homeSearch .title,
-  #mable-menuSearch .title {
+  .mable-homeSearch .title {
     display: inline-block;
     font-size: 48px;
     color: #000000;
@@ -5830,32 +5827,20 @@ button.close {
     text-align: left;
     font-weight: 300;
     padding-right: 20px; }
-  .mable-homeSearch form,
-  .mable-homeSearch .navbar-nav,
-  #mable-menuSearch form,
-  #mable-menuSearch .navbar-nav {
+  .mable-homeSearch form {
     width: 70%;
     display: inline-block; }
     @media only screen and (max-width: 600px) {
-      .mable-homeSearch form,
-      .mable-homeSearch .navbar-nav,
-      #mable-menuSearch form,
-      #mable-menuSearch .navbar-nav {
+      .mable-homeSearch form {
         width: 100%; } }
-    .mable-homeSearch form input,
-    .mable-homeSearch .navbar-nav input,
-    #mable-menuSearch form input,
-    #mable-menuSearch .navbar-nav input {
+    .mable-homeSearch form input {
       border-radius: 100px;
       padding: 10px;
       border: 1px white;
       background: #E9E3E0;
       vertical-align: text-bottom;
       width: 100%; }
-      .mable-homeSearch form input:focus,
-      .mable-homeSearch .navbar-nav input:focus,
-      #mable-menuSearch form input:focus,
-      #mable-menuSearch .navbar-nav input:focus {
+      .mable-homeSearch form input:focus {
         outline-width: 0; }
 
 #mable-menuSearch {
@@ -5872,19 +5857,21 @@ button.close {
     bottom: 10px;
     position: relative;
     margin-right: 10px; }
-  #mable-menuSearch input {
-    border-radius: 100px;
-    padding: 10px;
-    border: 1px white;
-    background: #E9E3E0;
-    vertical-align: text-bottom;
-    width: 300px;
-    padding-top: 5px; }
-    @media only screen and (max-width: 600px) {
-      #mable-menuSearch input {
-        width: 70%; } }
-    #mable-menuSearch input:focus {
-      outline-width: 0; }
+  #mable-menuSearch form {
+    display: inline-block; }
+    #mable-menuSearch form input {
+      border-radius: 100px;
+      padding: 10px;
+      border: 1px white;
+      background: #E9E3E0;
+      vertical-align: text-bottom;
+      width: 300px;
+      padding-top: 5px; }
+      @media only screen and (max-width: 600px) {
+        #mable-menuSearch form input {
+          width: 70%; } }
+      #mable-menuSearch form input:focus {
+        outline-width: 0; }
 
 .mable-homeCallToAction {
   position: absolute;
