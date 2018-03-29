@@ -28,5 +28,3 @@ Clone this repo to your local machine using https://github.com/sruparel15/Mable.
 2. Srushti Ruparel
 3. Lexi Qiang
 4. Sin Yang
-
-## Artefacts
