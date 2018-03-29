@@ -30,7 +30,7 @@
         .navbar-nav li.active a
         {
         font-weight: 600;
-        color: black:
+        color: black;
             }
     </style>
 </head>
@@ -54,6 +54,7 @@
                 </button>
 
                 @Html.ActionLink("MABLE", "Index", "Home", null, new { @class = "navbar-brand" })
+                <span>Discovering Melbourne</span>
 
             </div>
 
@@ -63,7 +64,7 @@
 
                     <li class="@(pageName == "Index" ? "active" : "")">
 
-                        @Html.ActionLink("Discover", "Index", "Home")
+                        @Html.ActionLink("Home", "Index", "Home")
 
                     </li>
 
