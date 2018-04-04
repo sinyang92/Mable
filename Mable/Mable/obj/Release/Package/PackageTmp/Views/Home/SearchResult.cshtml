@@ -81,10 +81,15 @@
 
 <div class="row">
 
-    <!--Start No Results Message -->
-    <div class="col-sm-8 col-sm-offset-2">
 
-    </div>
+    @if (ViewBag.HasResult == false)
+    {
+        <!--Start No Results Message -->
+        <div class="col-sm-8 col-sm-offset-2">
+            No result
+        </div>
+    }
+
 
     @foreach (var item in Model)
     {
@@ -106,13 +111,13 @@
 
                         <i class="fas fa-universal-access" style="font-size: 28px;">
                             @item.accessibility_rating
-                        </i> 
+                        </i>
                     </div>
-                   
+
                 </div>
                 <div class="col-lg-2">
                     <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
-                    
+
                 </div>
             </div>
         </figure>

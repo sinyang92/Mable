@@ -92,7 +92,7 @@ function initMap() {
                 var sensor_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
-                    visible: true,
+                    visible: false,
                     icon: icon1,
                     title: "Click for details"
                 });
@@ -122,7 +122,7 @@ function initMap() {
                 var toilet_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
-                    visible: true,
+                    visible: false,
                     icon: icon2,
                     title: "Click for details"
                 });
@@ -153,7 +153,7 @@ function initMap() {
                 var park_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
-                    visible: true,
+                    visible: false,
                     icon: icon3,
                     title: "Click for details"
                 });
@@ -170,8 +170,7 @@ function initMap() {
 
 // Filter for real-time on-street parking
 function showSensor(sensor) {
-    if ((document.getElementById("sensor").checked == false && document.getElementById("toilet").checked == false
-        && document.getElementById("park").checked == false) || document.getElementById("sensor").checked == true) {
+    if (document.getElementById("sensor").checked == true) {
         for (var i = 0; i < sensor_markers.length; i++) {
             sensor_markers[i].setVisible(true);
         }
@@ -185,8 +184,7 @@ function showSensor(sensor) {
 
 // Filter for public toilet
 function showToilet(toilet) {
-    if ((document.getElementById("sensor").checked == false && document.getElementById("toilet").checked == false
-        && document.getElementById("park").checked == false) ||document.getElementById("toilet").checked == true) {
+    if (document.getElementById("toilet").checked == true) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
@@ -200,8 +198,7 @@ function showToilet(toilet) {
 
 // Filter for parking space
 function showPark(park) {
-    if ((document.getElementById("sensor").checked == false && document.getElementById("toilet").checked == false
-        && document.getElementById("park").checked == false) ||document.getElementById("park").checked == true) {
+    if (document.getElementById("park").checked == true) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(true);
         }
@@ -214,12 +211,11 @@ function showPark(park) {
 }
 
 //Filter function
-function applyFilter() {
-    showSensor(sensor);
-    showToilet(toilet);
-    showPark(park);
-
-}
+//function applyFilter() {
+//    showSensor(sensor);
+//    showToilet(toilet);
+//    showPark(park);
+//}
 
 function handleLocationError(browserHasGeolocation, infowindow, pos) {
     infowindow.setPosition(pos);
