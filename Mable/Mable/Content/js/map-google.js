@@ -39,6 +39,11 @@ function initMap() {
 
     var search_markers = [];
     searchBox.addListener('places_changed', function () {
+        for (var i = 0; i < search_markers.length; i++) {
+            search_markers[i].setVisible(false);
+        }
+        search_markers = [];
+
         var places = searchBox.getPlaces();
         if (places.length == 0) {
             return;
@@ -76,6 +81,10 @@ function initMap() {
         map.fitBounds(bounds);
     });
 
+    var infowindow = new google.maps.InfoWindow();
+    /**
+     * On street parking markers
+     */
     var icon1 = {
         url: "../Content/images/on-street-parking.png", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
@@ -87,6 +96,9 @@ function initMap() {
     $.getJSON("https://data.melbourne.vic.gov.au/resource/dtpv-d4pf.json",
         function (data) {
             for (var i = 0; i < data.length; i++) {
+                if (data[i].status == "Present") {
+                    data[i].status = "Occupied";
+                }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
                 var parkStatus = 'Parking status: ' + data[i].status;
                 var sensor_marker = new google.maps.Marker({
@@ -97,7 +109,7 @@ function initMap() {
                     title: "Click for details"
                 });
                 sensor_marker.content = parkStatus;
-                var infowindow = new google.maps.InfoWindow();
+                //var infowindow = new google.maps.InfoWindow();
                 google.maps.event.addListener(sensor_marker, 'click', function () {
                     infowindow.setContent(this.content);
                     infowindow.open(this.getMap(), this);
@@ -117,6 +129,9 @@ function initMap() {
     $.getJSON("https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
         function (data) {
             for (var i = 0; i < data.length; i++) {
+                if (data[i].wheelchair == "U") {
+                    continue;
+                }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
                 var wheelchair = 'Wheelchair Accessible: ' + data[i].wheelchair;
                 var toilet_marker = new google.maps.Marker({
@@ -127,7 +142,7 @@ function initMap() {
                     title: "Click for details"
                 });
                 toilet_marker.content = wheelchair;
-                var infowindow = new google.maps.InfoWindow();
+                //var infowindow = new google.maps.InfoWindow();
                 google.maps.event.addListener(toilet_marker, 'click', function () {
                     infowindow.setContent(this.content);
                     infowindow.open(this.getMap(), this);
@@ -147,6 +162,12 @@ function initMap() {
     $.getJSON("https://data.melbourne.vic.gov.au/resource/9xmh-yeh2.json",
         function (data) {
             for (var i = 0; i < data.length; i++) {
+                if (data[i].parking_type == "Residential") {
+                    continue;
+                }
+                if (data[i].parking_type == "Commercial") {
+                    data[i].parking_type = "Pay & Park";
+                }
                 var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                 var parkSpace = '<div>' +  'Parking Type: ' + data[i].parking_type + '</div>' +
                 '<div>' +  'Parking Spaces: ' + data[i].parking_spaces + '</div>';
@@ -158,7 +179,7 @@ function initMap() {
                     title: "Click for details"
                 });
                 park_marker.content = parkSpace;
-                var infowindow = new google.maps.InfoWindow();
+                //var infowindow = new google.maps.InfoWindow();
                 google.maps.event.addListener(park_marker, 'click', function () {
                     infowindow.setContent(this.content);
                     infowindow.open(this.getMap(), this);
@@ -218,7 +239,8 @@ function showPark(park) {
 //}
 
 function handleLocationError(browserHasGeolocation, infowindow, pos) {
-    infowindow.setPosition(pos);
-    infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
+    //infowindow.setPosition(pos);
+    //infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
+    alert("We can't get your current location. Please make sure you enable location in browser.");
 }
 

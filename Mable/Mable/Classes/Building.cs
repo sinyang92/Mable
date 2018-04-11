@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,9 @@ namespace Mable.Classes
 
         public class Buildinginfo
         {
+            // DB primary key
+            public int ID { get; set; }
+
             public string accessibility_rating { get; set; }
             public string accessibility_type { get; set; }
             public string accessibility_type_description { get; set; }
@@ -19,7 +23,11 @@ namespace Mable.Classes
             public string building_name { get; set; }
             public string census_year { get; set; }
             public string construction_year { get; set; }
+
+            // Do not create thi column in DB
+            [NotMapped]
             public Location location { get; set; }
+
             public string predominant_space_use { get; set; }
             public string property_id { get; set; }
             public string refurbished_year { get; set; }

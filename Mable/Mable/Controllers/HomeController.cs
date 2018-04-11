@@ -12,10 +12,14 @@ using MoreLinq;
 using static Mable.Classes.SearchResponse;
 using System.Diagnostics;
 using System.Device.Location;
+using System.Data.Entity;
+using Quartz;
+using System.Threading.Tasks;
+using Quartz.Impl;
 
 namespace Mable.Controllers
 {
-   [Authorize]
+   //[Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -42,39 +46,25 @@ namespace Mable.Controllers
             ViewBag.searchKeyWord = keyword;
             ViewBag.HasResult = true;
 
-            var url = "https://data.melbourne.vic.gov.au/resource/q8hp-qgps.json";
-            var jsonString = Download_JSON(url);
-            //jsonString = Clean_JSON(jsonString);
-            //buildings = new List<Buildinginfo>();
-            List<Buildinginfo> buildings = new List<Buildinginfo>();
-            buildings = JsonConvert.DeserializeObject<
-                List<Buildinginfo>>(jsonString);
+            
 
-            //Debug.WriteLine("Count: " + buildings.Count);
-            //Buildinginfo b = buildings[0];
-            //Debug.WriteLine("Building 1: " + b.suburb);
+            //UpdateDBNow();
+            
 
-            //remove null rateings & duplicate records
-            buildings = buildings.Where(b => b.accessibility_rating != null).ToList();
-            buildings = buildings.DistinctBy(b => b.property_id).ToList();
-
-            //filter by keyword
-            /*
-            if (!String.IsNullOrEmpty(keyword))
-            {
-                buildings = buildings.Where(b => b.building_name != null
-                && b.building_name.ToLower().Contains(keyword.ToLower())).ToList();
-            }
-            */
+            var db = new BuildingContext();
+            var query = from b in db.Buildinginfoes select b;
+            List<Buildinginfo> buildings = query.ToList();
+            Debug.WriteLine("HELLO" + buildings.Count());
+            
 
             /*
              Get the search result from Google Place API
              Centre: Melbourne CBD
              Distance: 14 km
              */
-            url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
+            var url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
                 keyword + "&location=-37.808163434,144.957829502&radius=14000&region=au&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
-            jsonString = Download_JSON(url);
+            var jsonString = Download_JSON(url);
             //Debug.WriteLine(jsonString);
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);
             SearchResponse.Result[] searchResult = searchResponse.results;
@@ -104,10 +94,10 @@ namespace Mable.Controllers
 
                 foreach (Buildinginfo b in buildings)
                 {
-                    if (b.location != null)
+                    if (b.x_coordinate != null && b.y_coordinate != null)
                     {
-                        if (Has_Accessible_Info(b.location.coordinates[1], b.location.coordinates[0],
-                        detailResult.geometry.location.lat, detailResult.geometry.location.lng))
+                        if (Has_Accessible_Info(float.Parse(b.y_coordinate), float.Parse(b.x_coordinate),
+                    detailResult.geometry.location.lat, detailResult.geometry.location.lng))
                         {
                             detailResult.accessibility_rating = b.accessibility_rating;
                             detailResult.accessibility_description = b.accessibility_type_description;
@@ -119,6 +109,7 @@ namespace Mable.Controllers
                             detailResult.accessibility_description = "N/A";
                         }
                     }
+
                 }
                 place_details.Add(detailResult);
 
@@ -161,7 +152,7 @@ namespace Mable.Controllers
             return View(detail);
         }
 
-        public string Download_JSON(string url)
+        public static string Download_JSON(string url)
         {
             WebClient client = new WebClient();
             string JSONstring = client.DownloadString(url);
@@ -181,7 +172,7 @@ namespace Mable.Controllers
         }
 
         // Custom sort method to sort the number first then string
-        class CustomComparer : IComparer<string>
+        public class CustomComparer : IComparer<string>
         {
             public int Compare(string x, string y)
             {
@@ -203,6 +194,47 @@ namespace Mable.Controllers
                 }
                 return 1;
             }
+        }
+
+        public class BuildingContext : DbContext
+        {
+            public BuildingContext(): base("DefaultConnection")
+            {
+                
+            }
+            public DbSet<Buildinginfo> Buildinginfoes { get; set; }
+        }
+
+        public List<Buildinginfo> Get_Buildings()
+        {
+            var url = "https://data.melbourne.vic.gov.au/resource/q8hp-qgps.json";
+            var jsonString = Download_JSON(url);
+            List<Buildinginfo> buildings = new List<Buildinginfo>();
+            buildings = JsonConvert.DeserializeObject<
+                List<Buildinginfo>>(jsonString);
+
+            //Debug.WriteLine("Count: " + buildings.Count);
+            //Buildinginfo b = buildings[0];
+            //Debug.WriteLine("Building 1: " + b.suburb);
+
+            //remove null rateings & duplicate records
+            buildings = buildings.Where(b => b.accessibility_rating != null).ToList();
+            buildings = buildings.DistinctBy(b => b.property_id).ToList();
+
+            return buildings;
+        }
+
+        public void UpdateDBNow()
+        {
+            var db = new BuildingContext();
+            List<Buildinginfo> buildings = Get_Buildings();
+
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Buildinginfoes");
+            foreach (Buildinginfo b in buildings)
+            {
+                db.Buildinginfoes.Add(b);
+            }
+            db.SaveChanges();
         }
     }
 }
