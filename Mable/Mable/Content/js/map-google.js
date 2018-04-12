@@ -2,9 +2,15 @@ var sensor_markers = [];
 var toilet_markers = [];
 var park_markers = [];
 
+var map;
+
+var markerCluster1;
+
+var infowindow;
+
 function initMap() {
     var centre = { lat: -37.8136, lng: 144.9631 };
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: centre
     });
@@ -81,7 +87,7 @@ function initMap() {
         map.fitBounds(bounds);
     });
 
-    var infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow();
     /**
      * On street parking markers
      */
@@ -97,7 +103,7 @@ function initMap() {
         function (data) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].status == "Present") {
-                    data[i].status = "Occupied";
+                    continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
                 var parkStatus = 'Parking status: ' + data[i].status;
@@ -116,8 +122,14 @@ function initMap() {
                 })
                 sensor_markers.push(sensor_marker);
             }
+ 
         });
 
+
+
+    /**
+     * toilet markers
+     */
     var icon2 = {
         url: "../Content/images/public-toilets.png", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
@@ -151,6 +163,10 @@ function initMap() {
             }
         });
 
+
+    /**
+     * Off street parking markers
+     */
     var icon3 = {
         url: "../Content/images/off-street-parking.png", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
@@ -187,6 +203,7 @@ function initMap() {
                 park_markers.push(park_marker);
             }
         });
+
 }
 
 // Filter for real-time on-street parking
@@ -195,11 +212,16 @@ function showSensor(sensor) {
         for (var i = 0; i < sensor_markers.length; i++) {
             sensor_markers[i].setVisible(true);
         }
+        markerCluster1 = new MarkerClusterer(map, sensor_markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        });
     }
     else {
         for (var i = 0; i < sensor_markers.length; i++) {
             sensor_markers[i].setVisible(false);
         }
+        markerCluster1.clearMarkers();
+        infowindow.close();
     }
 }
 
@@ -214,6 +236,7 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(false);
         }
+        infowindow.close();
     }
 }
 
@@ -228,6 +251,7 @@ function showPark(park) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(false);
         }
+        infowindow.close();
     }
 }
 
@@ -243,4 +267,3 @@ function handleLocationError(browserHasGeolocation, infowindow, pos) {
     //infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
     alert("We can't get your current location. Please make sure you enable location in browser.");
 }
-

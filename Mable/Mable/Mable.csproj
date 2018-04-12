@@ -302,6 +302,7 @@
     <Content Include="Content\images\on-street-parking.png" />
     <Content Include="Content\images\public-toilets.png" />
     <Content Include="Content\js\map-google.js" />
+    <Content Include="Content\js\markerclusterer.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

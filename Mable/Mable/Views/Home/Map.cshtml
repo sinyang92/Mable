@@ -48,7 +48,9 @@
 
 </div>
 <div class="row">
-    
+@{ 
+    ViewBag.Title = "Map";
+}    
 
     <div style="height:80vh; width:100%;">
         <input id="input" type="text" placeholder="Search Place" class="form-control">
@@ -59,6 +61,7 @@
 
 <script type="text/javascript" src="~/Content/js/map-google.js">
 </script>
+<script src="~/Content/js/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
 </script>
 

@@ -24,6 +24,7 @@ namespace Mable.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 
