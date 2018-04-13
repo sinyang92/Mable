@@ -6,7 +6,10 @@ var map;
 
 var markerCluster1;
 
-var infowindow;
+var infowindow_parking;
+var infowindow_toilet;
+
+var current_location = [];
 
 function initMap() {
     var centre = { lat: -37.8136, lng: 144.9631 };
@@ -15,6 +18,9 @@ function initMap() {
         center: centre
     });
 
+    /**
+     * Begin Search function inside the map
+     */
     // Create a search box and link it to the UI element
     var input = document.getElementById('input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -28,6 +34,8 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+            current_location.push(position.coords.latitude);
+            current_location.push(position.coords.longitude);
             locInfoWindow.setPosition(pos);
             locInfoWindow.setContent('Your current location');
             map.setCenter(pos);
@@ -86,10 +94,13 @@ function initMap() {
         });
         map.fitBounds(bounds);
     });
-
-    infowindow = new google.maps.InfoWindow();
     /**
-     * On street parking markers
+     * End Search function inside the map
+     */
+
+    
+    /**
+     * Start on-street parking markers
      */
     var icon1 = {
         url: "../Content/images/on-street-parking.png", // url
@@ -106,7 +117,7 @@ function initMap() {
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
-                var parkStatus = 'Parking status: ' + data[i].status;
+                
                 var sensor_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
@@ -114,17 +125,25 @@ function initMap() {
                     icon: icon1,
                     title: "Click for details"
                 });
-                sensor_marker.content = parkStatus;
-                //var infowindow = new google.maps.InfoWindow();
-                google.maps.event.addListener(sensor_marker, 'click', function () {
-                    infowindow.setContent(this.content);
-                    infowindow.open(this.getMap(), this);
+
+                var content = '<div>' + 'Parking status: ' + data[i].status + '</div>' +
+                    '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                    + current_location[0] + ',' + current_location[1]
+                    + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
+
+                infowindow_parking = new google.maps.InfoWindow();
+                sensor_marker.content = content;
+                google.maps.event.addListener(sensor_marker, 'click', function () {  
+                    infowindow_parking.setContent(this.content);
+                    infowindow_parking.open(this.getMap(), this);
                 })
                 sensor_markers.push(sensor_marker);
             }
  
         });
-
+    /**
+     * End on-street parking markers
+     */
 
 
     /**
@@ -154,10 +173,10 @@ function initMap() {
                     title: "Click for details"
                 });
                 toilet_marker.content = wheelchair;
-                //var infowindow = new google.maps.InfoWindow();
+                infowindow_toilet = new google.maps.InfoWindow();
                 google.maps.event.addListener(toilet_marker, 'click', function () {
-                    infowindow.setContent(this.content);
-                    infowindow.open(this.getMap(), this);
+                    infowindow_toilet.setContent(this.content);
+                    infowindow_toilet.open(this.getMap(), this);
                 })
                 toilet_markers.push(toilet_marker);
             }
@@ -185,7 +204,7 @@ function initMap() {
                     data[i].parking_type = "Pay & Park";
                 }
                 var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
-                var parkSpace = '<div>' +  'Parking Type: ' + data[i].parking_type + '</div>' +
+                var content = '<div>' +  'Parking Type: ' + data[i].parking_type + '</div>' +
                 '<div>' +  'Parking Spaces: ' + data[i].parking_spaces + '</div>';
                 var park_marker = new google.maps.Marker({
                     position: coor,
@@ -194,11 +213,16 @@ function initMap() {
                     icon: icon3,
                     title: "Click for details"
                 });
-                park_marker.content = parkSpace;
-                //var infowindow = new google.maps.InfoWindow();
+                var content = '<div>' + 'Parking Type: ' + data[i].parking_type + '</div>' +
+                    '<div>' + 'Parking Spaces: ' + data[i].parking_spaces + '</div>' +
+                    '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                    + current_location[0] + ',' + current_location[1]
+                    + '&destination=' + data[i].y_coordinate + ',' + data[i].x_coordinate_2 + '">Navigate Me</a>' + '</div>';
+                park_marker.content = content;
+                infowindow_parking = new google.maps.InfoWindow();
                 google.maps.event.addListener(park_marker, 'click', function () {
-                    infowindow.setContent(this.content);
-                    infowindow.open(this.getMap(), this);
+                    infowindow_parking.setContent(this.content);
+                    infowindow_parking.open(this.getMap(), this);
                 })
                 park_markers.push(park_marker);
             }
@@ -221,7 +245,7 @@ function showSensor(sensor) {
             sensor_markers[i].setVisible(false);
         }
         markerCluster1.clearMarkers();
-        infowindow.close();
+        infowindow_parking.close();
     }
 }
 
@@ -236,7 +260,7 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(false);
         }
-        infowindow.close();
+        infowindow_toilet.close();
     }
 }
 
@@ -251,7 +275,7 @@ function showPark(park) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(false);
         }
-        infowindow.close();
+        infowindow_parking.close();
     }
 }
 
