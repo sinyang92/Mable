@@ -295,6 +295,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\mable-style.css" />
+    <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker1.png" />
     <Content Include="Content\images\marker2.png" />
     <Content Include="Content\images\marker3.png" />
@@ -368,6 +369,7 @@
     <Content Include="Views\Home\ResultDetail.cshtml" />
     <Content Include="Views\Shared\_LayoutSearch.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

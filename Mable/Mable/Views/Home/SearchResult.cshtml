@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Search result";
-    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+    //Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
 
 
@@ -80,6 +80,31 @@
     }
 </script>
 
+<!-- Search -->
+
+<div class="row">
+
+    <div class="mable-homeSearch col-md-12 text-center">
+
+        <div class="title">Search</div>
+
+        @using (Html.BeginForm("SearchResult", "Home"))
+
+        {
+
+            @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more", id = "SearchBox" })
+
+        }
+
+
+
+
+
+    </div>
+
+</div>
+<!--End Search -->
+
 <div class="row">
 
 
@@ -124,45 +149,8 @@
         </figure>
     }
 </div>
-@*END ROW*@
-
-    @*<table class="table">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Rating
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Accessibility Rating
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.name</td>
-                <td>@item.rating</td>
-                <td>@item.adr_address</td>
-                <td>@item.accessibility_rating</td>
-                <td>
-                    @Html.ActionLink("Details", "ResultDetail", new { id = item.id })
-                </td>
-
-            </tr>
-
-        }
-    </table>*@
 
 
-    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-    @Html.PagedListPager(Model, page => Url.Action("SearchResult", new
-    { page }))*@
-
-    <!--
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
-    -->
+<!--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+-->
