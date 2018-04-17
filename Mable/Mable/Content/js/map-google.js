@@ -15,6 +15,7 @@ var infowindow_quiet;
 
 var current_location = [];
 
+
 function initMap() {
     var centre = { lat: -37.8136, lng: 144.9631 };
     map = new google.maps.Map(document.getElementById('map'), {
@@ -272,6 +273,61 @@ function initMap() {
 
                 wifi_markers.push(wifi_marker);
             }
+        }
+    });
+
+    //color the steepness of 0%-1% green---> totally accessible 
+    //color the steepness of 1%-6% yellow ------->manageable steepness
+    //color the steepness >6% --------> uncomfortable and challenging steepness
+
+    //Status ---> Applied, Approved and Under Construction, and Complete.
+
+
+    map.data.loadGeoJson('https://data.melbourne.vic.gov.au/api/geospatial/rpt3-2axt?method=export&format=GeoJSON');
+  
+    map.data.loadGeoJson(
+        'https://data.melbourne.vic.gov.au/api/geospatial/def8-4wbt?method=export&format=GeoJSON');
+
+    map.data.setStyle(function (feature) {
+        var grade = feature.getProperty('gradepc');
+        var status = feature.getProperty('status');
+        if (grade > 0 && grade < 1) {
+            return {
+                fillColor: 'green',
+                strokeWeight: 1
+            };
+        } else if (grade > 1 && grade < 6) {
+            return {
+                fillColor: 'yellow',
+                strokeWeight: 1
+            };
+        } else if (grade > 6) {
+            return {
+                fillColor: 'red',
+                strokeWeight: 1
+            };
+        }
+
+        if (status == 'APPLIED') {
+            return {
+                fillColor: 'blue',
+                strokeWeight: 1
+            };
+        } else if (status == 'APPROVED') {
+            return {
+                fillColor: 'orange',
+                strokeWeight: 1
+            };
+        } else if (status == 'COMPLETED') {
+            return {
+                fillColor: 'black',
+                strokeWeight: 1
+            };
+        } else {
+            return {
+                fillColor: 'purple',
+                strokeWeight: 1
+            };
         }
     });
 }
