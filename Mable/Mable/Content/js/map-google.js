@@ -5,6 +5,7 @@ var wifi_markers = [];
 var quiet_markers = [];
 
 var map;
+var directionsService;
 
 var markerCluster1;
 
@@ -14,8 +15,13 @@ var infowindow_wifi
 var infowindow_quiet;
 
 var current_location = [];
+var currentLatLng;
 
 var icon5;
+
+var cloest_toilet = -1;
+var distance_toilet = [];
+
 
 function initMap() {
     var centre = { lat: -37.8136, lng: 144.9631 };
@@ -23,7 +29,7 @@ function initMap() {
         zoom: 15,
         center: centre
     });
-
+    directionsService = new google.maps.DirectionsService();
     /**
      * Begin Search function inside the map
      */
@@ -42,6 +48,7 @@ function initMap() {
             };
             current_location.push(position.coords.latitude);
             current_location.push(position.coords.longitude);
+            currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
             locInfoWindow.setPosition(pos);
             locInfoWindow.setContent('Your current location');
             map.setCenter(pos);
@@ -162,6 +169,8 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
+    
+
     // Create marker for showing toilet accessibility
     $.getJSON("https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
         function (data) {
@@ -170,7 +179,7 @@ function initMap() {
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
-                
+                var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
                 var toilet_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
@@ -189,7 +198,16 @@ function initMap() {
                     infowindow_toilet.open(this.getMap(), this);
                 })
                 toilet_markers.push(toilet_marker);
+
+                
+                var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
+                
+                distance_toilet.push(dist);
+                if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
+                    cloest_toilet = i;
+                }
             }
+            //alert(distance_toilet[cloest_toilet]/1000 + 'km');
         });
     /** 
      * End toilet markers
@@ -321,6 +339,12 @@ function showSensor(sensor) {
         markerCluster1 = new MarkerClusterer(map, sensor_markers, {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
+
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "visible";
     }
     else {
         unshowSensor();
@@ -357,6 +381,18 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
+        var request = {
+            origin: currentLatLng,
+            destination: toilet_markers[cloest_toilet].position,
+            travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function (result, status) {
+            if (status == 'OK') {
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                directionsDisplay.setMap(map);
+                directionsDisplay.setDirections(result);
+            }
+        })
     }
     else {
         unshowToilet();
@@ -507,7 +543,6 @@ function showQuietPlaces() {
  * Create the markers
  */
 function callback(results, status) {
-    alert(status);
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var quiet_marker = new google.maps.Marker({
