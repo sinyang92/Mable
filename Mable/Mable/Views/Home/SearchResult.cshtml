@@ -26,7 +26,9 @@
     var service;
     var infowindow;
 
-
+    var result_list = [];
+    var result_markers = [];
+    var infowindow_result;
 
     function initialize() {
         var pyrmont = new google.maps.LatLng(-37.812479, 144.96150);
@@ -36,44 +38,44 @@
             zoom: 15
         });
 
-        var keyword = '@ViewBag.searchKeyWord';
-        var request = {
-            location: pyrmont,
-            radius: '500',
-            query: keyword
-        };
+        result_list = @Html.Raw(Json.Encode(Model));
 
-        infowindow = new google.maps.InfoWindow()
-        service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, callback);
-    }
+        for (var i = 0; i < result_list.length; i++) {
+            var result_marker = new google.maps.Marker({
+                map: map,
+                position: result_list[i].geometry.location,
+                visible: true,
+            });
+            var id = result_list[i].id;
+            var link = '@Url.Action("ResultDetail", new { id = "-1" })';
+            link = link.replace("-1", id);
+            var content = '<div>' + result_list[i].name + '</div>' +
+                '<div><a href="' + link + '">Detail</a>' + '</div>';
 
-    function callback(results, status) {
-        //TODO: GET buildings from view and compare
-        //var buildings = '@ViewBag.buildings'
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                var place = results[i];
-                createMarker(results[i]);
-                listResult(place);
-            }
+            infowindow_result = new google.maps.InfoWindow();
+            result_marker.content = content;
+            result_marker.id = id;
+            google.maps.event.addListener(result_marker, 'click', function () {
+                infowindow_result.setContent(this.content);
+                infowindow_result.open(this.getMap(), this);
+
+                window.location.href = "#" + this.id;
+            });
+
+            // when mouse enters the area of marker icon
+            google.maps.event.addListener(result_marker, 'mouseover', function () {
+                document.getElementById(this.id).style.background = "#000000";
+            });
+
+            // when mouse leaves the area of mouse icon
+            google.maps.event.addListener(result_marker, 'mouseout', function () {
+                document.getElementById(this.id).style.background = "#ffffff";
+            });
+
+            result_markers.push(result_marker);
         }
     }
 
-    function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            visible: true,
-        });
-        marker.setMap(map);
-
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(place.name);
-            infowindow.open(map, this);
-        });
-    }
 
     function listResult(place) {
 
@@ -119,7 +121,7 @@
 
     @foreach (var item in Model)
     {
-        <div class="col-sm-8 col-sm-offset-2  mable-CardResult">
+        <div class="col-sm-8 col-sm-offset-2  mable-CardResult" id="@item.id">
             <div class="row">
                 <a href="@Url.Action("ResultDetail", new { id = item.id })">
                     <figcaption class="col-lg-8">
@@ -150,9 +152,17 @@
             </div>
         </div>
     }
+
+    <div class="row">
+        <div style="height:80vh; width:100%;">
+            <div id="map" style="height:100%;">
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
-<!--
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
--->
+
