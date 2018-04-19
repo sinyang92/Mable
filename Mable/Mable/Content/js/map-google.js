@@ -236,10 +236,25 @@ function initMap() {
                 park_markers.push(park_marker);
             }
         });
-
+     /**
+     * Quite Place icon
+     */
+    var icon5 = {
+        url: "../Content/images/marker3.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
     /**
      * Wifi Access Points
      */
+
+    var icon4 = {
+        url: "../Content/images/marker2.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
     var wifi_data = {
         resource_id: '1922597e-c989-4ebd-bec9-afcc284e5b2c', // the resource id
         limit: 999, // if limit is not set, max 100 results returned by default
@@ -257,7 +272,7 @@ function initMap() {
                     position: coor,
                     map: map,
                     visible: false,
-                    icon: icon3,
+                    icon: icon4,
                     title: "Click for details"
                 });
                 var content = '<div>' + records[i]['Long Name'] + '</div>' +
@@ -286,6 +301,14 @@ function showSensor(sensor) {
     if (document.getElementById("park").checked) {
         document.getElementById("park").checked = false;
         unshowPark();
+    }
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
     }
 
     if (document.getElementById("sensor").checked == true) {
@@ -319,7 +342,14 @@ function showToilet(toilet) {
         document.getElementById("park").checked = false;
         unshowPark();
     }
-
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("toilet").checked == true) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
@@ -348,7 +378,14 @@ function showPark(park) {
         document.getElementById("toilet").checked = false;
         unshowToilet();
     }
-
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("park").checked == true) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(true);
@@ -367,6 +404,23 @@ function unshowPark() {
 }
 
 function showWifi(wifi) {
+    if (document.getElementById("sensor").checked) {
+        document.getElementById("sensor").checked = false;
+        unshowSensor();
+
+    }
+    if (document.getElementById("toilet").checked) {
+        document.getElementById("toilet").checked = false;
+        unshowToilet();
+    }
+    if (document.getElementById("park").checked) {
+        document.getElementById("park").checked = false;
+        unshowPark();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("wifi").checked == true) {
         for (var i = 0; i < wifi_markers.length; i++) {
             wifi_markers[i].setVisible(true);
@@ -384,8 +438,25 @@ function unshowWifi() {
     infowindow_wifi.close();
 }
 
-function showQuiet(quiet) {
-    if (document.getElementById("quiet").checked == true) {
+function showQuiet(quite) {
+    if (document.getElementById("sensor").checked) {
+        document.getElementById("sensor").checked = false;
+        unshowSensor();
+
+    }
+    if (document.getElementById("toilet").checked) {
+        document.getElementById("toilet").checked = false;
+        unshowToilet();
+    }
+    if (document.getElementById("park").checked) {
+        document.getElementById("park").checked = false;
+        unshowPark();
+    }
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked == true) {
         for (var i = 0; i < quiet_markers.length; i++) {
             quiet_markers[i].setVisible(true);
         }
@@ -438,7 +509,7 @@ function callback(results, status) {
                 position: results[i].geometry.location,
                 map: map,
                 visible: false,
-                icon: icon3,
+                icon: icon5,
                 title: "Click for details"
             });
             var content = '<div>' + results[i].name + '</div>' +
