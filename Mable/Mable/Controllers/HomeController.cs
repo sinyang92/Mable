@@ -156,6 +156,17 @@ namespace Mable.Controllers
                 return HttpNotFound();
             }
 
+            StreamReader reader = new StreamReader(Server.MapPath("~/GeoJSON/3D Development Activity Model Footprints.geojson"),System.Text.Encoding.Default);
+            string dev_string = reader.ReadToEnd().ToString();
+            ViewBag.dev = dev_string;
+
+            reader = new StreamReader(Server.MapPath("~/GeoJSON/Footpath steepness.geojson"));
+            string stp_string = reader.ReadToEnd().ToString();
+            ViewBag.stp = stp_string;
+
+            //reader = new StreamReader(Server.MapPath("~/GeoJSON/Road segments, with surface type.geojson"));
+            //string con_string = reader.ReadToEnd().ToString();
+            //ViewBag.con = con_string;
 
             return View(detail);
         }
