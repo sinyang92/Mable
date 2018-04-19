@@ -15,6 +15,7 @@ var infowindow_quiet;
 
 var current_location = [];
 
+var icon5;
 
 function initMap() {
     var centre = { lat: -37.8136, lng: 144.9631 };
@@ -239,7 +240,7 @@ function initMap() {
      /**
      * Quite Place icon
      */
-    var icon5 = {
+    icon5 = {
         url: "../Content/images/marker3.png", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
@@ -290,6 +291,8 @@ function initMap() {
             }
         }
     });
+
+    showQuietPlaces();
 }
 
 // Filter for real-time on-street parking
@@ -491,10 +494,11 @@ function handleLocationError(browserHasGeolocation, infowindow, pos) {
  */
 function showQuietPlaces() {
     var service = new google.maps.places.PlacesService(map);
+    var location = new google.maps.LatLng(-37.8136, 144.9631);
     service.nearbySearch({
-        location: { lat: current_location[0], lng: current_location[1] },
-        radius: 1000,
-        type: ['library', 'park']
+        location: location,
+        radius: '1000',
+        types: ['library','park']
     }, callback);
 }
 
@@ -503,6 +507,7 @@ function showQuietPlaces() {
  * Create the markers
  */
 function callback(results, status) {
+    alert(status);
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var quiet_marker = new google.maps.Marker({
