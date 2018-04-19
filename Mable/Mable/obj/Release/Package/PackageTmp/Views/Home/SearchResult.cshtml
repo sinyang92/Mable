@@ -1,5 +1,6 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+    ViewBag.Title = "Search result";
+    //Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
 
 
@@ -79,6 +80,31 @@
     }
 </script>
 
+<!-- Search -->
+
+<div class="row">
+
+    <div class="mable-homeSearch col-md-12 text-center">
+
+        <div class="title">Search</div>
+
+        @using (Html.BeginForm("SearchResult", "Home"))
+
+        {
+
+            @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more", id = "SearchBox" })
+
+        }
+
+
+
+
+
+    </div>
+
+</div>
+<!--End Search -->
+
 <div class="row">
 
 
@@ -93,75 +119,40 @@
 
     @foreach (var item in Model)
     {
-        <figure class="col-sm-8 col-sm-offset-2  mable-CardResult">
+        <div class="col-sm-8 col-sm-offset-2  mable-CardResult">
             <div class="row">
-                <figcaption class="col-lg-8">
-                    <h1 class="mable-CardResult-title">
-                        @item.name
-                    </h1>
-                    <div class="mable-CardResult-address">
-                        @*@item.formatted_address*@
-                        @item.vicinity
+                <a href="@Url.Action("ResultDetail", new { id = item.id })">
+                    <figcaption class="col-lg-8">
+                        <h1 class="mable-CardResult-title">
+                            @item.name
+                        </h1>
+                        <div class="mable-CardResult-address">
+                            @*@item.formatted_address*@
+                            @item.vicinity
+                        </div>
+                        <i class="fas fa-star"></i> @item.rating
+                    </figcaption>
+                    <div class="col-lg-2">
+                        <div class="mable-CardResult-accRating">
+                            <p>Accessibility Rating</p>
+
+                            <i class="fas fa-universal-access" style="font-size: 28px;">
+                                @item.accessibility_rating
+                            </i>
+                        </div>
+
                     </div>
-                    <i class="fas fa-star"></i> @item.rating
-                </figcaption>
-                <div class="col-lg-2">
-                    <div class="mable-CardResult-accRating">
-                        <p>Accessibility Rating</p>
+                    <div class="col-lg-2">
+                        <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
 
-                        <i class="fas fa-universal-access" style="font-size: 28px;">
-                            @item.accessibility_rating
-                        </i>
                     </div>
-
-                </div>
-                <div class="col-lg-2">
-                    <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
-
-                </div>
+                </a>
             </div>
-        </figure>
+        </div>
     }
 </div>
-@*END ROW*@
-
-    @*<table class="table">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Rating
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Accessibility Rating
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.name</td>
-                <td>@item.rating</td>
-                <td>@item.adr_address</td>
-                <td>@item.accessibility_rating</td>
-                <td>
-                    @Html.ActionLink("Details", "ResultDetail", new { id = item.id })
-                </td>
-
-            </tr>
-
-        }
-    </table>*@
 
 
-    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-    @Html.PagedListPager(Model, page => Url.Action("SearchResult", new
-    { page }))*@
-
-    <!--
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
-    -->
+<!--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+-->

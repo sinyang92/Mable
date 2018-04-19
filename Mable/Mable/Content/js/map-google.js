@@ -275,61 +275,6 @@ function initMap() {
             }
         }
     });
-
-    //color the steepness of 0%-1% green---> totally accessible 
-    //color the steepness of 1%-6% yellow ------->manageable steepness
-    //color the steepness >6% --------> uncomfortable and challenging steepness
-
-    //Status ---> Applied, Approved and Under Construction, and Complete.
-
-
-    map.data.loadGeoJson('https://data.melbourne.vic.gov.au/api/geospatial/rpt3-2axt?method=export&format=GeoJSON');
-  
-    map.data.loadGeoJson(
-        'https://data.melbourne.vic.gov.au/api/geospatial/def8-4wbt?method=export&format=GeoJSON');
-
-    map.data.setStyle(function (feature) {
-        var grade = feature.getProperty('gradepc');
-        var status = feature.getProperty('status');
-        if (grade > 0 && grade < 1) {
-            return {
-                fillColor: 'green',
-                strokeWeight: 1
-            };
-        } else if (grade > 1 && grade < 6) {
-            return {
-                fillColor: 'yellow',
-                strokeWeight: 1
-            };
-        } else if (grade > 6) {
-            return {
-                fillColor: 'red',
-                strokeWeight: 1
-            };
-        }
-
-        if (status == 'APPLIED') {
-            return {
-                fillColor: 'blue',
-                strokeWeight: 1
-            };
-        } else if (status == 'APPROVED') {
-            return {
-                fillColor: 'orange',
-                strokeWeight: 1
-            };
-        } else if (status == 'COMPLETED') {
-            return {
-                fillColor: 'black',
-                strokeWeight: 1
-            };
-        } else {
-            return {
-                fillColor: 'purple',
-                strokeWeight: 1
-            };
-        }
-    });
 }
 
 // Filter for real-time on-street parking
@@ -469,6 +414,10 @@ function handleLocationError(browserHasGeolocation, infowindow, pos) {
     alert("We can't get your current location. Please make sure you enable location in browser.");
 }
 
+
+/**
+ * Get the quiet places using Google Nearby Search
+ */
 function showQuietPlaces() {
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
@@ -478,6 +427,10 @@ function showQuietPlaces() {
     }, callback);
 }
 
+/**
+ * Callback function to do with the data return from Google Nearby Search
+ * Create the markers
+ */
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
