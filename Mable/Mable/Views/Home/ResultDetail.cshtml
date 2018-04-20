@@ -210,7 +210,9 @@
 
         layer_footpath.setStyle(function (feature) {
             var grade = feature.getProperty('gradepc');
+            console.log("abc");
             if (grade > 0 && grade <= 1) {
+                
                 return {
                     fillColor: 'green',
                     strokeWeight: 1
@@ -318,6 +320,17 @@
 
         if (document.getElementById('con').checked) {
             layer_condition.setStyle({ visible: true });
+
+            layer_dev.setStyle(function (feature) {
+                var status = feature.getProperty('status');
+                if (status == 'UNDER CONSTRUCTION') {
+                    return {
+                        fillColor: 'black',
+                        strokeWeight: 2,
+                        strokeColor: 'black'
+                    };
+                }
+            });
         } else {
             unshowCondition();
         }
@@ -346,6 +359,30 @@
 
         if (document.getElementById('stp').checked) {
             layer_footpath.setStyle({ visible: true });
+            layer_footpath.setStyle(function (feature) {
+                var grade = feature.getProperty('gradepc');
+                console.log("abc");
+                if (grade > 0 && grade <= 1) {
+
+                    return {
+                        fillColor: 'green',
+                        strokeWeight: 2,
+                        strokeColor: 'green'
+                    };
+                } else if (grade > 1 && grade <= 6) {
+                    return {
+                        fillColor: 'yellow',
+                        strokeWeight: 2,
+                        strokeColor: 'yellow'
+                    };
+                } else  {
+                    return {
+                        fillColor: 'red',
+                        strokeWeight: 2,
+                        strokeColor: 'red'
+                    };
+                }
+            });
         } else {
             unshowSteepness();
         }
