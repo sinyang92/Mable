@@ -8,19 +8,7 @@
 
 @using PagedList.Mvc
 
-<style>
-    /*#map {
-        height: 100%;
-    }
 
-    html.body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }*/
-
-
-</style>
 <script>
 
     var map;
@@ -119,52 +107,66 @@
         </div>
     }
 
-
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-8 col-sm-offset-2  mable-CardResult" id="@item.id">
-            <div class="row">
-                <a href="@Url.Action("ResultDetail", new { id = item.id })">
-                    <figcaption class="col-lg-8">
-                        <h1 class="mable-CardResult-title">
-                            @item.name
-                        </h1>
-                        <div class="mable-CardResult-address">
-                            @*@item.formatted_address*@
-                            @item.vicinity
-                        </div>
-                        <i class="fas fa-star"></i> @item.rating
-                    </figcaption>
-                    <div class="col-lg-2">
-                        <div class="mable-CardResult-accRating">
-                            <p>Accessibility Rating</p>
-
-                            <i class="fas fa-universal-access" style="font-size: 28px;">
-                                @item.accessibility_rating
-                            </i>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-2">
-                        <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
-
-                    </div>
-                </a>
+    <div class="col-sm-6">
+        <div class="row" style="height:80vh; overflow-y:auto">
+            <div class="">
+                Search Results
+                <hr />
             </div>
+
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12  mable-CardResult" id="@item.id">
+                    <div class="row">
+                        <a href="@Url.Action("ResultDetail", new { id = item.id })">
+                            <figcaption class="col-lg-8">
+                                <h1 class="mable-CardResult-title">
+                                    @item.name
+                                </h1>
+                                <div class="mable-CardResult-address">
+                                    @*@item.formatted_address*@
+                                    @item.vicinity
+                                </div>
+                                <i class="fas fa-star"></i> @item.rating
+                            </figcaption>
+                            @*<div class="col-lg-2">
+                                <div class="mable-CardResult-accRating">
+                                    <p>Accessibility Rating</p>
+
+                                    <i class="fas fa-universal-access" style="font-size: 28px;">
+                                        @item.accessibility_rating
+                                    </i>
+                                </div>
+
+                            </div>*@
+                            @*<div class="col-lg-2">
+                                <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
+
+                            </div>*@
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
-    }
-
-    <div class="row">
-        <div style="height:80vh; width:100%;">
-            <div id="map" style="height:100%;">
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="">
+                Search Results
+                <hr />
             </div>
+            <div class="col-sm-12">
+                <div style="height:80vh; width:100%;">
+                    <div id="map" style="height:100%;">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-</div>
 
-
-<script src='~/Scripts/nprogress.js'></script>
-<link rel='stylesheet' href='~/Content/css/nprogress.css' />
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
+        <script src='~/Scripts/nprogress.js'></script>
+        <link rel='stylesheet' href='~/Content/css/nprogress.css' />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
 
