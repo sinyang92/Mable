@@ -23,15 +23,16 @@
 
     <link href="~/Content/css/mable-style.css?version=1.0" rel="stylesheet" type="text/css">
 
-    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
+    <link rel="shortcut icon" type="favicon" href="~/favicon.png" />
 
 
     <style>
-        .navbar-nav li.active a
-        {
-        font-weight: 600;
-        color: black;
-            }
+        .navbar-nav li.active a {
+            font-weight: 600;
+            color: black;
+        }
     </style>
 </head>
 
@@ -53,7 +54,12 @@
 
                 </button>
 
-                @Html.ActionLink("MABLE", "Index", "Home", null, new { @class = "navbar-brand" })
+               
+                
+
+                    <img class="navbar-brand" src="~/Content/images/logo-mable-hor.svg"/>
+                    @*@Html.ActionLink("mable","Index", "Home", null, new { @class = "navbar-brand" })*@
+                
               
 
             </div>

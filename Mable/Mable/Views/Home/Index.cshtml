@@ -6,19 +6,19 @@
 
     <div class="container-fluid mable-homeHeader">
 
-        <div class="row" style="max-width: 50%;">
+        <div class="row">
             <h1>
                 Find new places and get to know the immediate accessibility surroundings or check accessibility amenities on the spot.
             </h1>
             <h5>City of Melbourne</h5>
         </div>
         <div class="row">
-            <div class="btn btn-default">
-                @Html.ActionLink("Search & Discover", "Search", "Home")
+            <div class="btn mable-btn-primary btn-header">
+                @Html.ActionLink("Discover", "Search", "Home")
 
             </div>
-            <div class="btn btn-default">
-                On the Spot
+            <div class="btn mable-btn-primary-outline btn-header">
+                @Html.ActionLink("Near Me", "Map", "Home")
             </div>
         </div>
 
@@ -28,11 +28,11 @@
 </div>
 <!-- End Section -->
 <!-- Info Module-->
-<div class="container-fluid bg-primary">
+<div class="container-fluid bg-primary mable-infoHome">
     <div class="row">
         <div class="col-md-12">
             <h1>What are we trying to achieve?</h1>
-            <div class="row">
+            <div class="row mable-infoHome-content">
                 <div class="col-md-4">
                     Display information regarding accessibility around the place of interest you can discover.
                 </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="row">
-                <img src="http://via.placeholder.com/350x150">
+                <img class="img-responsive" src="~/Content/images/wheelchair-people.svg">
 
             </div>
         </div>
@@ -57,11 +57,11 @@
 <!--Start More Info Module-->
 
 <div class="row">
-    <div class=col-md-12>
-        <p>
+    <div class="col-md-12 mable-homeCallToInfo">
+        <h1>
             Check also useful links and services in the City of Melbourne.
-        </p> 
-        <button class="btn btn-default">
+        </h1> 
+        <button class="btn mable-btn-secondary">
             Go to Links
         </button>
 
