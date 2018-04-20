@@ -1,23 +1,21 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Home";
 }
 
 <div class="section">
 
     <div class="container-fluid mable-homeHeader">
-        <div class="row ">
-            <img src="~/Content/images/logo-mable.svg" alt="Alternate Text" width="160"/>
-        </div>
-        <div class="row">
+
+        <div class="row" style="max-width: 50%;">
             <h1>
-                Discover new accessible places to visit or check accessible amenities on the spot.
+                Find new places and get to know the immediate accessibility surroundings or check accessibility amenities on the spot.
             </h1>
             <h5>City of Melbourne</h5>
         </div>
         <div class="row">
             <div class="btn btn-default">
                 @Html.ActionLink("Search & Discover", "Search", "Home")
-                
+
             </div>
             <div class="btn btn-default">
                 On the Spot
@@ -29,17 +27,47 @@
 
 </div>
 <!-- End Section -->
-
 <!-- Info Module-->
 <div class="container-fluid bg-primary">
     <div class="row">
-        something
+        <div class="col-md-12">
+            <h1>What are we trying to achieve?</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    Display information regarding accessibility around the place of interest you can discover.
+                </div>
+                <div class="col-md-4">
+                    Make available maps with accessibility details needed on the spot.
+                </div>
+                <div class="col-md-4">
+                    Make information accessible and available for everyone and on any device.
+                </div>
+            </div>
+            <div class="row">
+                <img src="http://via.placeholder.com/350x150">
+
+            </div>
+        </div>
     </div>
 </div>
 
-
 <!--End Info Module-->
 
+
+<!--Start More Info Module-->
+
+<div class="row">
+    <div class=col-md-12>
+        <p>
+            Check also useful links and services in the City of Melbourne.
+        </p> 
+        <button class="btn btn-default">
+            Go to Links
+        </button>
+
+    </div>
+</div>
+<!--End More Info Module-->
 
 
 
