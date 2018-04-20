@@ -6039,7 +6039,8 @@ input.chk-btn:checked + label {
   padding: 70px 0; }
   @media only screen and (max-width: 768px) {
     .mable-homeHeader {
-      background: none; } }
+      background: none;
+      padding: 20px 0; } }
   .mable-homeHeader .row {
     padding: 0 30px 10px;
     margin-bottom: 20px; }
@@ -6065,12 +6066,15 @@ input.chk-btn:checked + label {
         padding: 10px 35px; }
 
 .mable-infoHome .row {
-  margin: 20px 25px; }
+  margin: 40px 25px; }
+  @media only screen and (max-width: 768px) {
+    .mable-infoHome .row {
+      margin: 40px 5px; } }
   .mable-infoHome .row h1 {
     padding: 0 40px; }
     @media only screen and (max-width: 768px) {
       .mable-infoHome .row h1 {
-        padding: 0 30px; } }
+        padding: 0 15px; } }
   .mable-infoHome .row .mable-infoHome-content {
     font-size: 20px; }
     .mable-infoHome .row .mable-infoHome-content .col-md-4 {
@@ -6094,18 +6098,28 @@ input.chk-btn:checked + label {
   body {
     font-size: 28px; } }
 
-.mable-footer {
+.mable-footer .row.mable-footer-links {
   background: #FFE200;
-  padding: 35px 25px; }
+  padding: 35px 55px; }
   @media only screen and (max-width: 768px) {
-    .mable-footer {
+    .mable-footer .row.mable-footer-links {
       padding: 20px; } }
-  .mable-footer ul {
+  .mable-footer .row.mable-footer-links ul {
     font-size: 24px;
     font-weight: 700;
     padding: 0; }
-    .mable-footer ul li {
+    .mable-footer .row.mable-footer-links ul li {
       font-size: 16px;
       font-weight: 400;
       list-style: none;
       padding: 10px 0; }
+
+.mable-footer .row.mable-footer-info {
+  background: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px 55px; }
+  @media only screen and (max-width: 768px) {
+    .mable-footer .row.mable-footer-info {
+      padding: 5px 20px; } }
