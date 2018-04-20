@@ -37,7 +37,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
-                @Html.ActionLink("MABLE", "Index", "Home", null, new { @class="navbar-brand"})
+                @Html.ActionLink("MABLE", "Index", "Home", null, new { @class = "navbar-brand" })
 
             </div>
 
@@ -68,7 +68,6 @@
         </div>
     </div>
     <!-- End Navbar -->
-   
     <!-- Start section -->
 
 
@@ -82,7 +81,9 @@
         </div>
 
     </div>
-
+    <footer>
+        @RenderPage("Footer.cshtml")
+    </footer>
 
     @RenderSection("scripts", required: false)
 

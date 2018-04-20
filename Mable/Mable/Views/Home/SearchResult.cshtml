@@ -99,13 +99,7 @@
 <div class="row">
 
 
-    @if (ViewBag.HasResult == false)
-    {
-        <!--Start No Results Message -->
-        <div class="col-sm-8 col-sm-offset-2">
-            No result
-        </div>
-    }
+   
 
     <div class="col-sm-6">
         <div class="row" style="height:80vh; overflow-y:auto">
@@ -113,46 +107,53 @@
                 Search Results
                 <hr />
             </div>
+            @if (ViewBag.HasResult == false)
+    {
+        <!--Start No Results Message -->
+        <div class="col-sm-8 col-sm-offset-2">
+            No result
+        </div>
+}
 
             @foreach (var item in Model)
-            {
-                <div class="col-sm-12  mable-CardResult" id="@item.id">
-                    <div class="row">
-                        <a href="@Url.Action("ResultDetail", new { id = item.id })">
-                            <figcaption class="col-lg-8">
-                                <h1 class="mable-CardResult-title">
-                                    @item.name
-                                </h1>
-                                <div class="mable-CardResult-address">
-                                    @*@item.formatted_address*@
-                                    @item.vicinity
-                                </div>
-                                <i class="fas fa-star"></i> @item.rating
-                            </figcaption>
-                            @*<div class="col-lg-2">
-                                <div class="mable-CardResult-accRating">
-                                    <p>Accessibility Rating</p>
+    {
+        <div class="col-sm-12  mable-CardResult" id="@item.id">
+            <div class="row">
+                <a href="@Url.Action("ResultDetail", new { id = item.id })">
+                    <figcaption class="col-lg-8">
+                        <h1 class="mable-CardResult-title">
+                            @item.name
+                        </h1>
+                        <div class="mable-CardResult-address">
+                            @*@item.formatted_address*@
+                            @item.vicinity
+                        </div>
+                        <i class="fas fa-star"></i> @item.rating
+                    </figcaption>
+                    @*<div class="col-lg-2">
+                    <div class="mable-CardResult-accRating">
+                        <p>Accessibility Rating</p>
 
-                                    <i class="fas fa-universal-access" style="font-size: 28px;">
-                                        @item.accessibility_rating
-                                    </i>
-                                </div>
-
-                            </div>*@
-                            @*<div class="col-lg-2">
-                                <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
-
-                            </div>*@
-                        </a>
+                        <i class="fas fa-universal-access" style="font-size: 28px;">
+                            @item.accessibility_rating
+                        </i>
                     </div>
-                </div>
-            }
+
+                </div>*@
+                    @*<div class="col-lg-2">
+                    <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
+
+                </div>*@
+                </a>
+            </div>
+        </div>
+}
         </div>
     </div>
     <div class="col-sm-6">
         <div class="row">
             <div class="">
-                Search Results
+                Search Results on Map
                 <hr />
             </div>
             <div class="col-sm-12">
