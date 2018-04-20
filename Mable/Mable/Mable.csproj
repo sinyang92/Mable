@@ -295,6 +295,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\mable-style.css" />
+    <Content Include="Content\css\nprogress.css" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker1.png" />
     <Content Include="Content\images\marker2.png" />
@@ -321,6 +322,7 @@
     <None Include="Properties\PublishProfiles\Mable - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\HomeSearch.js" />
+    <Content Include="Scripts\nprogress.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

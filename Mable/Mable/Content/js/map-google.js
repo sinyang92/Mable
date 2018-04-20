@@ -5,7 +5,8 @@ var wifi_markers = [];
 var quiet_markers = [];
 
 var map;
-var directionsService;
+
+var directionsDisplay;
 
 var markerCluster1;
 
@@ -29,7 +30,7 @@ function initMap() {
         zoom: 15,
         center: centre
     });
-    directionsService = new google.maps.DirectionsService();
+    
     /**
      * Begin Search function inside the map
      */
@@ -172,8 +173,11 @@ function initMap() {
     
 
     // Create marker for showing toilet accessibility
-    $.getJSON("https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
-        function (data) {
+    $.ajax({
+        cache: false,
+        url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
+        dataType: "json",
+        success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].wheelchair == "U") {
                     continue;
@@ -199,20 +203,19 @@ function initMap() {
                 })
                 toilet_markers.push(toilet_marker);
 
-                
+
                 var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
-                
+
                 distance_toilet.push(dist);
                 if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
                     cloest_toilet = i;
                 }
             }
             //alert(distance_toilet[cloest_toilet]/1000 + 'km');
-        });
-    /** 
-     * End toilet markers
-     * /
+        }
 
+        });
+    
     /**
      * Off street parking markers
      */
@@ -386,10 +389,13 @@ function showToilet(toilet) {
             destination: toilet_markers[cloest_toilet].position,
             travelMode: 'DRIVING'
         };
+        var directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (result, status) {
             if (status == 'OK') {
-                var directionsDisplay = new google.maps.DirectionsRenderer();
-                directionsDisplay.setMap(map);
+                directionsDisplay = new google.maps.DirectionsRenderer({
+                    map: map,
+                    suppressMarkers: true
+                });
                 directionsDisplay.setDirections(result);
             }
         })
@@ -404,6 +410,8 @@ function unshowToilet() {
         toilet_markers[i].setVisible(false);
     }
     infowindow_toilet.close();
+
+    directionsDisplay.setMap(null);
 }
 
 // Filter for parking space

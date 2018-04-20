@@ -3,8 +3,6 @@
     ViewBag.Title = "Search";
 }
 
-
-
 <!-- Search -->
 
 <div class="row">
@@ -25,9 +23,18 @@
 
 </div>
 <!--End Search -->
-
 <!-- Popular Places Section-->
 <div class="row">
     text
 </div>
 <!-- End Popular Places Section-->
+
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+<script>
+    $("#SearchBox").keyup(function (event) {
+        if (event.keyCode == 13) {
+            NProgress.start();
+        }
+    });
+</script>
