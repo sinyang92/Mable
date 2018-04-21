@@ -296,6 +296,10 @@
   <ItemGroup>
     <Content Include="Content\css\mable-style.css" />
     <Content Include="Content\css\nprogress.css" />
+    <Content Include="Content\images\icon-congestion.svg" />
+    <Content Include="Content\images\icon-parking.svg" />
+    <Content Include="Content\images\icon-path-condition.svg" />
+    <Content Include="Content\images\icon-steepness.svg" />
     <Content Include="Content\images\logo-mable-hor.svg" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker1.png" />

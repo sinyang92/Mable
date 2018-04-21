@@ -5,11 +5,11 @@
 
 <!-- Search -->
 
-<div class="row">
+<div class="row mable-searchInput">
 
-    <div class="mable-homeSearch col-md-12 text-center">
+    <div class="col-md-12 text-center">
 
-        <div class="title">Search</div>
+        <div class="title">Discover</div>
 
         @using (Html.BeginForm("SearchResult", "Home"))
 
@@ -24,29 +24,35 @@
 </div>
 <!--End Search -->
 <!-- Popular Places Section-->
-<div class="row">
+<div class="row mable-searchFeatures">
     <div class="col-lg-12">
-        <p>
-            Hi!
+        <div class="mable-searchFeatures-introText">
+            <strong>Hi!</strong>
+            <br />
             You can search & discover new places by keywords or places and check:
-        </p>
+        </div>
     </div>
-    <div class="col-lg-3">
-        <img src="http://via.placeholder.com/200x200">
+    <div class="col-md-2 col-md-offset-2 mable-searchFeatures-blurb">
+        <img src="~/Content/images/icon-steepness.svg">
         <p> Footpath Steepness</p>
     </div>
-    <div class="col-lg-3">
-        <img src="http://via.placeholder.com/200x200">
-        <p>Footpath Condition</p>
+    <!-- Start icons-->
+    <div class="row">
+        <div class="col-md-2 mable-searchFeatures-blurb">
+            <img src="~/Content/images/icon-path-condition.svg">
+            <p>Footpath Condition</p>
+        </div>
+        <div class="col-md-2 mable-searchFeatures-blurb">
+            <img src="~/Content/images/icon-parking.svg">
+            <p>Parking</p>
+        </div>
+        <div class="col-md-2 mable-searchFeatures-blurb">
+            <img src="~/Content/images/icon-congestion.svg">
+            <p>Pedestrian Congestion</p>
+        </div>
     </div>
-    <div class="col-lg-3">
-        <img src="http://via.placeholder.com/200x200">
-        <p>Parking</p>
-    </div>
-    <div class="col-lg-3">
-        <img src="http://via.placeholder.com/200x200">
-        <p>Pedestrian Congestion</p>
-    </div>
+    <!-- End icons-->
+
 </div>
 <!-- End Popular Places Section-->
 

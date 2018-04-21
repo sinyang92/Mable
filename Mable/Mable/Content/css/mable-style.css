@@ -5814,33 +5814,39 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-.mable-homeSearch {
-  padding: 50px; }
-  @media only screen and (max-width: 600px) {
-    .mable-homeSearch {
-      padding: 30px; } }
-  .mable-homeSearch .title {
+.mable-searchInput {
+  margin: 50px;
+  padding: 10px 0 5px;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000; }
+  @media only screen and (max-width: 768px) {
+    .mable-searchInput {
+      padding: 10px;
+      margin: 20px; } }
+  .mable-searchInput .title {
     display: inline-block;
-    font-size: 48px;
+    font-size: 45px;
     color: #000000;
     letter-spacing: 0;
     text-align: left;
-    font-weight: 300;
-    padding-right: 20px; }
-  .mable-homeSearch form {
+    font-weight: 700;
+    padding-right: 20px;
+    position: relative;
+    top: -5px; }
+  .mable-searchInput form {
     width: 70%;
     display: inline-block; }
-    @media only screen and (max-width: 600px) {
-      .mable-homeSearch form {
+    @media only screen and (max-width: 768px) {
+      .mable-searchInput form {
         width: 100%; } }
-    .mable-homeSearch form input {
-      border-radius: 100px;
+    .mable-searchInput form input {
+      border-radius: 0;
       padding: 10px;
-      border: solid 3px #000000;
+      border: solid 2px #000000;
       background: #ffffff;
       vertical-align: text-bottom;
       width: 100%; }
-      .mable-homeSearch form input:focus {
+      .mable-searchInput form input:focus {
         outline-width: 0; }
 
 #mable-menuSearch {
@@ -6031,6 +6037,37 @@ input.chk-btn:checked + label {
     .mable-btn-secondary a:hover {
       color: #000000; }
 
+@media print {
+  /* print styles go here */
+  body {
+    font-size: 28px; } }
+
+.mable-footer .row.mable-footer-links {
+  background: #FFE200;
+  padding: 35px 55px; }
+  @media only screen and (max-width: 768px) {
+    .mable-footer .row.mable-footer-links {
+      padding: 20px; } }
+  .mable-footer .row.mable-footer-links ul {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0; }
+    .mable-footer .row.mable-footer-links ul li {
+      font-size: 16px;
+      font-weight: 400;
+      list-style: none;
+      padding: 10px 0; }
+
+.mable-footer .row.mable-footer-info {
+  background: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px 55px; }
+  @media only screen and (max-width: 768px) {
+    .mable-footer .row.mable-footer-info {
+      padding: 5px 20px; } }
+
 .mable-homeHeader {
   background-image: url(../../Content/images/melbourneBg.svg);
   background-size: 50%;
@@ -6093,33 +6130,27 @@ input.chk-btn:checked + label {
         font-size: 24px;
         font-weight: 700; } }
 
-@media print {
-  /* print styles go here */
-  body {
-    font-size: 28px; } }
-
-.mable-footer .row.mable-footer-links {
-  background: #FFE200;
-  padding: 35px 55px; }
+.mable-searchFeatures {
+  margin-bottom: 150px; }
   @media only screen and (max-width: 768px) {
-    .mable-footer .row.mable-footer-links {
-      padding: 20px; } }
-  .mable-footer .row.mable-footer-links ul {
-    font-size: 24px;
+    .mable-searchFeatures {
+      margin-bottom: 50px; } }
+  .mable-searchFeatures .mable-searchFeatures-introText {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 50px; }
+    @media only screen and (max-width: 768px) {
+      .mable-searchFeatures .mable-searchFeatures-introText {
+        margin-bottom: 20px;
+        font-size: 25px;
+        padding: 5px; } }
+
+.mable-searchFeatures-blurb {
+  text-align: center;
+  margin-top: 50px; }
+  .mable-searchFeatures-blurb img {
+    height: 55px; }
+  .mable-searchFeatures-blurb p {
+    font-size: 25px;
     font-weight: 700;
-    padding: 0; }
-    .mable-footer .row.mable-footer-links ul li {
-      font-size: 16px;
-      font-weight: 400;
-      list-style: none;
-      padding: 10px 0; }
-
-.mable-footer .row.mable-footer-info {
-  background: #000000;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 5px 55px; }
-  @media only screen and (max-width: 768px) {
-    .mable-footer .row.mable-footer-info {
-      padding: 5px 20px; } }
+    padding-top: 20px; }
