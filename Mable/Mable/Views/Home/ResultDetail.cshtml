@@ -3,46 +3,82 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
+<style>
+    .stars-outer {
+        display: inline-block;
+        position: relative;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-outer::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+        }
+
+    .stars-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-inner::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+            color: #f8ce0b;
+        }
+</style>
 
 @model Mable.Classes.PlaceDetail.Result
+
 <div class="section">
     <div class="container-fluid">
         <div class="row">
 
             <!-- Start Details Content -->
             <div class="col-sm-8 col-sm-offset-2 mable-detail">
+                <!-- back button -->
+                <div class="row mable-detailBackButton">
+                    <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back to the List</a>
+                </div>
                 <!-- Image and Place Details -->
-                <div class="row ">
+                <div class="row mable-placeInfo">
+
                     <!-- Place Photo -->
-                    <div class="col-md-4 mable-detail-image text-center">
+                    <div class="col-md-5 mable-detail-image text-center">
                         <img class="img-responsive" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
 
                     </div>
                     <!-- End Photo -->
                     <!-- Place details -->
-                    <div class="col-md-8" style="padding-left: 40px;">
-                        <!-- back button -->
-                        <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back</a>
+                    <div class="col-md-7" style="padding-left: 40px;">
+
                         <!-- Place Title -->
                         <h1>
                             @Model.name
                         </h1>
-                        @*<div class="mable-detail-accRating">
-                    <i class="fas fa-universal-access" data-toggle=“tooltip” title='Accessibility Description'></i>
-                    @Model.accessibility_description
-                </div>*@
                         <div class="mable-detail-rating">
+                            <h5>Google Rating:</h5>
+                            @*<i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>*@
 
-                            <i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>
+                            <div class="rate">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+
+                            </div>
                             @Model.rating
                         </div>
                         <div class="mable-detail-website">
+                            <h5>Website:</h5>
                             <a href="@Model.website">@Model.website</a>
                         </div>
                         <div class="mable-detail-price">
 
                         </div>
-                        <div>
+                        <div class="mable-detail-address">
+                            <h5>Address:</h5>
                             @Model.formatted_address
                         </div>
 
@@ -54,29 +90,63 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <div id="buttons" style="display: inline-block;">
-                            <div class="col-sm-3">
-                                <input type="checkbox" name="filter" id="dev" onclick="showDevelopment(this)">
-                                <label for='con'>Under construction</label>
+                        @*  <div id="buttons" style="display: inline-block;">
+                                               <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn btn-default btn-block" for='con'>Under construction</label>
 
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
-                                <label for='stp'>Steepness of Footpaths</label>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
-                                <label for='stp'>Road Condition</label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
-                                <label for='park'>Parking</label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
-                                <label for='ped'>Pedestrian</label>
-                            </div>
-                        </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
+                                    <label for='stp'>Steepness of Footpaths</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
+                                    <label for='stp'>Road Condition</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
+                                    <label for='park'>Parking</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
+                                    <label for='ped'>Pedestrian</label>
+                                </div>
+                            </div>*@
+
+                        <ul id="buttons" class="nav nav-tabs">
+                            <li class="active">
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn mable-btn-map" for='dev'><p>Under construction</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="stp" onclick="showSteepness(this)">
+                                    <label class="btn mable-btn-map" for='stp'><p>Steepness of Footpaths</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
+                                    <label class="btn mable-btn-map" for='park'><p>Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="ped" onclick="showPed(this)">
+                                    <label class="btn mable-btn-map" for='ped'><p>Pedestrian</p> <img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
+                                </div>
+                            </li>
+                        </ul>
 
                     </div>
                 </div>
@@ -84,46 +154,59 @@
                 <!--Start map and info-->
                 <div class="row">
                     <!-- Start Map-->
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 mable-columns">
+                        <div class="mable-topicHeading">
+                            Map
+                        </div>
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
-                                <div name="place location" id="map" style="height:300px"></div>
+
+                                @*<div name="place location" id="map" style="height:300px"></div>*@
                             </div>
                         </div>
                         <!-- End place map -->
                     </div>
                     <!-- End Map-->
                     <!-- Start Map Info-->
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mable-columns">
                         <div>
-                            <h4>Information</h4>
-                            
+                            <div class="mable-topicHeading">
+                                Information
+                            </div>
                         </div>
                         <div>
-                            <h4>Actions</h4>
-                            <button> Current Location</button>
-                            <button>Fullscreen</button>
+                            <div class="mable-topicHeading">
+                                Actions
+                            </div>
+
+                            <button class="btn mable-btn-primary-outline"> Current Location</button>
+                            <button class="btn mable-btn-primary-outline">Fullscreen</button>
                         </div>
                     </div>
                     <!-- End Map Info-->
 
                 </div>
                 <!--End map and info-->
-                <div class="row">
+                <!-- Start Other Actions-->
+                <div class="row mable-detail-moreActions">
                     <div class="col-lg-12">
-                        how to get there
+                        <div class="mable-topicHeading">
+                            how to get there
+                        </div>
+
                     </div>
                     <div class="col-lg-4">
-                        <button>Open in Google Map</button>
+                        <button class="btn mable-btn-primary-outline">Open in Google Map</button>
                     </div>
                     <div class="col-lg-4">
-                        <button>Mobility Map</button>
+                        <button class="btn mable-btn-primary-outline">Mobility Map</button>
                     </div>
                     <div class="col-lg-4">
-                        <button>Print Map</button>
+                        <button class="btn mable-btn-primary-outline">Print Map</button>
                     </div>
                 </div>
+                <!-- End Other Actions-->
             </div>
 
         </div>
@@ -131,6 +214,19 @@
     </div>
 
 </div>
+
+<script>
+    const ratings = {
+        @Model.rating
+    };
+    // total number of stars
+    const starTotal = 5;
+    for (const rating in ratings) {
+        const starPercentage = (ratings[rating] / starTotal) * 100;
+        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+        document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+    }
+</script>
 
 <script>
 
@@ -262,7 +358,7 @@
             var grade = feature.getProperty('gradepc');
             console.log("abc");
             if (grade > 0 && grade <= 1) {
-                
+
                 return {
                     fillColor: 'green',
                     strokeWeight: 1
@@ -549,7 +645,9 @@
 
 
 @*<script>
-    $(document).ready(function () {
-        $(‘[data - toggle=“tooltip”]’).tooltip();
-    });
-</script>*@
+        $(document).ready(function () {
+            $(‘[data - toggle=“tooltip”]’).tooltip();
+        });
+    </script>*@
+
+

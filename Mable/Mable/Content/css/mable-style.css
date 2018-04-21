@@ -5866,9 +5866,9 @@ button.close {
   #mable-menuSearch form {
     display: inline-block; }
     #mable-menuSearch form input {
-      border-radius: 100px;
+      border-radius: 0px;
       padding: 10px;
-      border: solid 4px #000000;
+      border: solid 2px #000000;
       background: #ffffff;
       vertical-align: text-bottom;
       width: 300px;
@@ -5942,19 +5942,6 @@ h1.mable-CardResult-title {
   font-weight: 500;
   margin: 5px 0 5px 0; }
 
-.mable-detail {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  padding-top: 55px; }
-  .mable-detail .mable-detail-image img {
-    object-fit: cover;
-    -webkit-box-shadow: 15px -15px 0px 0px #ffd000;
-    -moz-box-shadow: 15px -15px 0px 0px #ffd000;
-    box-shadow: 15px -15px 0px 0px #ffd000; }
-  .mable-detail .mable-detail-map {
-    margin-top: 50px; }
-
 .mable-error {
   position: absolute;
   top: 50%;
@@ -5972,11 +5959,16 @@ input.btn-map + label {
   cursor: pointer; }
 
 input.btn-map:not(:checked) + label:hover {
-  background: #000000; }
+  background: #000000;
+  color: #ffffff; }
 
 input.btn-map + label:active,
 input.btn-map:checked + label {
-  background: #000000; }
+  background: #000000;
+  color: #ffffff; }
+  input.btn-map + label:active img,
+  input.btn-map:checked + label img {
+    filter: invert(1); }
 
 #map {
   width: 100%;
@@ -6019,6 +6011,9 @@ input.chk-btn:checked + label {
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 700; }
+  .mable-btn-primary-outline:hover {
+    color: #ffffff;
+    background: #000000; }
   .mable-btn-primary-outline a {
     color: #000000; }
     .mable-btn-primary-outline a:hover {
@@ -6037,6 +6032,22 @@ input.chk-btn:checked + label {
     .mable-btn-secondary a:hover {
       color: #000000; }
 
+.mable-btn-map {
+  background: #ffffff;
+  color: #000000;
+  font-size: 20px;
+  border: 2px solid #000000;
+  font-weight: 700;
+  padding: 10px 25px;
+  border-radius: 0px;
+  margin-left: 5px;
+  white-space: normal; }
+  .mable-btn-map:focus, .mable-btn-map:hover, .mable-btn-map:active {
+    background: #000000;
+    color: #ffffff; }
+    .mable-btn-map:focus img, .mable-btn-map:hover img, .mable-btn-map:active img {
+      filter: invert(1); }
+
 .mable-topicHeading {
   font-size: 25px;
   font-weight: 700;
@@ -6050,31 +6061,32 @@ input.chk-btn:checked + label {
   body {
     font-size: 28px; } }
 
-.mable-footer .row.mable-footer-links {
-  background: #FFE200;
-  padding: 35px 55px; }
-  @media only screen and (max-width: 768px) {
-    .mable-footer .row.mable-footer-links {
-      padding: 20px; } }
-  .mable-footer .row.mable-footer-links ul {
-    font-size: 24px;
-    font-weight: 700;
-    padding: 0; }
-    .mable-footer .row.mable-footer-links ul li {
-      font-size: 16px;
-      font-weight: 400;
-      list-style: none;
-      padding: 10px 0; }
-
-.mable-footer .row.mable-footer-info {
-  background: #000000;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 5px 55px; }
-  @media only screen and (max-width: 768px) {
-    .mable-footer .row.mable-footer-info {
-      padding: 5px 20px; } }
+.mable-footer {
+  margin-top: 50px; }
+  .mable-footer .row.mable-footer-links {
+    background: #FFE200;
+    padding: 35px 55px; }
+    @media only screen and (max-width: 768px) {
+      .mable-footer .row.mable-footer-links {
+        padding: 20px; } }
+    .mable-footer .row.mable-footer-links ul {
+      font-size: 24px;
+      font-weight: 700;
+      padding: 0; }
+      .mable-footer .row.mable-footer-links ul li {
+        font-size: 16px;
+        font-weight: 400;
+        list-style: none;
+        padding: 10px 0; }
+  .mable-footer .row.mable-footer-info {
+    background: #000000;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px 55px; }
+    @media only screen and (max-width: 768px) {
+      .mable-footer .row.mable-footer-info {
+        padding: 5px 20px; } }
 
 .mable-homeHeader {
   background-image: url(../../Content/images/melbourneBg.svg);
@@ -6168,3 +6180,38 @@ input.chk-btn:checked + label {
   margin-bottom: 50px;
   height: 80vh;
   overflow-y: auto; }
+
+.mable-detail {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0 25px; }
+  .mable-detail .mable-placeInfo {
+    margin-bottom: 25px;
+    padding-bottom: 35px;
+    border-bottom: solid 4px #000000; }
+  .mable-detail .mable-detailBackButton {
+    margin: 20px 0 35px; }
+  .mable-detail .mable-detail-image img {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    -webkit-box-shadow: 15px -15px 0px 0px #ffd000;
+    -moz-box-shadow: 15px -15px 0px 0px #ffd000;
+    box-shadow: 15px -15px 0px 0px #ffd000;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto; }
+  .mable-detail .mable-detail-map {
+    margin-top: 50px; }
+  .mable-detail .mable-detail-rating h5,
+  .mable-detail .mable-detail-website h5,
+  .mable-detail .mable-detail-address h5 {
+    font-weight: 700;
+    text-transform: uppercase; }
+
+.mable-columns {
+  padding: 0 20px;
+  margin-bottom: 20px; }
+
+.mable-detail-moreActions {
+  margin-bottom: 50px; }
