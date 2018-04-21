@@ -57,7 +57,7 @@
                         <div id="buttons" style="display: inline-block;">
                             <div class="col-sm-3">
                                 <input type="checkbox" name="filter" id="dev" onclick="showDevelopment(this)">
-                                <label for='con'>Footpath Condition</label>
+                                <label for='con'>Under construction</label>
 
                             </div>
                             <div class="col-sm-2">
@@ -72,7 +72,10 @@
                                 <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
                                 <label for='park'>Parking</label>
                             </div>
-
+                            <div class="col-sm-3">
+                                <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
+                                <label for='ped'>Pedestrian</label>
+                            </div>
                         </div>
 
                     </div>
@@ -136,9 +139,12 @@
     var layer_condition;
     var layer_dev;
     var layer_footpath;
+    var layer_ped;
 
 
+    var ped_markers = [];
     var infowindow_parking;
+    var infowindow_sensor;
     var park_markers = [];
     var current_location = [];
 
@@ -275,6 +281,40 @@
         });
         layer_footpath.setStyle({ visible: false });
 
+        /**
+        * Pedestrian congestion
+        */
+        var icon4 = {
+            url: "../../Content/images/marker1.png", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Create marker for Pedestrian congestion
+        $.getJSON("https://data.melbourne.vic.gov.au/resource/xbm5-bb4n.json",
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var sensor = data[i].sensorid;
+                    var coor = { lat: parseFloat(data[i].latitude), lng: parseFloat(data[i].longitude) };
+                    var ped_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon4,
+                        title: "Click for details"
+                    });
+                    var content = '<div>' + 'Address: ' + data[i].sensorloc + '</div>';
+                    ped_marker.content = content;
+                    infowindow_sensor = new google.maps.InfoWindow();
+                    google.maps.event.addListener(ped_marker, 'click', function () {
+                        infowindow_sensor.setContent(this.content);
+                        infowindow_sensor.open(this.getMap(), this);
+                    })
+                    ped_markers.push(ped_marker);
+                }
+            });
+
 
         // Road Condition
         //var con_geojson = @Html.Raw(ViewBag.con);
@@ -298,6 +338,11 @@
         if (document.getElementById('con').checked) {
             document.getElementById('con').checked = false;
             unshowCondition();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
         }
 
         if (document.getElementById("park").checked == true) {
@@ -334,6 +379,11 @@
             unshowSteepness();
         }
 
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
         if (document.getElementById('dev').checked) {
             layer_dev.setStyle({ visible: true });
         } else {
@@ -360,6 +410,11 @@
         if (document.getElementById('stp').checked) {
             document.getElementById('stp').checked = false;
             unshowSteepness();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
         }
 
         if (document.getElementById('con').checked) {
@@ -401,6 +456,11 @@
             unshowPark();
         }
 
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
         if (document.getElementById('stp').checked) {
             layer_footpath.setStyle({ visible: true });
             layer_footpath.setStyle(function (feature) {
@@ -434,6 +494,46 @@
 
     function unshowSteepness() {
         layer_footpath.setStyle({ visible: false });
+    }
+
+
+    // Filter for pedestrian
+    function showPed(ped) {
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        if (document.getElementById('con').checked) {
+            document.getElementById('con').checked = false;
+            unshowCondition();
+        }
+
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+
+        if (document.getElementById("ped").checked == true) {
+            for (var i = 0; i < ped_markers.length; i++) {
+                ped_markers[i].setVisible(true);
+            }
+        }
+        else {
+            unshowPed();
+        }
+    }
+
+    function unshowPed() {
+        for (var i = 0; i < ped_markers.length; i++) {
+            ped_markers[i].setVisible(false);
+        }
+        infowindow_sensor.close();
     }
 
     function handleLocationError(browserHasGeolocation, infowindow, pos) {
