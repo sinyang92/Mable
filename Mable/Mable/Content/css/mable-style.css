@@ -6056,6 +6056,29 @@ input.chk-btn:checked + label {
   text-transform: uppercase;
   margin-bottom: 25px; }
 
+.mable-mainHeading {
+  margin: 50px;
+  padding: 10px 0 5px;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000; }
+  @media only screen and (max-width: 768px) {
+    .mable-mainHeading {
+      padding: 10px;
+      margin: 20px; } }
+  .mable-mainHeading .title {
+    display: inline-block;
+    font-size: 45px;
+    color: #000000;
+    letter-spacing: 0;
+    text-align: left;
+    font-weight: 700;
+    padding-right: 20px;
+    position: relative;
+    top: -5px; }
+    .mable-mainHeading .title span {
+      font-size: 24px;
+      font-weight: 400; }
+
 @media print {
   /* print styles go here */
   body {
@@ -6201,8 +6224,6 @@ input.chk-btn:checked + label {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto; }
-  .mable-detail .mable-detail-map {
-    margin-top: 50px; }
   .mable-detail .mable-detail-rating h5,
   .mable-detail .mable-detail-website h5,
   .mable-detail .mable-detail-address h5 {
@@ -6215,3 +6236,15 @@ input.chk-btn:checked + label {
 
 .mable-detail-moreActions {
   margin-bottom: 50px; }
+
+.mable-mapButtons {
+  margin: 50px; }
+  @media only screen and (max-width: 768px) {
+    .mable-mapButtons {
+      margin: 20px; } }
+
+.mable-mapInfo {
+  margin: 30px; }
+  @media only screen and (max-width: 768px) {
+    .mable-mapInfo {
+      margin: 20px; } }
