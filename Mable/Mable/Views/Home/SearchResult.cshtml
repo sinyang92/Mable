@@ -21,7 +21,14 @@
 
 
 </style>
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
 <script>
+    NProgress.start();
+
+    jQuery(window).load(function () {
+        NProgress.done();
+    })
 
     var map;
     var service;
@@ -75,11 +82,6 @@
 
             result_markers.push(result_marker);
         }
-    }
-
-
-    function listResult(place) {
-
     }
 </script>
 
@@ -164,7 +166,6 @@
 </div>
 
 
-<script src='~/Scripts/nprogress.js'></script>
-<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
 

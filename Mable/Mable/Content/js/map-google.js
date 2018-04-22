@@ -8,7 +8,8 @@ var map;
 
 var directionsDisplay;
 
-var markerCluster1;
+var markerCluster_sensor;
+var markerCluster_wifi;
 
 var infowindow_parking;
 var infowindow_toilet;
@@ -236,6 +237,9 @@ function initMap() {
                 if (data[i].parking_type == "Commercial") {
                     data[i].parking_type = "Pay & Park";
                 }
+                if (data[i].parking_type == "Private") {
+                    data[i].parking_type = "Parking for staff,visitors or customers";
+                }
                 var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                 var park_marker = new google.maps.Marker({
                     position: coor,
@@ -339,7 +343,7 @@ function showSensor(sensor) {
         for (var i = 0; i < sensor_markers.length; i++) {
             sensor_markers[i].setVisible(true);
         }
-        markerCluster1 = new MarkerClusterer(map, sensor_markers, {
+        markerCluster_sensor = new MarkerClusterer(map, sensor_markers, {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
 
@@ -358,7 +362,7 @@ function unshowSensor() {
     for (var i = 0; i < sensor_markers.length; i++) {
         sensor_markers[i].setVisible(false);
     }
-    markerCluster1.clearMarkers();
+    markerCluster_sensor.clearMarkers();
     infowindow_parking.close();
 }
 
@@ -472,6 +476,9 @@ function showWifi(wifi) {
         for (var i = 0; i < wifi_markers.length; i++) {
             wifi_markers[i].setVisible(true);
         }
+        markerCluster_wifi = new MarkerClusterer(map, wifi_markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        });
     }
     else {
         unshowWifi();
@@ -482,6 +489,7 @@ function unshowWifi() {
     for (var i = 0; i < wifi_markers.length; i++) {
         wifi_markers[i].setVisible(false);
     }
+    markerCluster_wifi.clearMarkers();
     infowindow_wifi.close();
 }
 
