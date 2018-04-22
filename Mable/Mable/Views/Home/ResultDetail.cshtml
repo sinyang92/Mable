@@ -118,7 +118,7 @@
                             <li class="active">
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                    <label class="btn mable-btn-map" for='dev'><p>Under construction</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                    <label class="btn mable-btn-map" for='dev'><p>Under Construction Buildings</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
 
                                 </div>
                             </li>
@@ -128,12 +128,12 @@
                                     <label class="btn mable-btn-map" for='stp'><p>Steepness of Footpaths</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
                                 </div>
                             </li>
-                            <li>
+                            @*<li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
                                     <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
                                 </div>
-                            </li>
+                            </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
@@ -173,6 +173,7 @@
                             <div class="mable-topicHeading">
                                 Information
                             </div>
+                            <div id="tableauViz"></div>
                         </div>
                         <div>
                             <div class="mable-topicHeading">
@@ -187,6 +188,7 @@
 
                 </div>
                 <!--End map and info-->
+                @*<div id="tableauViz"></div>*@
                 <!-- Start Other Actions-->
                 <div class="row mable-detail-moreActions">
                     <div class="col-lg-12">
@@ -195,10 +197,10 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-4">                      
+                    <div class="col-lg-4">
                         <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
-                                Open in Google Map
-                        </button>               
+                            Open in Google Map
+                        </button>
                     </div>
                     <div class="col-lg-4">
                         <button class="btn mable-btn-primary-outline">Mobility Map</button>
@@ -215,7 +217,66 @@
     </div>
 
 </div>
+<script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    console.log("ready!");
+    //    initializeViz();
+    //})
+    var viz;
+    function initializeViz(id, date) {
+        var containerDiv = document.getElementById("tableauViz");
+        if (typeof viz != 'undefined') {
+            viz.dispose();
+        }
+        url = "https://public.tableau.com/views/AvgPedTrendV3/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes",
+            options = {
+                "Sensor ID": id,
+            "Date": date,
+            hideToolbar: true,
+            hideTabs: true
+            };
 
+        viz = new tableau.Viz(containerDiv, url, options);
+
+    }
+</script>
+
+@*<script>
+        var activeSheet;
+        var workbook;
+        $(document).ready(function () {
+            console.log("ready!");
+            initializeViz();
+            applyFilterOnSheet(5);
+
+        })
+        function initializeViz() {
+
+
+            var placeholderDiv = document.getElementById("tableauViz");
+            var options = {
+
+                width: "100%",
+                height: "500px",
+                onFirstInteractive: function () {
+                    workbook = viz.getWorkbook();
+                    activeSheet = workbook.getActiveSheet();
+                }
+            };
+            //var url = 'https://public.tableau.com/views/AvgPedTrendV2/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes';
+            var url = 'https://public.tableau.com/views/AvgPedTrendV3/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes';
+
+            viz = new tableauSoftware.Viz(placeholderDiv, url, options);
+        }
+        function applyFilterOnSheet(id) {
+
+            activeSheet.applyFilterAsync(
+                "Sensor ID",
+                id,
+                tableau.FilterUpdateType.REPLACE);
+           }
+    </script>*@
 <script>
     const ratings = {
        rate: @Model.rating
@@ -381,6 +442,27 @@
         /**
         * Pedestrian congestion
         */
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Novr", "Dec"
+        ];
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yy = today.getFullYear().toString().substr(-2);
+        var mon = monthNames[today.getMonth()];
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mon + '-' + yy;
+        console.log(today);
+
+
         var icon4 = {
             url: "../../Content/images/marker1.png", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
@@ -403,10 +485,12 @@
                     });
                     var content = '<div>' + 'Address: ' + data[i].sensorloc + '</div>';
                     ped_marker.content = content;
+                    ped_marker.sensor = sensor;
                     infowindow_sensor = new google.maps.InfoWindow();
                     google.maps.event.addListener(ped_marker, 'click', function () {
-                        infowindow_sensor.setContent(this.content);
-                        infowindow_sensor.open(this.getMap(), this);
+                        //infowindow_sensor.setContent(this.content);
+                        //infowindow_sensor.open(this.getMap(), this);
+                        initializeViz(this.sensor, today);
                     })
                     ped_markers.push(ped_marker);
                 }
@@ -432,10 +516,10 @@
             unshowSteepness();
         }
 
-        if (document.getElementById('con').checked) {
-            document.getElementById('con').checked = false;
-            unshowCondition();
-        }
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
 
         if (document.getElementById('ped').checked) {
             document.getElementById('ped').checked = false;
@@ -459,17 +543,17 @@
         infowindow_parking.close();
     }
 
-    //
+    // Filter for building development
     function showDevelopment() {
         if (document.getElementById('park').checked) {
             document.getElementById('park').checked = false;
             unshowPark();
         }
 
-        if (document.getElementById('con').checked) {
-            document.getElementById('con').checked = false;
-            unshowCondition();
-        }
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
 
         if (document.getElementById('stp').checked) {
             document.getElementById('stp').checked = false;
@@ -492,56 +576,56 @@
         layer_dev.setStyle({ visible: false });
     }
 
-    //
-    function showCondition() {
-        if (document.getElementById('park').checked) {
-            document.getElementById('park').checked = false;
-            unshowPark();
-        }
+    // Filter for road condition
+    //function showCondition() {
+    //    if (document.getElementById('park').checked) {
+    //        document.getElementById('park').checked = false;
+    //        unshowPark();
+    //    }
 
-        if (document.getElementById('dev').checked) {
-            document.getElementById('dev').checked = false;
-            unshowCondition();
-        }
+    //    if (document.getElementById('dev').checked) {
+    //        document.getElementById('dev').checked = false;
+    //        unshowCondition();
+    //    }
 
-        if (document.getElementById('stp').checked) {
-            document.getElementById('stp').checked = false;
-            unshowSteepness();
-        }
+    //    if (document.getElementById('stp').checked) {
+    //        document.getElementById('stp').checked = false;
+    //        unshowSteepness();
+    //    }
 
-        if (document.getElementById('ped').checked) {
-            document.getElementById('ped').checked = false;
-            unshowPed();
-        }
+    //    if (document.getElementById('ped').checked) {
+    //        document.getElementById('ped').checked = false;
+    //        unshowPed();
+    //    }
 
-        if (document.getElementById('con').checked) {
-            layer_condition.setStyle({ visible: true });
+    //    if (document.getElementById('con').checked) {
+    //        layer_condition.setStyle({ visible: true });
 
-            layer_dev.setStyle(function (feature) {
-                var status = feature.getProperty('status');
-                if (status == 'UNDER CONSTRUCTION') {
-                    return {
-                        fillColor: 'black',
-                        strokeWeight: 2,
-                        strokeColor: 'black'
-                    };
-                }
-            });
-        } else {
-            unshowCondition();
-        }
-    }
+    //        layer_dev.setStyle(function (feature) {
+    //            var status = feature.getProperty('status');
+    //            if (status == 'UNDER CONSTRUCTION') {
+    //                return {
+    //                    fillColor: 'black',
+    //                    strokeWeight: 2,
+    //                    strokeColor: 'black'
+    //                };
+    //            }
+    //        });
+    //    } else {
+    //        unshowCondition();
+    //    }
+    //}
 
-    function unshowCondition() {
-        layer_condition.setStyle({ visible: false });
-    }
+    //function unshowCondition() {
+    //    layer_condition.setStyle({ visible: false });
+    //}
 
-    //
+    // Filter for foothpath steepness
     function showSteepness() {
-        if (document.getElementById('con').checked) {
-            document.getElementById('con').checked = false;
-            unshowCondition();
-        }
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
 
         if (document.getElementById('dev').checked) {
             document.getElementById('dev').checked = false;
@@ -562,7 +646,7 @@
             layer_footpath.setStyle({ visible: true });
             layer_footpath.setStyle(function (feature) {
                 var grade = feature.getProperty('gradepc');
-                console.log("abc");
+               // console.log("abc");
                 if (grade > 0 && grade <= 1) {
 
                     return {
@@ -606,10 +690,10 @@
             unshowSteepness();
         }
 
-        if (document.getElementById('con').checked) {
-            document.getElementById('con').checked = false;
-            unshowCondition();
-        }
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
 
         if (document.getElementById('park').checked) {
             document.getElementById('park').checked = false;
