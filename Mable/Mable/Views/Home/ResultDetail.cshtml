@@ -180,7 +180,7 @@
                             </div>
 
                             <button class="btn mable-btn-primary-outline"> Current Location</button>
-                            <button class="btn mable-btn-primary-outline">Fullscreen</button>
+                            <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
                         </div>
                     </div>
                     <!-- End Map Info-->
@@ -195,8 +195,10 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline">Open in Google Map</button>
+                    <div class="col-lg-4">                      
+                        <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
+                                Open in Google Map
+                        </button>               
                     </div>
                     <div class="col-lg-4">
                         <button class="btn mable-btn-primary-outline">Mobility Map</button>
@@ -636,6 +638,9 @@
         infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
     }
 
+    function requestFullscreen() {
+        $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+    }
 
 </script>
 

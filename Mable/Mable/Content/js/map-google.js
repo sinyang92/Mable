@@ -569,7 +569,7 @@ function callback(results, status) {
             var content = '<div>' + results[i].name + '</div>' +
                 '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                 + current_location[0] + ',' + current_location[1]
-                + '&destination=' + results[i].geometry.location.lat + ',' + results[i].geometry.location.lng + '">Navigate Me</a>' + '</div>';
+                + '&destination=' + results[i].geometry.location.lat() + ',' + results[i].geometry.location.lng() + '">Navigate Me</a>' + '</div>';
             quiet_marker.content = content;
             infowindow_quiet = new google.maps.InfoWindow();
             google.maps.event.addListener(quiet_marker, 'click', function () {
@@ -580,4 +580,8 @@ function callback(results, status) {
             quiet_markers.push(quiet_marker);
         }
     }
+}
+
+function requestFullscreen() {
+    $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
 }
