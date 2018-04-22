@@ -296,16 +296,24 @@
   <ItemGroup>
     <Content Include="Content\css\mable-style.css" />
     <Content Include="Content\css\nprogress.css" />
+    <Content Include="Content\images\icon-congestion.svg" />
+    <Content Include="Content\images\icon-parking.svg" />
+    <Content Include="Content\images\icon-path-condition.svg" />
+    <Content Include="Content\images\icon-steepness.svg" />
+    <Content Include="Content\images\logo-mable-hor.svg" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker1.png" />
     <Content Include="Content\images\marker2.png" />
     <Content Include="Content\images\marker3.png" />
+    <Content Include="Content\images\melbourneBg.svg" />
     <Content Include="Content\images\off-street-parking.png" />
     <Content Include="Content\images\on-street-parking.png" />
     <Content Include="Content\images\public-toilets.png" />
+    <Content Include="Content\images\wheelchair-people.svg" />
     <Content Include="Content\js\map-google.js" />
     <Content Include="Content\js\markerclusterer.js" />
     <Content Include="favicon.ico" />
+    <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="404.aspx" />
@@ -375,6 +383,8 @@
     <Content Include="Views\Shared\_LayoutSearch.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\head.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

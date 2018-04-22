@@ -3,80 +3,209 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
+<style>
+    .stars-outer {
+        display: inline-block;
+        position: relative;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-outer::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+        }
+
+    .stars-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-inner::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+            color: #f8ce0b;
+        }
+</style>
 
 @model Mable.Classes.PlaceDetail.Result
+
 <div class="section">
     <div class="container-fluid">
         <div class="row">
 
             <!-- Start Details Content -->
             <div class="col-sm-8 col-sm-offset-2 mable-detail">
+                <!-- back button -->
+                <div class="row mable-detailBackButton">
+                    <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back to the List</a>
+                </div>
                 <!-- Image and Place Details -->
-                <div class="row ">
+                <div class="row mable-placeInfo">
+
                     <!-- Place Photo -->
-                    <div class="col-md-4 mable-detail-image text-center">
+                    <div class="col-md-5 mable-detail-image text-center">
                         <img class="img-responsive" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
 
                     </div>
                     <!-- End Photo -->
                     <!-- Place details -->
-                    <div class="col-md-8" style="padding-left: 40px;">
-                        <!-- back button -->
-                        <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back</a>
+                    <div class="col-md-7" style="padding-left: 40px;">
+
                         <!-- Place Title -->
                         <h1>
                             @Model.name
                         </h1>
-                        <div class="mable-detail-accRating">
-                            <i class="fas fa-universal-access" data-toggle=“tooltip” title='Accessibility Description'></i>
-                            @Model.accessibility_description
-                        </div>
                         <div class="mable-detail-rating">
+                            <h5>Google Rating:</h5>
+                            @*<i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>*@
 
-                            <i class="fas fa-star" data-toggle=“tooltip” title='Accessibility Rating'></i>
+                            <div class="rate">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+
+                            </div>
                             @Model.rating
                         </div>
                         <div class="mable-detail-website">
+                            <h5>Website:</h5>
                             <a href="@Model.website">@Model.website</a>
                         </div>
                         <div class="mable-detail-price">
 
                         </div>
-                        <div>
+                        <div class="mable-detail-address">
+                            <h5>Address:</h5>
                             @Model.formatted_address
                         </div>
 
                     </div>
                     <!-- End place details -->
-
-                    <div id="buttons" style="display: inline-block;">
-                        <div class="col-sm-3">
-                            <input type="checkbox" name="filter" id="dev" onclick="showDevelopment(this)">
-                            <label for='con'>Footpath Condition</label>
-
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
-                            <label for='stp'>Steepness of Footpaths</label>
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
-                            <label for='stp'>Road Condition</label>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
-                            <label for='park'>Parking</label>
-                        </div>
-
-                    </div>
-                    <!-- Start place Map -->
-                    <div class="row mable-detail-map clearfix">
-                        <div class="col-md-12">
-                            <div name="place location" id="map" style="height:300px"></div>
-                        </div>
-                    </div>
-                    <!-- End place map -->
                 </div>
+                <!--End row-->
+                <!-- Start Buttons-->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @*  <div id="buttons" style="display: inline-block;">
+                                               <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn btn-default btn-block" for='con'>Under construction</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
+                                    <label for='stp'>Steepness of Footpaths</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
+                                    <label for='stp'>Road Condition</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
+                                    <label for='park'>Parking</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
+                                    <label for='ped'>Pedestrian</label>
+                                </div>
+                            </div>*@
+
+                        <ul id="buttons" class="nav nav-tabs">
+                            <li class="active">
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn mable-btn-map" for='dev'><p>Under construction</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="stp" onclick="showSteepness(this)">
+                                    <label class="btn mable-btn-map" for='stp'><p>Steepness of Footpaths</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
+                                    <label class="btn mable-btn-map" for='park'><p>Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="ped" onclick="showPed(this)">
+                                    <label class="btn mable-btn-map" for='ped'><p>Pedestrian</p> <img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- End buttons-->
+                <!--Start map and info-->
+                <div class="row">
+                    <!-- Start Map-->
+                    <div class="col-lg-8 mable-columns">
+                        <div class="mable-topicHeading">
+                            Map
+                        </div>
+                        <!-- Start place Map -->
+                        <div class="row mable-detail-map clearfix">
+                            <div class="col-md-12">
+                                <div name="place location" id="map" style="height:80vh"></div>
+                            </div>
+                        </div>
+                        <!-- End place map -->
+                    </div>
+                    <!-- End Map-->
+                    <!-- Start Map Info-->
+                    <div class="col-lg-4 mable-columns">
+                        <div>
+                            <div class="mable-topicHeading">
+                                Information
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mable-topicHeading">
+                                Actions
+                            </div>
+
+                            <button class="btn mable-btn-primary-outline"> Current Location</button>
+                            <button class="btn mable-btn-primary-outline">Fullscreen</button>
+                        </div>
+                    </div>
+                    <!-- End Map Info-->
+
+                </div>
+                <!--End map and info-->
+                <!-- Start Other Actions-->
+                <div class="row mable-detail-moreActions">
+                    <div class="col-lg-12">
+                        <div class="mable-topicHeading">
+                            how to get there
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline">Open in Google Map</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline">Mobility Map</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline">Print Map</button>
+                    </div>
+                </div>
+                <!-- End Other Actions-->
             </div>
 
         </div>
@@ -86,15 +215,31 @@
 </div>
 
 <script>
+    const ratings = {
+       rate: @Model.rating
+    };
+    // total number of stars
+    const starTotal = 5;
+    for (const rating in ratings) {
+        const starPercentage = (ratings[rating] / starTotal) * 100;
+        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+        document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+    }
+</script>
+
+<script>
 
     var map;
 
     var layer_condition;
     var layer_dev;
     var layer_footpath;
+    var layer_ped;
 
 
+    var ped_markers = [];
     var infowindow_parking;
+    var infowindow_sensor;
     var park_markers = [];
     var current_location = [];
 
@@ -212,7 +357,7 @@
             var grade = feature.getProperty('gradepc');
             console.log("abc");
             if (grade > 0 && grade <= 1) {
-                
+
                 return {
                     fillColor: 'green',
                     strokeWeight: 1
@@ -230,6 +375,40 @@
             }
         });
         layer_footpath.setStyle({ visible: false });
+
+        /**
+        * Pedestrian congestion
+        */
+        var icon4 = {
+            url: "../../Content/images/marker1.png", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Create marker for Pedestrian congestion
+        $.getJSON("https://data.melbourne.vic.gov.au/resource/xbm5-bb4n.json",
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var sensor = data[i].sensorid;
+                    var coor = { lat: parseFloat(data[i].latitude), lng: parseFloat(data[i].longitude) };
+                    var ped_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon4,
+                        title: "Click for details"
+                    });
+                    var content = '<div>' + 'Address: ' + data[i].sensorloc + '</div>';
+                    ped_marker.content = content;
+                    infowindow_sensor = new google.maps.InfoWindow();
+                    google.maps.event.addListener(ped_marker, 'click', function () {
+                        infowindow_sensor.setContent(this.content);
+                        infowindow_sensor.open(this.getMap(), this);
+                    })
+                    ped_markers.push(ped_marker);
+                }
+            });
 
 
         // Road Condition
@@ -254,6 +433,11 @@
         if (document.getElementById('con').checked) {
             document.getElementById('con').checked = false;
             unshowCondition();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
         }
 
         if (document.getElementById("park").checked == true) {
@@ -290,6 +474,11 @@
             unshowSteepness();
         }
 
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
         if (document.getElementById('dev').checked) {
             layer_dev.setStyle({ visible: true });
         } else {
@@ -316,6 +505,11 @@
         if (document.getElementById('stp').checked) {
             document.getElementById('stp').checked = false;
             unshowSteepness();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
         }
 
         if (document.getElementById('con').checked) {
@@ -357,6 +551,11 @@
             unshowPark();
         }
 
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
         if (document.getElementById('stp').checked) {
             layer_footpath.setStyle({ visible: true });
             layer_footpath.setStyle(function (feature) {
@@ -392,6 +591,46 @@
         layer_footpath.setStyle({ visible: false });
     }
 
+
+    // Filter for pedestrian
+    function showPed(ped) {
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        if (document.getElementById('con').checked) {
+            document.getElementById('con').checked = false;
+            unshowCondition();
+        }
+
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+
+        if (document.getElementById("ped").checked == true) {
+            for (var i = 0; i < ped_markers.length; i++) {
+                ped_markers[i].setVisible(true);
+            }
+        }
+        else {
+            unshowPed();
+        }
+    }
+
+    function unshowPed() {
+        for (var i = 0; i < ped_markers.length; i++) {
+            ped_markers[i].setVisible(false);
+        }
+        infowindow_sensor.close();
+    }
+
     function handleLocationError(browserHasGeolocation, infowindow, pos) {
         infowindow.setPosition(pos);
         infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
@@ -405,7 +644,9 @@
 
 
 @*<script>
-    $(document).ready(function () {
-        $(‘[data - toggle=“tooltip”]’).tooltip();
-    });
-</script>*@
+        $(document).ready(function () {
+            $(‘[data - toggle=“tooltip”]’).tooltip();
+        });
+    </script>*@
+
+

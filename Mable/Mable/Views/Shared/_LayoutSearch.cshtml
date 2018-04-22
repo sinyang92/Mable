@@ -4,27 +4,8 @@
 
 <head>
 
-    <meta charset="utf-8" />
+    @RenderPage("head.cshtml")
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>@ViewBag.Title - Mable</title>
-
-    <script type="text/javascript" src='@Url.Content("~/Scripts/jquery-1.10.2.min.js")'></script>
-
-    @*@Styles.Render("~/Content/css")
-
-        @Scripts.Render("~/bundles/modernizr")*@
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-    
-    <link href="~/Content/css/mable-style.css?version=1.0" rel="stylesheet" type="text/css">
-
-    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
 </head>
 
@@ -37,7 +18,9 @@
                     <span class="sr-only">Toggle navigation</span>
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
-                @Html.ActionLink("MABLE", "Index", "Home", null, new { @class="navbar-brand"})
+                <img class="navbar-brand" src="~/Content/images/logo-mable-hor.svg" />
+
+                @*@Html.ActionLink("MABLE", "Index", "Home", null, new { @class = "navbar-brand" })*@
 
             </div>
 
@@ -58,7 +41,7 @@
                         @Html.ActionLink("Home", "Index", "Home")
                     </li>
                     <li class="">
-                        @Html.ActionLink("Map", "Map", "Home")
+                        @Html.ActionLink("Near Me", "Map", "Home")
                     </li>
                     <li>
                         @Html.ActionLink("About", "About", "Home")
@@ -68,7 +51,6 @@
         </div>
     </div>
     <!-- End Navbar -->
-   
     <!-- Start section -->
 
 
@@ -82,7 +64,9 @@
         </div>
 
     </div>
-
+    <footer>
+        @RenderPage("Footer.cshtml")
+    </footer>
 
     @RenderSection("scripts", required: false)
 
