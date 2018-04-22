@@ -171,8 +171,6 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
-    
-
     // Create marker for showing toilet accessibility
     $.ajax({
         cache: false,
@@ -180,11 +178,12 @@ function initMap() {
         dataType: "json",
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                if (data[i].wheelchair == "U") {
+                if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
                 var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
+                
                 var toilet_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
@@ -192,8 +191,7 @@ function initMap() {
                     icon: icon2,
                     title: "Click for details"
                 });
-                var content = '<div>' + 'Wheelchair Accessible: ' + data[i].wheelchair +
-                    '</div>' + '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
                     + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';;
                 infowindow_toilet = new google.maps.InfoWindow();
