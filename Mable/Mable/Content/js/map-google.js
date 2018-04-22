@@ -16,6 +16,8 @@ var infowindow_toilet;
 var infowindow_wifi
 var infowindow_quiet;
 
+var locInfoWindow;
+
 var current_location = [];
 var currentLatLng;
 
@@ -40,7 +42,7 @@ function initMap() {
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    var locInfoWindow = new google.maps.InfoWindow({ map: map });
+    locInfoWindow = new google.maps.InfoWindow({ map: map });
     // Try HTML5 geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -51,8 +53,8 @@ function initMap() {
             current_location.push(position.coords.latitude);
             current_location.push(position.coords.longitude);
             currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
-            locInfoWindow.setPosition(pos);
-            locInfoWindow.setContent('Your current location');
+            //locInfoWindow.setPosition(pos);
+            //locInfoWindow.setContent('Your current location');
             map.setCenter(pos);
         }, function () {
             handleLocationError(true, locInfoWindow, map.getCenter());
@@ -285,6 +287,7 @@ function initMap() {
         q: 'MEL' // query for 'MEL'
     };
     $.ajax({
+        cache: false,
         url: 'https://www.data.vic.gov.au/data/api/action/datastore_search',
         data: wifi_data,
         dataType: 'jsonp',
@@ -584,4 +587,14 @@ function callback(results, status) {
 
 function requestFullscreen() {
     $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+}
+
+function centerTocurrent() {
+    map.setCenter(currentLatLng);
+    var currentLoc_marker = new google.maps.Marker({
+        position: currentLatLng,
+        map: map,
+        visible: true,
+        title: "Your current position"
+    });
 }

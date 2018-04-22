@@ -180,7 +180,7 @@
                                 Actions
                             </div>
 
-                            <button class="btn mable-btn-primary-outline"> Current Location</button>
+                            @*<button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>*@
                             <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
                         </div>
                     </div>
@@ -305,14 +305,15 @@
     var infowindow_sensor;
     var park_markers = [];
     var current_location = [];
-
+    var currentLatLng;
 
     function initMap() {
         var lat = @Model.geometry.location.lat;
         var lng = @Model.geometry.location.lng;
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: lat, lng: lng },
-            zoom: 15
+            zoom: 15,
+            gestureHandling: 'none'
         });
 
         layer_condition = new google.maps.Data({ map: map });
@@ -330,6 +331,7 @@
                 };
                 infowindow.setPosition(pos);
                 infowindow.setContent('Your current location');
+                currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
                 //map.setCenter(pos);
             }, function () {
                 handleLocationError(true, infowindow, map.getCenter());
@@ -724,6 +726,11 @@
 
     function requestFullscreen() {
         $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+    }
+
+
+    function centerTocurrent() {
+        //map.setCenter(currentLatLng);
     }
 
 </script>
