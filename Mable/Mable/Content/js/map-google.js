@@ -358,6 +358,7 @@ function showSensor(sensor) {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
 
+        document.getElementById("tab1").click();
         //document.getElementById("").style.visibility = "hidden";
         //document.getElementById("").style.visibility = "hidden";
         //document.getElementById("").style.visibility = "hidden";
@@ -366,6 +367,7 @@ function showSensor(sensor) {
     }
     else {
         unshowSensor();
+        document.getElementById("initialTab").click();
     }
 }
 
@@ -417,9 +419,11 @@ function showToilet(toilet) {
                 directionsDisplay.setDirections(result);
             }
         })
+        document.getElementById("tab2").click();
     }
     else {
         unshowToilet();
+        document.getElementById("initialTab").click();
     }
 }
 
@@ -461,9 +465,11 @@ function showPark(park) {
         markerCluster_park = new MarkerClusterer(map, park_markers, {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
+        document.getElementById("tab3").click();
     }
     else {
         unshowPark();
+        document.getElementById("initialTab").click();
     }
 }
 
@@ -500,9 +506,11 @@ function showWifi(wifi) {
         markerCluster_wifi = new MarkerClusterer(map, wifi_markers, {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
+        document.getElementById("tab4").click();
     }
     else {
         unshowWifi();
+        document.getElementById("initialTab").click();
     }
 }
 
@@ -536,9 +544,11 @@ function showQuiet(quite) {
         for (var i = 0; i < quiet_markers.length; i++) {
             quiet_markers[i].setVisible(true);
         }
+        document.getElementById("tab5").click();
     }
     else {
         unshowQuiet();
+        document.getElementById("initialTab").click();
     }
 }
 

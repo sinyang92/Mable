@@ -117,9 +117,8 @@
                         <ul id="buttons" class="nav nav-tabs">
                             <li class="active">
                                 <div class="">
-                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                    <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
-
+                                        <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                        <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
                                 </div>
                             </li>
                             <li>
@@ -129,11 +128,11 @@
                                 </div>
                             </li>
                             @*<li>
-                                <div class="">
-                                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-                                </div>
-                            </li>*@
+                                    <div class="">
+                                        <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                                        <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                                    </div>
+                                </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
@@ -203,8 +202,8 @@
                         </button>
                     </div>
                     @*<div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline">Mobility Map</button>
-                    </div>*@
+                            <button class="btn mable-btn-primary-outline">Mobility Map</button>
+                        </div>*@
                     <div class="col-lg-4">
                         <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
                     </div>
@@ -217,12 +216,48 @@
     </div>
 
 </div>
+
+<ul class="nav nav-tabs" style="display:none">
+    <li class="active"><a data-toggle="tab" href="#initialContent" id="initialTab">initialTab</a></li>
+    <li><a data-toggle="tab" href="#tabContent1" id="tab1">tab1</a></li>
+    <li><a data-toggle="tab" href="#tabContent2" id="tab2">tab2</a></li>
+    <li><a data-toggle="tab" href="#tabContent3" id="tab3">tab3</a></li>
+    <li><a data-toggle="tab" href="#tabContent4" id="tab4">tab4</a></li>
+</ul>
+
+@*modify these div, keep the id*@
+<div class="tab-content">
+    <div id="initialContent" class="tab-pane fade in active">
+        <h3>HOME</h3>
+        <p>Some content.</p>
+    </div>
+    <div id="tabContent1" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="tabContent2" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="tabContent3" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="tabContent4" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+</div>
+
 <script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 <script>
     //$(document).ready(function () {
     //    console.log("ready!");
     //    initializeViz();
     //})
+    var markerCluster_park;
+
+
     var viz;
     function initializeViz(id, date) {
         var containerDiv = document.getElementById("tableauViz");
@@ -232,13 +267,13 @@
         url = "https://public.tableau.com/views/AvgPedV4/Sheet1?:embed=y&:display_count=yes&publish=yes",
             options = {
                 "Sensor ID": id,
-            "Date": date,
-            hideToolbar: true,
-            hideTabs: true           
+                "Date": date,
+                hideToolbar: true,
+                hideTabs: true
             };
 
         viz = new tableau.Viz(containerDiv, url, options);
-        
+
     }
 
 </script>
@@ -499,7 +534,7 @@
                         //infowindow_sensor.setContent(this.content);
                         //infowindow_sensor.open(this.getMap(), this);
                         initializeViz(this.sensor, today);
-                        
+
                     })
                     ped_markers.push(ped_marker);
                 }
@@ -539,9 +574,14 @@
             for (var i = 0; i < park_markers.length; i++) {
                 park_markers[i].setVisible(true);
             }
+            markerCluster_mark = new MarkerClusterer(map, park_markers, {
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            });
+            document.getElementById("tab3").click();
         }
         else {
             unshowPark();
+            document.getElementById("initialTab").click();
         }
     }
 
@@ -550,6 +590,7 @@
             park_markers[i].setVisible(false);
         }
         infowindow_parking.close();
+        markerCluster_park.clearMarkers();
     }
 
     // Filter for building development
@@ -576,6 +617,7 @@
 
         if (document.getElementById('dev').checked) {
             layer_dev.setStyle({ visible: true });
+            document.getElementById("tab1").click();
         } else {
             unshowDevelopment();
         }
@@ -583,6 +625,7 @@
 
     function unshowDevelopment() {
         layer_dev.setStyle({ visible: false });
+        document.getElementById("initialTab").click();
     }
 
     // Filter for road condition
@@ -652,6 +695,7 @@
         }
 
         if (document.getElementById('stp').checked) {
+            document.getElementById("tab2").click();
             layer_footpath.setStyle({ visible: true });
             layer_footpath.setStyle(function (feature) {
                 var grade = feature.getProperty('gradepc');
@@ -679,6 +723,7 @@
             });
         } else {
             unshowSteepness();
+            document.getElementById("initialTab").click();
         }
     }
 
@@ -713,9 +758,11 @@
             for (var i = 0; i < ped_markers.length; i++) {
                 ped_markers[i].setVisible(true);
             }
+            document.getElementById("tab4").click();
         }
         else {
             unshowPed();
+            document.getElementById("initialTab").click();
         }
     }
 
