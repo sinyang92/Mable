@@ -10,6 +10,7 @@ var directionsDisplay;
 
 var markerCluster_sensor;
 var markerCluster_wifi;
+var markerCluster_park;
 
 var infowindow_parking;
 var infowindow_toilet;
@@ -457,6 +458,9 @@ function showPark(park) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(true);
         }
+        markerCluster_park = new MarkerClusterer(map, park_markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        });
     }
     else {
         unshowPark();
@@ -468,6 +472,7 @@ function unshowPark() {
         park_markers[i].setVisible(false);
     }
     infowindow_parking.close();
+    markerCluster_park.clearMarkers();
 }
 
 function showWifi(wifi) {
