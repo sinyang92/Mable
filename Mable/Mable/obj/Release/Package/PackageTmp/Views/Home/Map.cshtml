@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Map";
+    ViewBag.Title = "Near Me";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,46 +18,105 @@
         margin-right: 10px;
     }
 </style>
-<div class="row" style="margin-bottom: 25px;">
-    <div class="col-sm-2" style=" max-width: 140px !important; padding-left:20px;">
-        <p style="display: inline-block; font-size:22px; ">
-            Options
-        </p>
-        <span type="button" data-toggle="modal" data-target="#mapLegend"><i class="fas fa-info-circle map-tooltip"></i></span>
 
-
+<!--Start Page Title-->
+<div class="row mable-mainHeading">
+    <div class="title">
+        NEAR ME  <span>Find amenities and information</span>
     </div>
-    @*<div id="buttons" style="display: inline-block;">*@
-    <div class="col-sm-3">
-        <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
-        @*Urban parking data*@
-        <label for='sensor' class="btn btn-default btn-block">Real-time on-street parking</label>
+ </div>
+        
+<!-- End Page Title-->
+<!-- Start Map Buttons-->
+<div class="row mable-mapButtons">
+    <ul id="buttons" class="nav nav-tabs">
+        <li class="active">
+            <div class="">
+                <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
+                <label for='sensor' class="btn mable-btn-map"> <p>Real-time on-street parking</p>  <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
 
-    </div>
-    <div class="col-sm-2">
-        <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="showToilet(this)">
-        <label for='toilet' class="btn btn-default btn-block">Public Toilet</label>
-    </div>
-    <div class="col-sm-3">
-        <input type="checkbox" name="filter" id="park" class='btn-map' onclick="showPark(this)">
-        @*Parking building*@
-        <label for='park' class="btn btn-default btn-block">Off-street parking</label>
-    </div>
-    @*</div>*@
+            </div>
+        </li>
+        <li>
+            <div class="">
+                <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="showToilet(this)">
+                <label for='toilet' class="btn mable-btn-map"><p>Public Toilet</p>  <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+            </div>
+        </li>
+        <li>
+            <div class="">
+                <input type="checkbox" name="filter" id="park" class='btn-map' onclick="showPark(this)">
+                <label for='park' class="btn mable-btn-map"><p>Off-street parking</p>  <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+            </div>
+        </li>
+        <li>
+            <div class="">
 
-
+                <input type="checkbox" name="filter" id="wifi" class='btn-map' onclick="showWifi(this)">
+                <label for='wifi' class="btn mable-btn-map"><p>Wifi Places</p> <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+            </div>
+        </li>
+        <li>
+            <div class="">
+                <input type="checkbox" name="filter" id="quite" class='btn-map' onclick="showQuiet(this)">
+                @*Quite Places*@
+                <label for='quite' class="btn mable-btn-map"><p>Quite Places</p><img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
+            </div>
+        </li>
+    </ul>
 </div>
-<div class="row">
-    @{
-        ViewBag.Title = "Map";
-    }
 
-    <div style="height:80vh; width:100%;">
-        <input id="input" type="text" placeholder="Search Place" class="form-control">
-        <div id="map" style="height:100%;">
+<!-- End Map Buttons-->
+<!-- Start Map and Info-->
+<div class="row mable-mapInfo">
+    <!-- Start Map-->
+    <div class="col-lg-8 mable-columns">
+        <div class="mable-topicHeading">
+            Map
+        </div>
+        @{
+        ViewBag.Title = "Map";
+        }
+
+        <div style="height:80vh; width:100%;">
+            <input id="input" type="text" placeholder="Search Place" class="form-control">
+            <div id="map" style="height:100%;">
+            </div>
         </div>
     </div>
+    <!-- End Map-->
+    <!-- Start map info and actions-->
+    <div class="col-lg-4 mable-columns">
+        
+        <div class="tab-content">
+            <div id="realParkingInfo" class="tab-pane fade in active">
+                 <div>
+                    <div class="mable-topicHeading">
+                        Information
+                    </div>
+                    <button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>
+                    <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
+                </div>
+            </div>
+            <div id="toiletInfo" class="tab-pane fade">
+                <h3>toliet</h3>
+                <p>Some content in menu 1.</p>
+            </div>
+            <div id="quietPlaceInfo" class="tab-pane fade">
+                <h3>quiet places</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+            <div id="wifiInfo" class="tab-pane fade">
+                <h3>wifi</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- End map info and actions-->
+
 </div>
+<!-- End Map and Info-->
 
 
 <script>
@@ -85,10 +144,10 @@
     </div>
 </div>
 
-
 <script type="text/javascript" src="~/Content/js/map-google.js">
 </script>
 
 <script src="~/Content/js/markerclusterer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places,geometry&callback=initMap">
 </script>
+

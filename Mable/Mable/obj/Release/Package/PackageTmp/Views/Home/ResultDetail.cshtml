@@ -3,74 +3,322 @@
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
+<style>
+    .stars-outer {
+        display: inline-block;
+        position: relative;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-outer::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+        }
+
+    .stars-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        font-family: Font Awesome\ 5 Free;
+    }
+
+        .stars-inner::before {
+            content: "\f005 \f005 \f005 \f005 \f005";
+            color: #f8ce0b;
+        }
+</style>
 
 @model Mable.Classes.PlaceDetail.Result
+
 <div class="section">
     <div class="container-fluid">
         <div class="row">
 
             <!-- Start Details Content -->
             <div class="col-sm-8 col-sm-offset-2 mable-detail">
+                <!-- back button -->
+                <div class="row mable-detailBackButton">
+                    <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back to the List</a>
+                </div>
                 <!-- Image and Place Details -->
-                <div class="row ">
+                <div class="row mable-placeInfo">
+
                     <!-- Place Photo -->
-                    <div class="col-md-4 mable-detail-image text-center">
+                    <div class="col-md-5 mable-detail-image text-center">
                         <img class="img-responsive" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=@Model.photo_reference&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08" />
-                        
+
                     </div>
                     <!-- End Photo -->
                     <!-- Place details -->
-                    <div class="col-md-8" style="padding-left: 40px;">
-                        <!-- back button -->
-                        <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back</a>
+                    <div class="col-md-7" style="padding-left: 40px;">
+
                         <!-- Place Title -->
                         <h1>
                             @Model.name
                         </h1>
-                        <div class="mable-detail-accRating">
-                            <i class="fas fa-universal-access" data-toggle=“tooltip” title='Accessibility Description'></i>
-                            @Model.accessibility_description
-                        </div>
                         <div class="mable-detail-rating">
-                           
-                            <i class="fas fa-star" data-toggle=“tooltip” title='Accessibility Rating'></i>
-                        @Model.rating
+                            <h5>Google Rating:</h5>
+                            @*<i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>*@
+
+                            <div class="rate">
+                                <div class="stars-outer">
+                                    <div class="stars-inner"></div>
+                                </div>
+
+                            </div>
+                            @Model.rating
                         </div>
                         <div class="mable-detail-website">
+                            <h5>Website:</h5>
                             <a href="@Model.website">@Model.website</a>
                         </div>
                         <div class="mable-detail-price">
 
                         </div>
-                        <div>
+                        <div class="mable-detail-address">
+                            <h5>Address:</h5>
                             @Model.formatted_address
                         </div>
 
                     </div>
                     <!-- End place details -->
                 </div>
-                <!-- Start place Map -->
-                <div class="row mable-detail-map clearfix">
+                <!--End row-->
+                <!-- Start Buttons-->
+                <div class="row">
                     <div class="col-md-12">
-                        <div name="place location" id="map" style="height:300px"></div>
+
+                        @*  <div id="buttons" style="display: inline-block;">
+                                               <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn btn-default btn-block" for='con'>Under construction</label>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
+                                    <label for='stp'>Steepness of Footpaths</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
+                                    <label for='stp'>Road Condition</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
+                                    <label for='park'>Parking</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
+                                    <label for='ped'>Pedestrian</label>
+                                </div>
+                            </div>*@
+
+                        <ul id="buttons" class="nav nav-tabs">
+                            <li class="active">
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn mable-btn-map" for='dev'><p>Under Construction Buildings</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="stp" onclick="showSteepness(this)">
+                                    <label class="btn mable-btn-map" for='stp'><p>Steepness of Footpaths</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                </div>
+                            </li>
+                            @*<li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                                </div>
+                            </li>*@
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
+                                    <label class="btn mable-btn-map" for='park'><p>Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="ped" onclick="showPed(this)">
+                                    <label class="btn mable-btn-map" for='ped'><p>Pedestrian</p> <img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
+                                </div>
+                            </li>
+                        </ul>
+
                     </div>
                 </div>
-                <!-- End place map -->
+                <!-- End buttons-->
+                <!--Start map and info-->
+                <div class="row">
+                    <!-- Start Map-->
+                    <div class="col-lg-8 mable-columns">
+                        <div class="mable-topicHeading">
+                            Map
+                        </div>
+                        <!-- Start place Map -->
+                        <div class="row mable-detail-map clearfix">
+                            <div class="col-md-12">
+                                <div name="place location" id="map" style="height:80vh"></div>
+                            </div>
+                        </div>
+                        <!-- End place map -->
+                    </div>
+                    <!-- End Map-->
+                    <!-- Start Map Info-->
+                    <div class="col-lg-4 mable-columns">
+                        <div>
+                            <div class="mable-topicHeading">
+                                Information
+                            </div>
+                            <div id="tableauViz"></div>
+                        </div>
+                        <div>
+                            <div class="mable-topicHeading">
+                                Actions
+                            </div>
+
+                            @*<button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>*@
+                            <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
+                        </div>
+                    </div>
+                    <!-- End Map Info-->
+
+                </div>
+                <!--End map and info-->
+                @*<div id="tableauViz"></div>*@
+                <!-- Start Other Actions-->
+                <div class="row mable-detail-moreActions">
+                    <div class="col-lg-12">
+                        <div class="mable-topicHeading">
+                            how to get there
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
+                            Open in Google Map
+                        </button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline">Mobility Map</button>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn mable-btn-primary-outline">Print Map</button>
+                    </div>
+                </div>
+                <!-- End Other Actions-->
             </div>
+
         </div>
 
     </div>
 
 </div>
+<script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    console.log("ready!");
+    //    initializeViz();
+    //})
+    var viz;
+    function initializeViz(id, date) {
+        var containerDiv = document.getElementById("tableauViz");
+        if (typeof viz != 'undefined') {
+            viz.dispose();
+        }
+        url = "https://public.tableau.com/views/AvgPedTrendV3/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes",
+            options = {
+                "Sensor ID": id,
+            "Date": date,
+            hideToolbar: true,
+            hideTabs: true
+            };
+
+        viz = new tableau.Viz(containerDiv, url, options);
+
+    }
+</script>
+
+@*<script>
+        var activeSheet;
+        var workbook;
+        $(document).ready(function () {
+            console.log("ready!");
+            initializeViz();
+            applyFilterOnSheet(5);
+
+        })
+        function initializeViz() {
+
+
+            var placeholderDiv = document.getElementById("tableauViz");
+            var options = {
+
+                width: "100%",
+                height: "500px",
+                onFirstInteractive: function () {
+                    workbook = viz.getWorkbook();
+                    activeSheet = workbook.getActiveSheet();
+                }
+            };
+            //var url = 'https://public.tableau.com/views/AvgPedTrendV2/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes';
+            var url = 'https://public.tableau.com/views/AvgPedTrendV3/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes';
+
+            viz = new tableauSoftware.Viz(placeholderDiv, url, options);
+        }
+        function applyFilterOnSheet(id) {
+
+            activeSheet.applyFilterAsync(
+                "Sensor ID",
+                id,
+                tableau.FilterUpdateType.REPLACE);
+           }
+    </script>*@
+<script>
+    const ratings = {
+       rate: @Model.rating
+    };
+    // total number of stars
+    const starTotal = 5;
+    for (const rating in ratings) {
+        const starPercentage = (ratings[rating] / starTotal) * 100;
+        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+        document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+    }
+</script>
 
 <script>
+
+    var map;
+
+    var layer_condition;
+    var layer_dev;
+    var layer_footpath;
+    var layer_ped;
+
+
+    var ped_markers = [];
+    var infowindow_parking;
+    var infowindow_sensor;
+    var park_markers = [];
+    var current_location = [];
+    var currentLatLng;
+
     function initMap() {
         var lat = @Model.geometry.location.lat;
         var lng = @Model.geometry.location.lng;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: lat, lng: lng},
-          zoom: 15
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: lat, lng: lng },
+            zoom: 15,
+            gestureHandling: 'none'
         });
+
+        layer_condition = new google.maps.Data({ map: map });
+        layer_dev = new google.maps.Data({ map: map });
+        layer_footpath = new google.maps.Data({ map: map });
 
         var infowindow = new google.maps.InfoWindow();
 
@@ -83,6 +331,7 @@
                 };
                 infowindow.setPosition(pos);
                 infowindow.setContent('Your current location');
+                currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
                 //map.setCenter(pos);
             }, function () {
                 handleLocationError(true, infowindow, map.getCenter());
@@ -94,35 +343,406 @@
         var service = new google.maps.places.PlacesService(map);
 
         service.getDetails({
-          placeId: '@Model.place_id'
-        }, function(place, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                'Place ID: ' + place.place_id + '<br>' +
-                place.formatted_address + '</div>');
-              infowindow.open(map, this);
-            });
-          }
+            placeId: '@Model.place_id'
+        }, function (place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                        'Place ID: ' + place.place_id + '<br>' +
+                        place.formatted_address + '</div>');
+                    infowindow.open(map, this);
+                });
+            }
         });
+
+        /**
+   * Off street parking markers
+   */
+        var icon3 = {
+            url: "../../Content/images/off-street-parking.png", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Create marker for showing parking type and parking spaces
+        $.getJSON("https://data.melbourne.vic.gov.au/resource/9xmh-yeh2.json",
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].parking_type == "Residential") {
+                        continue;
+                    }
+                    if (data[i].parking_type == "Commercial") {
+                        data[i].parking_type = "Pay & Park";
+                    }
+                    var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
+                    var park_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon3,
+                        title: "Click for details"
+                    });
+                    var content = '<div>' + 'Parking Type: ' + data[i].parking_type + '</div>' +
+                        '<div>' + 'Parking Spaces: ' + data[i].parking_spaces + '</div>';
+                    park_marker.content = content;
+                    infowindow_parking = new google.maps.InfoWindow();
+                    google.maps.event.addListener(park_marker, 'click', function () {
+                        infowindow_parking.setContent(this.content);
+                        infowindow_parking.open(this.getMap(), this);
+                    })
+                    park_markers.push(park_marker);
+                }
+            });
+
+        //  3D development
+        var dev_geojson = @Html.Raw(ViewBag.dev);
+        layer_dev.addGeoJson(dev_geojson);
+
+        layer_dev.setStyle(function (feature) {
+                    var status = feature.getProperty('status');
+                    if (status == 'UNDER CONSTRUCTION') {
+                        return {
+                            fillColor: 'black',
+                            strokeWeight: 1
+                        };
+                    }
+        });
+        layer_dev.setStyle({ visible: false });
+
+        //foothpath steepness
+        var stp_geojson = @Html.Raw(ViewBag.stp);
+        layer_footpath.addGeoJson(stp_geojson);
+
+        layer_footpath.setStyle(function (feature) {
+            var grade = feature.getProperty('gradepc');
+            console.log("abc");
+            if (grade > 0 && grade <= 1) {
+
+                return {
+                    fillColor: 'green',
+                    strokeWeight: 1
+                };
+            } else if (grade > 1 && grade <= 6) {
+                return {
+                    fillColor: 'yellow',
+                    strokeWeight: 1
+                };
+            } else if (grade > 6) {
+                return {
+                    fillColor: 'red',
+                    strokeWeight: 1
+                };
+            }
+        });
+        layer_footpath.setStyle({ visible: false });
+
+        /**
+        * Pedestrian congestion
+        */
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Novr", "Dec"
+        ];
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yy = today.getFullYear().toString().substr(-2);
+        var mon = monthNames[today.getMonth()];
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = dd + '-' + mon + '-' + yy;
+        console.log(today);
+
+
+        var icon4 = {
+            url: "../../Content/images/marker1.png", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Create marker for Pedestrian congestion
+        $.getJSON("https://data.melbourne.vic.gov.au/resource/xbm5-bb4n.json",
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var sensor = data[i].sensorid;
+                    var coor = { lat: parseFloat(data[i].latitude), lng: parseFloat(data[i].longitude) };
+                    var ped_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon4,
+                        title: "Click for details"
+                    });
+                    var content = '<div>' + 'Address: ' + data[i].sensorloc + '</div>';
+                    ped_marker.content = content;
+                    ped_marker.sensor = sensor;
+                    infowindow_sensor = new google.maps.InfoWindow();
+                    google.maps.event.addListener(ped_marker, 'click', function () {
+                        //infowindow_sensor.setContent(this.content);
+                        //infowindow_sensor.open(this.getMap(), this);
+                        initializeViz(this.sensor, today);
+                    })
+                    ped_markers.push(ped_marker);
+                }
+            });
+
+
+        // Road Condition
+        //var con_geojson = @Html.Raw(ViewBag.con);
+        //layer_condition.addGeoJson(con_geojson);
+
+        //layer_condition.setStyle({ visible: false });
+    }
+
+    // Filter for parking space
+    function showPark(park) {
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
+        if (document.getElementById("park").checked == true) {
+            for (var i = 0; i < park_markers.length; i++) {
+                park_markers[i].setVisible(true);
+            }
+        }
+        else {
+            unshowPark();
+        }
+    }
+
+    function unshowPark() {
+        for (var i = 0; i < park_markers.length; i++) {
+            park_markers[i].setVisible(false);
+        }
+        infowindow_parking.close();
+    }
+
+    // Filter for building development
+    function showDevelopment() {
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
+        if (document.getElementById('dev').checked) {
+            layer_dev.setStyle({ visible: true });
+        } else {
+            unshowDevelopment();
+        }
+    }
+
+    function unshowDevelopment() {
+        layer_dev.setStyle({ visible: false });
+    }
+
+    // Filter for road condition
+    //function showCondition() {
+    //    if (document.getElementById('park').checked) {
+    //        document.getElementById('park').checked = false;
+    //        unshowPark();
+    //    }
+
+    //    if (document.getElementById('dev').checked) {
+    //        document.getElementById('dev').checked = false;
+    //        unshowCondition();
+    //    }
+
+    //    if (document.getElementById('stp').checked) {
+    //        document.getElementById('stp').checked = false;
+    //        unshowSteepness();
+    //    }
+
+    //    if (document.getElementById('ped').checked) {
+    //        document.getElementById('ped').checked = false;
+    //        unshowPed();
+    //    }
+
+    //    if (document.getElementById('con').checked) {
+    //        layer_condition.setStyle({ visible: true });
+
+    //        layer_dev.setStyle(function (feature) {
+    //            var status = feature.getProperty('status');
+    //            if (status == 'UNDER CONSTRUCTION') {
+    //                return {
+    //                    fillColor: 'black',
+    //                    strokeWeight: 2,
+    //                    strokeColor: 'black'
+    //                };
+    //            }
+    //        });
+    //    } else {
+    //        unshowCondition();
+    //    }
+    //}
+
+    //function unshowCondition() {
+    //    layer_condition.setStyle({ visible: false });
+    //}
+
+    // Filter for foothpath steepness
+    function showSteepness() {
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
+
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
+        if (document.getElementById('stp').checked) {
+            layer_footpath.setStyle({ visible: true });
+            layer_footpath.setStyle(function (feature) {
+                var grade = feature.getProperty('gradepc');
+               // console.log("abc");
+                if (grade > 0 && grade <= 1) {
+
+                    return {
+                        fillColor: 'green',
+                        strokeWeight: 2,
+                        strokeColor: 'green'
+                    };
+                } else if (grade > 1 && grade <= 6) {
+                    return {
+                        fillColor: 'yellow',
+                        strokeWeight: 2,
+                        strokeColor: 'yellow'
+                    };
+                } else  {
+                    return {
+                        fillColor: 'red',
+                        strokeWeight: 2,
+                        strokeColor: 'red'
+                    };
+                }
+            });
+        } else {
+            unshowSteepness();
+        }
+    }
+
+    function unshowSteepness() {
+        layer_footpath.setStyle({ visible: false });
+    }
+
+
+    // Filter for pedestrian
+    function showPed(ped) {
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        //if (document.getElementById('con').checked) {
+        //    document.getElementById('con').checked = false;
+        //    unshowCondition();
+        //}
+
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+
+        if (document.getElementById("ped").checked == true) {
+            for (var i = 0; i < ped_markers.length; i++) {
+                ped_markers[i].setVisible(true);
+            }
+        }
+        else {
+            unshowPed();
+        }
+    }
+
+    function unshowPed() {
+        for (var i = 0; i < ped_markers.length; i++) {
+            ped_markers[i].setVisible(false);
+        }
+        infowindow_sensor.close();
     }
 
     function handleLocationError(browserHasGeolocation, infowindow, pos) {
         infowindow.setPosition(pos);
         infowindow.setContent(browserHasGeolocation ? 'Error:You need to enable location' : 'Error:Your browser doesn\'t support geolocation.');
     }
-</script>
 
+    function requestFullscreen() {
+        $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+    }
+
+
+    function centerTocurrent() {
+        //map.setCenter(currentLatLng);
+    }
+
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
 </script>
 
-<script>
-    $(document).ready(function () {
-        $(‘[data - toggle=“tooltip”]’).tooltip();
-    });
-</script>
+
+@*<script>
+        $(document).ready(function () {
+            $(‘[data - toggle=“tooltip”]’).tooltip();
+        });
+    </script>*@
+
+

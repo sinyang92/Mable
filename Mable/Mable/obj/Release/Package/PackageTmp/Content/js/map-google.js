@@ -6,14 +6,25 @@ var quiet_markers = [];
 
 var map;
 
-var markerCluster1;
+var directionsDisplay;
+
+var markerCluster_sensor;
+var markerCluster_wifi;
 
 var infowindow_parking;
 var infowindow_toilet;
 var infowindow_wifi
 var infowindow_quiet;
 
+var locInfoWindow;
+
 var current_location = [];
+var currentLatLng;
+
+var icon5;
+
+var cloest_toilet = -1;
+var distance_toilet = [];
 
 
 function initMap() {
@@ -22,7 +33,7 @@ function initMap() {
         zoom: 15,
         center: centre
     });
-
+    
     /**
      * Begin Search function inside the map
      */
@@ -31,7 +42,7 @@ function initMap() {
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    var locInfoWindow = new google.maps.InfoWindow({ map: map });
+    locInfoWindow = new google.maps.InfoWindow({ map: map });
     // Try HTML5 geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -41,8 +52,9 @@ function initMap() {
             };
             current_location.push(position.coords.latitude);
             current_location.push(position.coords.longitude);
-            locInfoWindow.setPosition(pos);
-            locInfoWindow.setContent('Your current location');
+            currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
+            //locInfoWindow.setPosition(pos);
+            //locInfoWindow.setContent('Your current location');
             map.setCenter(pos);
         }, function () {
             handleLocationError(true, locInfoWindow, map.getCenter());
@@ -162,13 +174,17 @@ function initMap() {
     };
 
     // Create marker for showing toilet accessibility
-    $.getJSON("https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
-        function (data) {
+    $.ajax({
+        cache: false,
+        url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
+        dataType: "json",
+        success: function (data) {
             for (var i = 0; i < data.length; i++) {
-                if (data[i].wheelchair == "U") {
+                if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
+                var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
                 
                 var toilet_marker = new google.maps.Marker({
                     position: coor,
@@ -177,8 +193,7 @@ function initMap() {
                     icon: icon2,
                     title: "Click for details"
                 });
-                var content = '<div>' + 'Wheelchair Accessible: ' + data[i].wheelchair +
-                    '</div>' + '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
                     + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';;
                 infowindow_toilet = new google.maps.InfoWindow();
@@ -188,12 +203,20 @@ function initMap() {
                     infowindow_toilet.open(this.getMap(), this);
                 })
                 toilet_markers.push(toilet_marker);
-            }
-        });
-    /** 
-     * End toilet markers
-     * /
 
+
+                var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
+
+                distance_toilet.push(dist);
+                if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
+                    cloest_toilet = i;
+                }
+            }
+            //alert(distance_toilet[cloest_toilet]/1000 + 'km');
+        }
+
+        });
+    
     /**
      * Off street parking markers
      */
@@ -213,6 +236,9 @@ function initMap() {
                 }
                 if (data[i].parking_type == "Commercial") {
                     data[i].parking_type = "Pay & Park";
+                }
+                if (data[i].parking_type == "Private") {
+                    data[i].parking_type = "Parking for staff,visitors or customers";
                 }
                 var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                 var park_marker = new google.maps.Marker({
@@ -236,16 +262,32 @@ function initMap() {
                 park_markers.push(park_marker);
             }
         });
-
+     /**
+     * Quite Place icon
+     */
+    icon5 = {
+        url: "../Content/images/marker3.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
     /**
      * Wifi Access Points
      */
+
+    var icon4 = {
+        url: "../Content/images/marker2.png", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
     var wifi_data = {
         resource_id: '1922597e-c989-4ebd-bec9-afcc284e5b2c', // the resource id
         limit: 999, // if limit is not set, max 100 results returned by default
         q: 'MEL' // query for 'MEL'
     };
     $.ajax({
+        cache: false,
         url: 'https://www.data.vic.gov.au/data/api/action/datastore_search',
         data: wifi_data,
         dataType: 'jsonp',
@@ -257,7 +299,7 @@ function initMap() {
                     position: coor,
                     map: map,
                     visible: false,
-                    icon: icon3,
+                    icon: icon4,
                     title: "Click for details"
                 });
                 var content = '<div>' + records[i]['Long Name'] + '</div>' +
@@ -276,63 +318,7 @@ function initMap() {
         }
     });
 
-    //color the steepness of 0%-1% green---> totally accessible 
-    //color the steepness of 1%-6% yellow ------->manageable steepness
-    //color the steepness >6% --------> uncomfortable and challenging steepness
-
-    //Status ---> Applied, Approved and Under Construction, and Complete.
-
-
-    map.data.loadGeoJson('https://data.melbourne.vic.gov.au/api/geospatial/rpt3-2axt?method=export&format=GeoJSON');
-
-    map.data.loadGeoJson('https://mable.ml/Road_segment.geojson');
-
-
-    map.data.loadGeoJson(
-        'https://data.melbourne.vic.gov.au/api/geospatial/def8-4wbt?method=export&format=GeoJSON');
-
-    map.data.setStyle(function (feature) {
-        var grade = feature.getProperty('gradepc');
-        var status = feature.getProperty('status');
-        if (grade > 0 && grade < 1) {
-            return {
-                fillColor: 'green',
-                strokeWeight: 1
-            };
-        } else if (grade > 1 && grade < 6) {
-            return {
-                fillColor: 'yellow',
-                strokeWeight: 1
-            };
-        } else if (grade > 6) {
-            return {
-                fillColor: 'red',
-                strokeWeight: 1
-            };
-        }
-
-        if (status == 'APPLIED') {
-            return {
-                fillColor: 'blue',
-                strokeWeight: 1
-            };
-        } else if (status == 'APPROVED') {
-            return {
-                fillColor: 'orange',
-                strokeWeight: 1
-            };
-        } else if (status == 'COMPLETED') {
-            return {
-                fillColor: 'black',
-                strokeWeight: 1
-            };
-        } else {
-            return {
-                fillColor: 'purple',
-                strokeWeight: 1
-            };
-        }
-    });
+    showQuietPlaces();
 }
 
 // Filter for real-time on-street parking
@@ -345,14 +331,28 @@ function showSensor(sensor) {
         document.getElementById("park").checked = false;
         unshowPark();
     }
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
 
     if (document.getElementById("sensor").checked == true) {
         for (var i = 0; i < sensor_markers.length; i++) {
             sensor_markers[i].setVisible(true);
         }
-        markerCluster1 = new MarkerClusterer(map, sensor_markers, {
+        markerCluster_sensor = new MarkerClusterer(map, sensor_markers, {
             imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         });
+
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "hidden";
+        //document.getElementById("").style.visibility = "visible";
     }
     else {
         unshowSensor();
@@ -363,7 +363,7 @@ function unshowSensor() {
     for (var i = 0; i < sensor_markers.length; i++) {
         sensor_markers[i].setVisible(false);
     }
-    markerCluster1.clearMarkers();
+    markerCluster_sensor.clearMarkers();
     infowindow_parking.close();
 }
 
@@ -377,11 +377,33 @@ function showToilet(toilet) {
         document.getElementById("park").checked = false;
         unshowPark();
     }
-
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("toilet").checked == true) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
+        var request = {
+            origin: currentLatLng,
+            destination: toilet_markers[cloest_toilet].position,
+            travelMode: 'DRIVING'
+        };
+        var directionsService = new google.maps.DirectionsService();
+        directionsService.route(request, function (result, status) {
+            if (status == 'OK') {
+                directionsDisplay = new google.maps.DirectionsRenderer({
+                    map: map,
+                    suppressMarkers: true
+                });
+                directionsDisplay.setDirections(result);
+            }
+        })
     }
     else {
         unshowToilet();
@@ -393,6 +415,8 @@ function unshowToilet() {
         toilet_markers[i].setVisible(false);
     }
     infowindow_toilet.close();
+
+    directionsDisplay.setMap(null);
 }
 
 // Filter for parking space
@@ -406,7 +430,14 @@ function showPark(park) {
         document.getElementById("toilet").checked = false;
         unshowToilet();
     }
-
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("park").checked == true) {
         for (var i = 0; i < park_markers.length; i++) {
             park_markers[i].setVisible(true);
@@ -425,10 +456,30 @@ function unshowPark() {
 }
 
 function showWifi(wifi) {
+    if (document.getElementById("sensor").checked) {
+        document.getElementById("sensor").checked = false;
+        unshowSensor();
+
+    }
+    if (document.getElementById("toilet").checked) {
+        document.getElementById("toilet").checked = false;
+        unshowToilet();
+    }
+    if (document.getElementById("park").checked) {
+        document.getElementById("park").checked = false;
+        unshowPark();
+    }
+    if (document.getElementById("quite").checked) {
+        document.getElementById("quite").checked = false;
+        unshowQuiet();
+    }
     if (document.getElementById("wifi").checked == true) {
         for (var i = 0; i < wifi_markers.length; i++) {
             wifi_markers[i].setVisible(true);
         }
+        markerCluster_wifi = new MarkerClusterer(map, wifi_markers, {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        });
     }
     else {
         unshowWifi();
@@ -439,11 +490,29 @@ function unshowWifi() {
     for (var i = 0; i < wifi_markers.length; i++) {
         wifi_markers[i].setVisible(false);
     }
+    markerCluster_wifi.clearMarkers();
     infowindow_wifi.close();
 }
 
-function showQuiet(quiet) {
-    if (document.getElementById("quiet").checked == true) {
+function showQuiet(quite) {
+    if (document.getElementById("sensor").checked) {
+        document.getElementById("sensor").checked = false;
+        unshowSensor();
+
+    }
+    if (document.getElementById("toilet").checked) {
+        document.getElementById("toilet").checked = false;
+        unshowToilet();
+    }
+    if (document.getElementById("park").checked) {
+        document.getElementById("park").checked = false;
+        unshowPark();
+    }
+    if (document.getElementById("wifi").checked) {
+        document.getElementById("wifi").checked = false;
+        unshowWifi();
+    }
+    if (document.getElementById("quite").checked == true) {
         for (var i = 0; i < quiet_markers.length; i++) {
             quiet_markers[i].setVisible(true);
         }
@@ -472,15 +541,24 @@ function handleLocationError(browserHasGeolocation, infowindow, pos) {
     alert("We can't get your current location. Please make sure you enable location in browser.");
 }
 
+
+/**
+ * Get the quiet places using Google Nearby Search
+ */
 function showQuietPlaces() {
     var service = new google.maps.places.PlacesService(map);
+    var location = new google.maps.LatLng(-37.8136, 144.9631);
     service.nearbySearch({
-        location: { lat: current_location[0], lng: current_location[1] },
-        radius: 1000,
-        type: ['library', 'park']
+        location: location,
+        radius: '1000',
+        types: ['library','park']
     }, callback);
 }
 
+/**
+ * Callback function to do with the data return from Google Nearby Search
+ * Create the markers
+ */
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
@@ -488,13 +566,13 @@ function callback(results, status) {
                 position: results[i].geometry.location,
                 map: map,
                 visible: false,
-                icon: icon3,
+                icon: icon5,
                 title: "Click for details"
             });
             var content = '<div>' + results[i].name + '</div>' +
                 '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                 + current_location[0] + ',' + current_location[1]
-                + '&destination=' + results[i].geometry.location.lat + ',' + results[i].geometry.location.lng + '">Navigate Me</a>' + '</div>';
+                + '&destination=' + results[i].geometry.location.lat() + ',' + results[i].geometry.location.lng() + '">Navigate Me</a>' + '</div>';
             quiet_marker.content = content;
             infowindow_quiet = new google.maps.InfoWindow();
             google.maps.event.addListener(quiet_marker, 'click', function () {
@@ -505,4 +583,18 @@ function callback(results, status) {
             quiet_markers.push(quiet_marker);
         }
     }
+}
+
+function requestFullscreen() {
+    $('#map div.gm-style button[title="Toggle fullscreen view"]').trigger('click');
+}
+
+function centerTocurrent() {
+    map.setCenter(currentLatLng);
+    var currentLoc_marker = new google.maps.Marker({
+        position: currentLatLng,
+        map: map,
+        visible: true,
+        title: "Your current position"
+    });
 }

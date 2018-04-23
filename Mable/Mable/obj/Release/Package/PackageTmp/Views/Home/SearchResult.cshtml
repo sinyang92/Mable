@@ -8,25 +8,28 @@
 
 @using PagedList.Mvc
 
-<style>
-    /*#map {
-        height: 100%;
-    }
 
-    html.body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }*/
-
+<<<<<<< HEAD
 
 </style>
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+=======
+>>>>>>> c613196ebfc26ea3e3156c65fb2ae3e51e22fa72
 <script>
+    NProgress.start();
+
+    jQuery(window).load(function () {
+        NProgress.done();
+    })
+
     var map;
     var service;
     var infowindow;
 
-
+    var result_list = [];
+    var result_markers = [];
+    var infowindow_result;
 
     function initialize() {
         var pyrmont = new google.maps.LatLng(-37.812479, 144.96150);
@@ -36,57 +39,50 @@
             zoom: 15
         });
 
-        var keyword = '@ViewBag.searchKeyWord';
-        var request = {
-            location: pyrmont,
-            radius: '500',
-            query: keyword
-        };
+        result_list = @Html.Raw(Json.Encode(Model));
 
-        infowindow = new google.maps.InfoWindow()
-        service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, callback);
-    }
+        for (var i = 0; i < result_list.length; i++) {
+            var result_marker = new google.maps.Marker({
+                map: map,
+                position: result_list[i].geometry.location,
+                visible: true,
+            });
+            var id = result_list[i].id;
+            var link = '@Url.Action("ResultDetail", new { id = "-1" })';
+            link = link.replace("-1", id);
+            var content = '<div>' + result_list[i].name + '</div>' +
+                '<div><a href="' + link + '">Detail</a>' + '</div>';
 
-    function callback(results, status) {
-        //TODO: GET buildings from view and compare
-        //var buildings = '@ViewBag.buildings'
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                var place = results[i];
-                createMarker(results[i]);
-                listResult(place);
-            }
+            infowindow_result = new google.maps.InfoWindow();
+            result_marker.content = content;
+            result_marker.id = id;
+            google.maps.event.addListener(result_marker, 'click', function () {
+                infowindow_result.setContent(this.content);
+                infowindow_result.open(this.getMap(), this);
+
+                window.location.href = "#" + this.id;
+            });
+
+            // when mouse enters the area of marker icon
+            google.maps.event.addListener(result_marker, 'mouseover', function () {
+                document.getElementById(this.id).style.border = "4px solid #FFE200";
+            });
+
+            // when mouse leaves the area of mouse icon
+            google.maps.event.addListener(result_marker, 'mouseout', function () {
+                document.getElementById(this.id).style.border = "none";
+            });
+
+            result_markers.push(result_marker);
         }
-    }
-
-    function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            visible: true,
-        });
-        marker.setMap(map);
-
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(place.name);
-            infowindow.open(map, this);
-        });
-    }
-
-    function listResult(place) {
-
     }
 </script>
 
-<!-- Search -->
+<!-- Start Search input -->
+<div class="row mable-searchInput">
+    <div class="col-md-12 text-center">
 
-<div class="row">
-
-    <div class="mable-homeSearch col-md-12 text-center">
-
-        <div class="title">Search</div>
+        <div class="title">Discover</div>
 
         @using (Html.BeginForm("SearchResult", "Home"))
 
@@ -96,63 +92,72 @@
 
         }
 
-
-
-
-
     </div>
-
 </div>
-<!--End Search -->
-
+<!--End Search Input -->
+<!-- Start List Results -->
 <div class="row">
-
-
-    @if (ViewBag.HasResult == false)
-    {
-        <!--Start No Results Message -->
-        <div class="col-sm-8 col-sm-offset-2">
-            No result
-        </div>
-    }
-
-
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-8 col-sm-offset-2  mable-CardResult">
-            <div class="row">
-                <a href="@Url.Action("ResultDetail", new { id = item.id })">
-                    <figcaption class="col-lg-8">
-                        <h1 class="mable-CardResult-title">
-                            @item.name
-                        </h1>
-                        <div class="mable-CardResult-address">
-                            @*@item.formatted_address*@
-                            @item.vicinity
-                        </div>
-                        <i class="fas fa-star"></i> @item.rating
-                    </figcaption>
-                    <div class="col-lg-2">
-                        <div class="mable-CardResult-accRating">
-                            <p>Accessibility Rating</p>
-
-                            <i class="fas fa-universal-access" style="font-size: 28px;">
-                                @item.accessibility_rating
-                            </i>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-2">
-                        <i class="fas fa-info-circle"> </i> @Html.ActionLink(" Check more", "ResultDetail", new { id = item.id })
-
-                    </div>
-                </a>
+    <!-- start list-->
+    <div class="col-sm-6 mable-listResults">
+        <div class="row" style="height:80vh; overflow-y:auto">
+            <div class="mable-topicHeading">
+                Search Results
             </div>
+            @if (ViewBag.HasResult == false)
+            {
+                <!--Start No Results Message -->
+                <div class="col-sm-8 col-sm-offset-2">
+                    No result
+                </div>
+            }
+
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12  mable-CardResult" id="@item.id">
+                    <div class="row">
+                        <a href="@Url.Action("ResultDetail", new { id = item.id })">
+                            <div class="col-lg-8">
+                                <h1 class="mable-CardResult-title">
+                                    @item.name
+                                </h1>
+                                <div class="mable-CardResult-address">
+                                    @item.vicinity
+                                </div>
+                                <i class="fas fa-star"></i> Google Place Rating: @item.rating
+                            </div>
+
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
-    }
+    </div>
+    <!-- End list-->
+    <!-- Start Results on Map-->
+    <div class="col-sm-6 mable-listResults">
+        <div class="row">
+            <div class="mable-topicHeading">
+                Search Results on Map
+            </div>
+            <div class="col-sm-12">
+                <div style="height:70vh; width:100%; max-height:80vh;">
+                    <div id="map" style="height:100%;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Results on Map-->
 </div>
+<<<<<<< HEAD
 
 
-<!--
+
+=======
+<!-- Start List Results -->
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+>>>>>>> c613196ebfc26ea3e3156c65fb2ae3e51e22fa72
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initialize"></script>
--->
+
