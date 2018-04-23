@@ -24,7 +24,7 @@ var currentLatLng;
 var icon5;
 
 var cloest_toilet = -1;
-var distance_toilet = [];
+
 
 
 function initMap() {
@@ -33,7 +33,7 @@ function initMap() {
         zoom: 15,
         center: centre
     });
-    
+
     /**
      * Begin Search function inside the map
      */
@@ -115,7 +115,7 @@ function initMap() {
      * End Search function inside the map
      */
 
-    
+
     /**
      * Start on-street parking markers
      */
@@ -134,7 +134,7 @@ function initMap() {
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
-                
+
                 var sensor_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
@@ -150,13 +150,13 @@ function initMap() {
 
                 infowindow_parking = new google.maps.InfoWindow();
                 sensor_marker.content = content;
-                google.maps.event.addListener(sensor_marker, 'click', function () {  
+                google.maps.event.addListener(sensor_marker, 'click', function () {
                     infowindow_parking.setContent(this.content);
                     infowindow_parking.open(this.getMap(), this);
                 })
                 sensor_markers.push(sensor_marker);
             }
- 
+
         });
     /**
      * End on-street parking markers
@@ -173,6 +173,7 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
+    var distance_toilet = [];
     // Create marker for showing toilet accessibility
     $.ajax({
         cache: false,
@@ -181,11 +182,12 @@ function initMap() {
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
+                    
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
                 var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
-                
+
                 var toilet_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
@@ -195,28 +197,27 @@ function initMap() {
                 });
                 var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
-                    + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';;
+                    + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
                 infowindow_toilet = new google.maps.InfoWindow();
                 toilet_marker.content = content;
                 google.maps.event.addListener(toilet_marker, 'click', function () {
                     infowindow_toilet.setContent(this.content);
                     infowindow_toilet.open(this.getMap(), this);
-                })
+                });
                 toilet_markers.push(toilet_marker);
 
-
                 var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
-
                 distance_toilet.push(dist);
                 if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
-                    cloest_toilet = i;
+                    cloest_toilet = distance_toilet.indexOf(dist);
                 }
             }
             //alert(distance_toilet[cloest_toilet]/1000 + 'km');
+            
         }
 
-        });
-    
+    });
+
     /**
      * Off street parking markers
      */
@@ -262,9 +263,9 @@ function initMap() {
                 park_markers.push(park_marker);
             }
         });
-     /**
-     * Quite Place icon
-     */
+    /**
+    * Quite Place icon
+    */
     icon5 = {
         url: "../Content/images/marker3.png", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
@@ -416,7 +417,10 @@ function unshowToilet() {
     }
     infowindow_toilet.close();
 
-    directionsDisplay.setMap(null);
+    if (typeof directionsDisplay != 'undefined') {
+        directionsDisplay.setMap(null);
+    }
+    
 }
 
 // Filter for parking space
@@ -424,7 +428,7 @@ function showPark(park) {
     if (document.getElementById("sensor").checked) {
         document.getElementById("sensor").checked = false;
         unshowSensor();
-        
+
     }
     if (document.getElementById("toilet").checked) {
         document.getElementById("toilet").checked = false;
@@ -551,7 +555,7 @@ function showQuietPlaces() {
     service.nearbySearch({
         location: location,
         radius: '1000',
-        types: ['library','park']
+        types: ['library', 'park']
     }, callback);
 }
 
