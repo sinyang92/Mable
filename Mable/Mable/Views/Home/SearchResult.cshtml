@@ -14,11 +14,13 @@
 <link rel='stylesheet' href='~/Content/css/nprogress.css' />
 
 <script>
-    NProgress.start();
-
-    jQuery(window).load(function () {
-        NProgress.done();
+    $(document).ready(function () {
+        NProgress.start();
     })
+
+    window.onload = function () {
+        NProgress.done();
+    }
 
     var map;
     var service;
