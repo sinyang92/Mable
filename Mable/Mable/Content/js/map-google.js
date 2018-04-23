@@ -119,6 +119,63 @@ function initMap() {
      * End Search function inside the map
      */
 
+    google.maps.event.addListenerOnce(map, 'idle', function () {
+        /**
+     * Start toilet markers
+     */
+        var icon2 = {
+            url: "../Content/images/public-toilets.png", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Create marker for showing toilet accessibility
+        $.ajax({
+            cache: false,
+            url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
+            dataType: "json",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
+                        continue;
+                    }
+                    var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
+                    var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
+
+                    var toilet_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon2,
+                        title: "Click for details"
+                    });
+                    var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                        + current_location[0] + ',' + current_location[1]
+                        + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
+                    infowindow_toilet = new google.maps.InfoWindow();
+                    toilet_marker.content = content;
+                    google.maps.event.addListener(toilet_marker, 'click', function () {
+                        infowindow_toilet.setContent(this.content);
+                        infowindow_toilet.open(this.getMap(), this);
+                    });
+                    toilet_markers.push(toilet_marker);
+
+
+
+                    var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
+                    distance_toilet.push(dist);
+                    if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
+                        cloest_toilet = distance_toilet.indexOf(dist);
+                    }
+                }
+                //alert(distance_toilet[cloest_toilet]/1000 + 'km');
+
+            }
+
+        });
+    });
+
 
     /**
      * Start on-street parking markers
@@ -167,64 +224,7 @@ function initMap() {
      */
 
 
-    /**
-     * Start toilet markers
-     */
-    var icon2 = {
-        url: "../Content/images/public-toilets.png", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
-        origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
-    };
-
-    // Create marker for showing toilet accessibility
-    $.ajax({
-        cache: false,
-        url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
-        dataType: "json",
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
-                    continue;
-                }
-                var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
-                var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
-
-                var toilet_marker = new google.maps.Marker({
-                    position: coor,
-                    map: map,
-                    visible: false,
-                    icon: icon2,
-                    title: "Click for details"
-                });
-                var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
-                    + current_location[0] + ',' + current_location[1]
-                    + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
-                infowindow_toilet = new google.maps.InfoWindow();
-                toilet_marker.content = content;
-                google.maps.event.addListener(toilet_marker, 'click', function () {
-                    infowindow_toilet.setContent(this.content);
-                    infowindow_toilet.open(this.getMap(), this);
-                });
-                toilet_markers.push(toilet_marker);
-
-                while (true) {
-                    if (typeof currentLatLng != 'undefined') {
-                        break;
-                    }
-                }
-
-                var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
-                distance_toilet.push(dist);
-                if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
-                    cloest_toilet = distance_toilet.indexOf(dist);
-                }
-            }
-            //alert(distance_toilet[cloest_toilet]/1000 + 'km');
-            
-        }
-
-    });
+    
 
     /**
      * Off street parking markers
@@ -613,3 +613,4 @@ function centerTocurrent() {
         title: "Your current position"
     });
 }
+
