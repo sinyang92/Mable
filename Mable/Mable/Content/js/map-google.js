@@ -201,7 +201,7 @@ function initMap() {
                 google.maps.event.addListener(toilet_marker, 'click', function () {
                     infowindow_toilet.setContent(this.content);
                     infowindow_toilet.open(this.getMap(), this);
-                })
+                });
                 toilet_markers.push(toilet_marker);
 
 

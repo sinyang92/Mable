@@ -118,7 +118,7 @@
                             <li class="active">
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                    <label class="btn mable-btn-map" for='dev'><p>Under Construction Buildings</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                    <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
 
                                 </div>
                             </li>
@@ -229,17 +229,18 @@
         if (typeof viz != 'undefined') {
             viz.dispose();
         }
-        url = "https://public.tableau.com/views/AvgPedTrendV3/PedestrianCongestion?:embed=y&:display_count=yes&publish=yes",
+        url = "https://public.tableau.com/views/AvgPedV4/Sheet1?:embed=y&:display_count=yes&publish=yes",
             options = {
                 "Sensor ID": id,
             "Date": date,
             hideToolbar: true,
-            hideTabs: true
+            hideTabs: true           
             };
 
         viz = new tableau.Viz(containerDiv, url, options);
-
+        
     }
+
 </script>
 
 @*<script>
@@ -278,6 +279,8 @@
            }
     </script>*@
 <script>
+
+
     const ratings = {
        rate: @Model.rating
     };
@@ -493,6 +496,7 @@
                         //infowindow_sensor.setContent(this.content);
                         //infowindow_sensor.open(this.getMap(), this);
                         initializeViz(this.sensor, today);
+                        
                     })
                     ped_markers.push(ped_marker);
                 }
@@ -732,6 +736,8 @@
     function centerTocurrent() {
         //map.setCenter(currentLatLng);
     }
+
+
 
 </script>
 

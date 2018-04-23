@@ -1,26 +1,24 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Home";
 }
 
 <div class="section">
 
     <div class="container-fluid mable-homeHeader">
-        <div class="row ">
-            <img src="~/Content/images/logo-mable.svg" alt="Alternate Text" width="160"/>
-        </div>
+
         <div class="row">
             <h1>
-                Discover new accessible places to visit or check accessible amenities on the spot.
+                Find new places and get to know the immediate accessibility surroundings <small>or</small> check accessibility amenities on the spot.
             </h1>
             <h5>City of Melbourne</h5>
         </div>
         <div class="row">
-            <div class="btn btn-default">
-                @Html.ActionLink("Search & Discover", "Search", "Home")
-                
+            <div class="btn mable-btn-primary btn-header">
+                @Html.ActionLink("Discover", "Search", "Home")
+
             </div>
-            <div class="btn btn-default">
-                On the Spot
+            <div class="btn mable-btn-primary-outline btn-header">
+                @Html.ActionLink("Near Me", "Map", "Home")
             </div>
         </div>
 
@@ -29,17 +27,47 @@
 
 </div>
 <!-- End Section -->
-
 <!-- Info Module-->
-<div class="container-fluid bg-primary">
+<div class="container-fluid bg-primary mable-infoHome">
     <div class="row">
-        something
+        <div class="col-md-12">
+            <h1>What are we trying to achieve?</h1>
+            <div class="row mable-infoHome-content">
+                <div class="col-md-4">
+                    Display information regarding accessibility around the place of interest you can discover.
+                </div>
+                <div class="col-md-4">
+                    Make available maps with accessibility details needed on the spot.
+                </div>
+                <div class="col-md-4">
+                    Make information accessible and available for everyone and on any device.
+                </div>
+            </div>
+            <div class="row">
+                <img class="img-responsive" src="~/Content/images/wheelchair-people.svg">
+
+            </div>
+        </div>
     </div>
 </div>
 
-
 <!--End Info Module-->
 
+
+<!--Start More Info Module-->
+
+<div class="row">
+    <div class="col-md-12 mable-homeCallToInfo">
+        <h1>
+            Check also useful links and services in the City of Melbourne.
+        </h1> 
+        <button class="btn mable-btn-secondary">
+            Go to Links
+        </button>
+
+    </div>
+</div>
+<!--End More Info Module-->
 
 
 
