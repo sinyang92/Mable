@@ -37,7 +37,7 @@
         <div class="row">
 
             <!-- Start Details Content -->
-            <div class="col-sm-8 col-sm-offset-2 mable-detail">
+            <div class="col-sm-10 col-sm-offset-1 mable-detail">
                 <!-- back button -->
                 <div class="row mable-detailBackButton">
                     <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back to the List</a>
@@ -81,6 +81,12 @@
                             <h5>Address:</h5>
                             @Model.formatted_address
                         </div>
+                        <div class="mable-detail-phone">
+                            <h5>Phone:</h5>
+                            @Model.formatted_phone_number
+                        </div>
+
+                        
 
                     </div>
                     <!-- End place details -->
@@ -89,42 +95,17 @@
                 <!-- Start Buttons-->
                 <div class="row">
                     <div class="col-md-12">
-
-                        @*  <div id="buttons" style="display: inline-block;">
-                                               <div class="col-sm-3">
-                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                    <label class="btn btn-default btn-block" for='con'>Under construction</label>
-
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="checkbox" name="filter" id="stp" onclick="showSteepness(this)">
-                                    <label for='stp'>Steepness of Footpaths</label>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="checkbox" name="filter" id="con" onclick="showCondition(this)">
-                                    <label for='stp'>Road Condition</label>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input type="checkbox" name="filter" id="park" onclick="showPark(this)">
-                                    <label for='park'>Parking</label>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input type="checkbox" name="filter" id="ped" onclick="showPed(this)">
-                                    <label for='ped'>Pedestrian</label>
-                                </div>
-                            </div>*@
-
                         <ul id="buttons" class="nav nav-tabs">
                             <li class="active">
                                 <div class="">
                                         <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                        <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                        <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-dev-activity.svg" /></label>
                                 </div>
                             </li>
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="stp" onclick="showSteepness(this)">
-                                    <label class="btn mable-btn-map" for='stp'><p>Steepness of Footpaths</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                                    <label class="btn mable-btn-map" for='stp'><p>Footpath Steepness</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
                                 </div>
                             </li>
                             @*<li>
@@ -136,7 +117,7 @@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
-                                    <label class="btn mable-btn-map" for='park'><p>Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                    <label class="btn mable-btn-map" for='park'><p>Off-Street Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
                                 </div>
                             </li>
                             <li>
@@ -160,7 +141,7 @@
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
-                                <div name="place location" id="map" style="height:80vh"></div>
+                                <div name="place location" id="map" style="height:60vh"></div>
                             </div>
                         </div>
                         <!-- End place map -->
@@ -168,20 +149,56 @@
                     <!-- End Map-->
                     <!-- Start Map Info-->
                     <div class="col-lg-4 mable-columns">
-                        <div>
+                        <div class="row">
                             <div class="mable-topicHeading">
                                 Information
                             </div>
-                            <div id="tableauViz"></div>
+                            <!-- Start information section -->
+                            <div class="tab-content">
+                                <div id="initialContent" class="tab-pane fade in active">
+                                </div>
+                                <div id="tabContent1" class="tab-pane fade">
+
+                                    <p>The areas shown in dark grey displays the under construction areas.</p>
+
+
+                                </div>
+                                <div id="tabContent2" class="tab-pane fade">
+                                    <p>The colors on the map show different gradient and accessibility information.</p>
+                                    <p><img src="~/Content/images/steepness-1.svg" width="30" /> Flat and totally accessible</p>
+                                    <p><img src="~/Content/images/steepness-2.svg" width="30" /> Manageable steepness</p>
+
+                                    <p><img src="~/Content/images/steepness-3.svg" width="30" /> Uncomfortable and challenging steepness.</p>
+
+                                </div>
+                                <div id="tabContent3" class="tab-pane fade">
+                                    <p>
+                                        If you click the marker, parking type and capacity will be shown.
+                                        There are two parking types available:
+                                        <ul>
+                                            <li>Paid parking</li>
+                                            <li>Parking for staff, visitors or customers</li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                <div id="tabContent4" class="tab-pane fade">
+                                    
+                                    <p>Click the marker and today’s predicted pedestrian congestion trend will show in a bar chart for every hour.</p>
+
+                                    <div id="tableauViz"></div>
+
+                                </div>
+                            </div>
                         </div>
-                        <div>
+                        <!-- End Information section -->
+                        <!-- Start action section-->
+                        <div class="row">
                             <div class="mable-topicHeading">
                                 Actions
                             </div>
-
-                            @*<button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>*@
                             <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
-                        </div>
+                        </div> 
+                        <!-- End action section -->
                     </div>
                     <!-- End Map Info-->
 
@@ -225,29 +242,7 @@
     <li><a data-toggle="tab" href="#tabContent4" id="tab4">tab4</a></li>
 </ul>
 
-@*modify these div, keep the id*@
-<div class="tab-content">
-    <div id="initialContent" class="tab-pane fade in active">
-        <h3>HOME</h3>
-        <p>Some content.</p>
-    </div>
-    <div id="tabContent1" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent2" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent3" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent4" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-</div>
+
 
 <script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 <script>

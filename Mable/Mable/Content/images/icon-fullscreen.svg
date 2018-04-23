@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="32px" viewBox="0 0 41 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>fullscreen icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mable-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="On-the-Spot" transform="translate(-1211.000000, -878.000000)" stroke="#000000" stroke-width="2">
+            <g id="full-screen-btn" transform="translate(1003.000000, 862.000000)">
+                <g id="Group-6">
+                    <g id="fullscreen-icon" transform="translate(209.000000, 17.000000)">
+                        <polyline id="Path-3" points="12 1.13686838e-13 0 1.13686838e-13 0 11"></polyline>
+                        <polyline id="Path-3-Copy-2" transform="translate(6.000000, 24.500000) scale(1, -1) translate(-6.000000, -24.500000) " points="12 19 0 19 0 30"></polyline>
+                        <polyline id="Path-3-Copy" transform="translate(33.000000, 5.500000) scale(-1, 1) translate(-33.000000, -5.500000) " points="39 1.13686838e-13 27 1.13686838e-13 27 11"></polyline>
+                        <polyline id="Path-3-Copy-3" transform="translate(33.000000, 24.500000) scale(-1, -1) translate(-33.000000, -24.500000) " points="39 19 27 19 27 30"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
