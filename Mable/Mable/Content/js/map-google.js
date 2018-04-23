@@ -23,6 +23,7 @@ var currentLatLng;
 
 var icon5;
 
+var distance_toilet = [];
 var cloest_toilet = -1;
 
 
@@ -43,6 +44,9 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     locInfoWindow = new google.maps.InfoWindow({ map: map });
+
+    
+
     // Try HTML5 geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -173,7 +177,6 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
-    var distance_toilet = [];
     // Create marker for showing toilet accessibility
     $.ajax({
         cache: false,
@@ -182,7 +185,6 @@ function initMap() {
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
-                    
                     continue;
                 }
                 var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
@@ -205,6 +207,12 @@ function initMap() {
                     infowindow_toilet.open(this.getMap(), this);
                 });
                 toilet_markers.push(toilet_marker);
+
+                while (true) {
+                    if (typeof currentLatLng != 'undefined') {
+                        break;
+                    }
+                }
 
                 var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
                 distance_toilet.push(dist);
@@ -390,6 +398,9 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
+        console.log("toilet_markers.length: " + toilet_markers.length);
+        console.log("distance_toilet.length: " + distance_toilet.length);
+        console.log("cloest_toilet: " + cloest_toilet);
         var request = {
             origin: currentLatLng,
             destination: toilet_markers[cloest_toilet].position,
