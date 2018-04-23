@@ -382,6 +382,10 @@
                     if (data[i].parking_type == "Commercial") {
                         data[i].parking_type = "Pay & Park";
                     }
+                    if (data[i].parking_type == "Private") {
+                        data[i].parking_type = "Parking for staff,visitors or customers";
+                    }
+
                     var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                     var park_marker = new google.maps.Marker({
                         position: coor,
