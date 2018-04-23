@@ -42,6 +42,10 @@
                 <div class="row mable-detailBackButton">
                     <a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Back to the List</a>
                 </div>
+
+                <div class="mable-topicHeading">
+                    Place Information
+                </div>
                 <!-- Image and Place Details -->
                 <div class="row mable-placeInfo">
 
@@ -86,7 +90,7 @@
                             @Model.formatted_phone_number
                         </div>
 
-                        
+
 
                     </div>
                     <!-- End place details -->
@@ -94,12 +98,16 @@
                 <!--End row-->
                 <!-- Start Buttons-->
                 <div class="row">
+
                     <div class="col-md-12">
+                        <div class="mable-topicHeading">
+                            Accessibility Surroundings
+                        </div>
                         <ul id="buttons" class="nav nav-tabs">
                             <li class="active">
                                 <div class="">
-                                        <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                        <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-dev-activity.svg" /></label>
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-dev-activity.svg" /></label>
                                 </div>
                             </li>
                             <li>
@@ -109,11 +117,11 @@
                                 </div>
                             </li>
                             @*<li>
-                                    <div class="">
-                                        <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                                        <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-                                    </div>
-                                </li>*@
+                <div class="">
+                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                </div>
+            </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
@@ -135,9 +143,9 @@
                 <div class="row">
                     <!-- Start Map-->
                     <div class="col-lg-8 mable-columns">
-                        <div class="mable-topicHeading">
+                        @*<div class="mable-topicHeading">
                             Map
-                        </div>
+                        </div>*@
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
@@ -182,7 +190,7 @@
                                     </p>
                                 </div>
                                 <div id="tabContent4" class="tab-pane fade">
-                                    
+
                                     <p>Click the marker and today’s predicted pedestrian congestion trend will show in a bar chart for every hour.</p>
 
                                     <div id="tableauViz"></div>
@@ -197,7 +205,7 @@
                                 Actions
                             </div>
                             <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
-                        </div> 
+                        </div>
                         <!-- End action section -->
                     </div>
                     <!-- End Map Info-->
@@ -219,8 +227,8 @@
                         </button>
                     </div>
                     @*<div class="col-lg-4">
-                            <button class="btn mable-btn-primary-outline">Mobility Map</button>
-                        </div>*@
+                <button class="btn mable-btn-primary-outline">Mobility Map</button>
+            </div>*@
                     <div class="col-lg-4">
                         <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
                     </div>

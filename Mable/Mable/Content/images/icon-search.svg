@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="66px" viewBox="0 0 64 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>common_search_lookup_outline_stroke</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mable-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Error" transform="translate(-684.000000, -392.000000)" fill="#000000">
+            <g id="Group-2" transform="translate(288.000000, 392.000000)">
+                <path d="M436.065963,46.4331576 C431.936605,49.311879 426.915443,51 421.5,51 C407.416738,51 396,39.5832618 396,25.5 C396,11.4167382 407.416738,0 421.5,0 C435.583262,0 447,11.4167382 447,25.5 C447,32.0026995 444.565987,37.9369045 440.559331,42.4412445 L459.591068,61.4729809 C459.75699,61.638903 459.771009,61.9261362 459.602496,62.0946495 L455.970096,65.7270496 C455.806136,65.8910097 455.523252,65.8904464 455.348427,65.7156216 L436.065963,46.4331577 L436.065963,46.4331576 Z M421.5,48 C433.926408,48 444,37.9264076 444,25.5 C444,13.0735925 433.926408,3 421.5,3 C409.073593,3 399,13.0735925 399,25.5 C399,37.9264076 409.073593,48 421.5,48 L421.5,48 Z" id="common_search_lookup_outline_stroke"></path>
+            </g>
+        </g>
+    </g>
+</svg>

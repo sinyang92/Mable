@@ -5948,6 +5948,11 @@ h1.mable-CardResult-title {
   left: 50%;
   transform: translate(-50%, -50%); }
 
+.mable-error-message {
+  background: #ffffff;
+  border: 3px solid #000000;
+  padding: 50px; }
+
 #map {
   width: 100%;
   height: 100%; }
