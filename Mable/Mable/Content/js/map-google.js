@@ -566,7 +566,13 @@ function showQuietPlaces() {
     service.nearbySearch({
         location: location,
         radius: '1000',
-        types: ['library', 'park']
+        types: ['library']
+    }, callback);
+
+    service.nearbySearch({
+        location: location,
+        radius: '1000',
+        types: ['park']
     }, callback);
 }
 
