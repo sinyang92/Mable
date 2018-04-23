@@ -206,7 +206,7 @@
                         <button class="btn mable-btn-primary-outline">Mobility Map</button>
                     </div>
                     <div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline">Print Map</button>
+                        <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
                     </div>
                 </div>
                 <!-- End Other Actions-->
@@ -737,7 +737,9 @@
         //map.setCenter(currentLatLng);
     }
 
-
+    function showPrintPreview() {
+        window.print();
+    }
 
 </script>
 
