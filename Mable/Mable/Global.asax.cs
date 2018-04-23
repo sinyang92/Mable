@@ -25,16 +25,16 @@ namespace Mable
              Update building dataset every 7 days
              */
             
-            ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            IScheduler scheduler = schedulerFactory.GetScheduler();
+            //ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
+            //IScheduler scheduler = schedulerFactory.GetScheduler();
             
-            IJobDetail job = JobBuilder.Create<UpdateDB>().WithIdentity("UpdateDB", "group1").Build();
-            ITrigger trigger = TriggerBuilder.Create().WithIdentity("UpdateDBTrigger", "group1").
-                WithSchedule(CronScheduleBuilder.WeeklyOnDayAndHourAndMinute(DayOfWeek.Monday, 3, 0)).
-                Build();
+            //IJobDetail job = JobBuilder.Create<UpdateDB>().WithIdentity("UpdateDB", "group1").Build();
+            //ITrigger trigger = TriggerBuilder.Create().WithIdentity("UpdateDBTrigger", "group1").
+            //    WithSchedule(CronScheduleBuilder.WeeklyOnDayAndHourAndMinute(DayOfWeek.Monday, 3, 0)).
+            //    Build();
 
-            scheduler.ScheduleJob(job, trigger);
-            scheduler.Start();
+            //scheduler.ScheduleJob(job, trigger);
+            //scheduler.Start();
 
         }
     }

@@ -59,10 +59,10 @@ namespace Mable.Controllers
             //UpdateDBNow();
             
 
-            var db = new BuildingContext();
-            var query = from b in db.Buildinginfoes select b;
-            List<Buildinginfo> buildings = query.ToList();
-            Debug.WriteLine("HELLO" + buildings.Count());
+            //var db = new BuildingContext();
+            //var query = from b in db.Buildinginfoes select b;
+            //List<Buildinginfo> buildings = query.ToList();
+            //Debug.WriteLine("HELLO" + buildings.Count());
             
 
             /*
@@ -100,30 +100,29 @@ namespace Mable.Controllers
 
                 //Debug.WriteLine(detailResult.name);
 
-                foreach (Buildinginfo b in buildings)
-                {
-                    if (b.x_coordinate != null && b.y_coordinate != null)
-                    {
-                        if (Has_Accessible_Info(float.Parse(b.y_coordinate), float.Parse(b.x_coordinate),
-                    detailResult.geometry.location.lat, detailResult.geometry.location.lng))
-                        {
-                            detailResult.accessibility_rating = b.accessibility_rating;
-                            detailResult.accessibility_description = b.accessibility_type_description;
-                            break;
-                        }
-                        else
-                        {
-                            detailResult.accessibility_rating = "N/A";
-                            detailResult.accessibility_description = "N/A";
-                        }
-                    }
+                //foreach (Buildinginfo b in buildings)
+                //{
+                //    if (b.x_coordinate != null && b.y_coordinate != null)
+                //    {
+                //        if (Has_Accessible_Info(float.Parse(b.y_coordinate), float.Parse(b.x_coordinate),
+                //    detailResult.geometry.location.lat, detailResult.geometry.location.lng))
+                //        {
+                //            detailResult.accessibility_rating = b.accessibility_rating;
+                //            detailResult.accessibility_description = b.accessibility_type_description;
+                //            break;
+                //        }
+                //        else
+                //        {
+                //            detailResult.accessibility_rating = "N/A";
+                //            detailResult.accessibility_description = "N/A";
+                //        }
+                //    }
 
-                }
+                //}
                 place_details.Add(detailResult);
 
                 // sort by accessibility rating first, then sort by rating
-                place_details = place_details.OrderBy(p => p.accessibility_rating, new CustomComparer()).
-                    ThenByDescending(p => p.rating).ToList();
+                place_details = place_details.OrderByDescending(p => p.rating).ToList();
 
             }
             TempData["place_details"] = place_details;
@@ -215,45 +214,45 @@ namespace Mable.Controllers
             }
         }
 
-        public class BuildingContext : DbContext
-        {
-            public BuildingContext(): base("DefaultConnection")
-            {
+        //public class BuildingContext : DbContext
+        //{
+        //    public BuildingContext(): base("DefaultConnection")
+        //    {
                 
-            }
-            public DbSet<Buildinginfo> Buildinginfoes { get; set; }
-        }
+        //    }
+        //    public DbSet<Buildinginfo> Buildinginfoes { get; set; }
+        //}
 
-        public List<Buildinginfo> Get_Buildings()
-        {
-            var url = "https://data.melbourne.vic.gov.au/resource/q8hp-qgps.json";
-            var jsonString = Download_JSON(url);
-            List<Buildinginfo> buildings = new List<Buildinginfo>();
-            buildings = JsonConvert.DeserializeObject<
-                List<Buildinginfo>>(jsonString);
+        //public List<Buildinginfo> Get_Buildings()
+        //{
+        //    var url = "https://data.melbourne.vic.gov.au/resource/q8hp-qgps.json";
+        //    var jsonString = Download_JSON(url);
+        //    List<Buildinginfo> buildings = new List<Buildinginfo>();
+        //    buildings = JsonConvert.DeserializeObject<
+        //        List<Buildinginfo>>(jsonString);
 
-            //Debug.WriteLine("Count: " + buildings.Count);
-            //Buildinginfo b = buildings[0];
-            //Debug.WriteLine("Building 1: " + b.suburb);
+        //    //Debug.WriteLine("Count: " + buildings.Count);
+        //    //Buildinginfo b = buildings[0];
+        //    //Debug.WriteLine("Building 1: " + b.suburb);
 
-            //remove null rateings & duplicate records
-            buildings = buildings.Where(b => b.accessibility_rating != null).ToList();
-            buildings = buildings.DistinctBy(b => b.property_id).ToList();
+        //    //remove null rateings & duplicate records
+        //    buildings = buildings.Where(b => b.accessibility_rating != null).ToList();
+        //    buildings = buildings.DistinctBy(b => b.property_id).ToList();
 
-            return buildings;
-        }
+        //    return buildings;
+        //}
 
-        public void UpdateDBNow()
-        {
-            var db = new BuildingContext();
-            List<Buildinginfo> buildings = Get_Buildings();
+        //public void UpdateDBNow()
+        //{
+        //    var db = new BuildingContext();
+        //    List<Buildinginfo> buildings = Get_Buildings();
 
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE Buildinginfoes");
-            foreach (Buildinginfo b in buildings)
-            {
-                db.Buildinginfoes.Add(b);
-            }
-            db.SaveChanges();
-        }
+        //    db.Database.ExecuteSqlCommand("TRUNCATE TABLE Buildinginfoes");
+        //    foreach (Buildinginfo b in buildings)
+        //    {
+        //        db.Buildinginfoes.Add(b);
+        //    }
+        //    db.SaveChanges();
+        //}
     }
 }
