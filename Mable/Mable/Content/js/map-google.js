@@ -125,7 +125,7 @@ function initMap() {
      * Start toilet markers
      */
         var icon2 = {
-            url: "../Content/images/public-toilets.png", // url
+            url: "../Content/images/marker-toilet.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -182,7 +182,7 @@ function initMap() {
      * Start on-street parking markers
      */
     var icon1 = {
-        url: "../Content/images/on-street-parking.png", // url
+        url: "../Content/images/marker-parking.svg", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
@@ -231,7 +231,7 @@ function initMap() {
      * Off street parking markers
      */
     var icon3 = {
-        url: "../Content/images/off-street-parking.png", // url
+        url: "../Content/images/marker-parking.svg", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
@@ -276,7 +276,7 @@ function initMap() {
     * Quite Place icon
     */
     icon5 = {
-        url: "../Content/images/marker3.png", // url
+        url: "../Content/images/marker-quiet-places.svg", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
@@ -286,7 +286,7 @@ function initMap() {
      */
 
     var icon4 = {
-        url: "../Content/images/marker2.png", // url
+        url: "../Content/images/marker-wifi.svg", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor

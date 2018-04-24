@@ -413,7 +413,7 @@
    * Off street parking markers
    */
         var icon3 = {
-            url: "../../Content/images/off-street-parking.png", // url
+            url: "../../Content/images/marker-parking.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -457,42 +457,42 @@
         var dev_geojson = @Html.Raw(ViewBag.dev);
         layer_dev.addGeoJson(dev_geojson);
 
-        layer_dev.setStyle(function (feature) {
-                    var status = feature.getProperty('status');
-                    if (status == 'UNDER CONSTRUCTION') {
-                        return {
-                            fillColor: 'black',
-                            strokeWeight: 1
-                        };
-                    }
-        });
+        //layer_dev.setStyle(function (feature) {
+        //            var status = feature.getProperty('status');
+        //            if (status == 'UNDER CONSTRUCTION') {
+        //                return {
+        //                    fillColor: 'black',
+        //                    strokeWeight: 1
+        //                };
+        //            }
+        //});
         layer_dev.setStyle({ visible: false });
 
         //foothpath steepness
         var stp_geojson = @Html.Raw(ViewBag.stp);
         layer_footpath.addGeoJson(stp_geojson);
 
-        layer_footpath.setStyle(function (feature) {
-            var grade = feature.getProperty('gradepc');
-            console.log("abc");
-            if (grade > 0 && grade <= 1) {
+        //layer_footpath.setStyle(function (feature) {
+        //    var grade = feature.getProperty('gradepc');
+        //    console.log("abc");
+        //    if (grade > 0 && grade <= 1) {
 
-                return {
-                    fillColor: 'green',
-                    strokeWeight: 1
-                };
-            } else if (grade > 1 && grade <= 6) {
-                return {
-                    fillColor: 'yellow',
-                    strokeWeight: 1
-                };
-            } else if (grade > 6) {
-                return {
-                    fillColor: 'red',
-                    strokeWeight: 1
-                };
-            }
-        });
+        //        return {
+        //            fillColor: 'green',
+        //            strokeWeight: 1
+        //        };
+        //    } else if (grade > 1 && grade <= 6) {
+        //        return {
+        //            fillColor: 'yellow',
+        //            strokeWeight: 1
+        //        };
+        //    } else if (grade > 6) {
+        //        return {
+        //            fillColor: 'red',
+        //            strokeWeight: 1
+        //        };
+        //    }
+        //});
         layer_footpath.setStyle({ visible: false });
 
         /**
@@ -520,7 +520,7 @@
 
 
         var icon4 = {
-            url: "../../Content/images/marker1.png", // url
+            url: "../../Content/images/marker-pedestrian.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -631,6 +631,23 @@
         if (document.getElementById('dev').checked) {
             layer_dev.setStyle({ visible: true });
             document.getElementById("tab1").click();
+            layer_dev.setStyle(function (feature) {
+                var status = feature.getProperty('status');
+                if (status == 'UNDER CONSTRUCTION') {
+                    return {
+                        fillColor: 'black',
+                        strokeWeight: 1
+                    };
+                }
+                else {
+                    return {
+                        fillColor: null,
+                        strokeWeight: 0,
+                        fillOpacity: 0
+                    };
+                }
+            });
+           
         } else {
             unshowDevelopment();
         }
@@ -716,21 +733,21 @@
                 if (grade > 0 && grade <= 1) {
 
                     return {
-                        fillColor: 'green',
+                        fillColor: '#000000',
                         strokeWeight: 2,
-                        strokeColor: 'green'
+                        strokeColor: '#000000'
                     };
                 } else if (grade > 1 && grade <= 6) {
                     return {
-                        fillColor: 'yellow',
+                        fillColor: '#7ED321',
                         strokeWeight: 2,
-                        strokeColor: 'yellow'
+                        strokeColor: '#7ED321'
                     };
                 } else  {
                     return {
-                        fillColor: 'red',
+                        fillColor: '#D92863',
                         strokeWeight: 2,
-                        strokeColor: 'red'
+                        strokeColor: '#D92863'
                     };
                 }
             });

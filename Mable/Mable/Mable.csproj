@@ -310,8 +310,12 @@
     <Content Include="Content\images\logo-mable-hor.svg" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker-cluster.svg" />
+    <Content Include="Content\images\marker-parking.svg" />
     <Content Include="Content\images\marker-pedestrian.svg" />
+    <Content Include="Content\images\marker-quiet-places.svg" />
     <Content Include="Content\images\marker-quiet.svg" />
+    <Content Include="Content\images\marker-toilet.svg" />
+    <Content Include="Content\images\marker-wifi.svg" />
     <Content Include="Content\images\marker1.png" />
     <Content Include="Content\images\marker2.png" />
     <Content Include="Content\images\marker3.png" />
