@@ -407,7 +407,7 @@ function showToilet(toilet) {
         var request = {
             origin: currentLatLng,
             destination: toilet_markers[cloest_toilet].position,
-            travelMode: 'DRIVING'
+            travelMode: 'WALKING'
         };
         var directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (result, status) {
