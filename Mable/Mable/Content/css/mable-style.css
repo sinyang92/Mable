@@ -6276,6 +6276,9 @@ input.chk-btn:checked + label {
 .mable-mapButtons-details {
   margin-bottom: 25px; }
 
+.nav-tabs {
+  border-bottom: none !important; }
+
 .mable-mapButtons {
   margin: 50px; }
   @media only screen and (max-width: 768px) {
