@@ -59,14 +59,14 @@
                     <div class="col-md-7" style="padding-left: 40px;">
 
                         <!-- Place Title -->
-                        <h1>
+                        <h1 class="mable-detail-name">
                             @Model.name
                         </h1>
                         <div class="mable-detail-rating">
                             <h5>Google Rating:</h5>
                             @*<i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>*@
 
-                            <div class="rate">
+                            <div class="rate" style="display: inline-block;">
                                 <div class="stars-outer">
                                     <div class="stars-inner"></div>
                                 </div>
@@ -97,12 +97,12 @@
                 </div>
                 <!--End row-->
                 <!-- Start Buttons-->
-                <div class="row">
-
+                <div class="row mable-mapButtons-details">
+                    <div class="mable-topicHeading">
+                        Accessibility Surroundings
+                    </div>
                     <div class="col-md-12">
-                        <div class="mable-topicHeading">
-                            Accessibility Surroundings
-                        </div>
+
                         <ul id="buttons" class="nav nav-tabs">
                             <li class="active">
                                 <div class="">
@@ -117,11 +117,11 @@
                                 </div>
                             </li>
                             @*<li>
-                <div class="">
-                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-                </div>
-            </li>*@
+                    <div class="">
+                        <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                        <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                    </div>
+                </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
@@ -149,7 +149,7 @@
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
-                                <div name="place location" id="map" style="height:60vh"></div>
+                                <div name="place location" id="map"></div>
                             </div>
                         </div>
                         <!-- End place map -->
@@ -158,20 +158,23 @@
                     <!-- Start Map Info-->
                     <div class="col-lg-4 mable-columns">
                         <div class="row">
-                            <div class="mable-topicHeading">
-                                Information
-                            </div>
+                            
                             <!-- Start information section -->
                             <div class="tab-content">
                                 <div id="initialContent" class="tab-pane fade in active">
                                 </div>
                                 <div id="tabContent1" class="tab-pane fade">
-
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>The areas shown in dark grey displays the under construction areas.</p>
 
 
                                 </div>
                                 <div id="tabContent2" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>The colors on the map show different gradient and accessibility information.</p>
                                     <p><img src="~/Content/images/steepness-1.svg" width="30" /> Flat and totally accessible</p>
                                     <p><img src="~/Content/images/steepness-2.svg" width="30" /> Manageable steepness</p>
@@ -180,6 +183,9 @@
 
                                 </div>
                                 <div id="tabContent3" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>
                                         If you click the marker, parking type and capacity will be shown.
                                         There are two parking types available:
@@ -190,6 +196,9 @@
                                     </p>
                                 </div>
                                 <div id="tabContent4" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
 
                                     <p>Click the marker and today’s predicted pedestrian congestion trend will show in a bar chart for every hour.</p>
 
@@ -200,7 +209,7 @@
                         </div>
                         <!-- End Information section -->
                         <!-- Start action section-->
-                        <div class="row">
+                        <div class="row mable-actionSection">
                             <div class="mable-topicHeading">
                                 Actions
                             </div>
@@ -225,13 +234,14 @@
                         <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
                             Open in Google Map
                         </button>
+                        <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
                     </div>
                     @*<div class="col-lg-4">
                 <button class="btn mable-btn-primary-outline">Mobility Map</button>
             </div>*@
-                    <div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
-                    </div>
+                    @*<div class="col-lg-4">
+                        
+                    </div>*@
                 </div>
                 <!-- End Other Actions-->
             </div>

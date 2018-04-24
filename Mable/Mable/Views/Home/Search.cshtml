@@ -7,13 +7,13 @@
 <div class="row mable-searchInput">
     <div class="col-md-12 text-center">
 
-        <div class="title">Discover</div>
+        <div class="title">Find</div>
 
         @using (Html.BeginForm("SearchResult", "Home"))
 
         {
 
-            @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more", id = "SearchBox" })
+            @Html.TextBox("keyword", "", new { placeholder = "restaurants, stores, and more", id = "SearchBox" })
 
         }
 
