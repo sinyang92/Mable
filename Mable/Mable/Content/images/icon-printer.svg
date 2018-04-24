@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>common_printer_print_outline_stroke</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mable-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Detail-page" transform="translate(-1110.000000, -1440.000000)" fill="#000000">
+            <g id="How-to-get-there-Section" transform="translate(195.000000, 1335.000000)">
+                <g id="print-button" transform="translate(673.000000, 68.000000)">
+                    <path d="M261,51 L263,51 L263,45 L243,45 L243,51 L245,51 L245,52 L243.1,52 C243.1,52 242,52 242,50.8888889 L242,45.1111111 C242,45.1111111 242,44 243.1,44 L262.9,44 C264,44 264,45.1111111 264,45.1111111 L264,50.8888889 C264,52 262.9,52 262.9,52 L261,52 L261,51 Z M245.510356,47 C245.510356,47 245.000001,47 245,47.5 C245,48 245.510356,48 245.510356,48 L260.489644,48 C260.489644,48 261,48 261,47.5 C261,47 260.489644,47 260.489644,47 L245.510356,47 L245.510356,47 Z M246,51 L246,59 L260,59 L260,51 L246,51 L246,51 Z M248,56 L258,56 L258,55 L248,55 L248,56 Z M248,53 L248,54 L258,54 L258,53 L248,53 L248,53 Z M247,52 L247,58 L259,58 L259,52 L247,52 L247,52 Z M259,38 L247,38 L247,43 L246,43 L246,37 L260,37 L260,43 L259,43 L259,38 Z" id="common_printer_print_outline_stroke"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

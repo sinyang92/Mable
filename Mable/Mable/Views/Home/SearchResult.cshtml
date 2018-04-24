@@ -97,8 +97,8 @@
 <!-- Start List Results -->
 <div class="row">
     <!-- start list-->
-    <div class="col-sm-6 mable-listResults">
-        <div class="row" style="height:80vh; overflow-y:auto">
+    <div class="col-sm-6 ">
+        <div class="row" >
             <div class="mable-topicHeading">
                 Search Results
             </div>
@@ -109,9 +109,12 @@
                     No result
                 </div>
             }
+            <!-- start mable results-->
+                <div class="mable-listResults" style="height:80vh; overflow-y:auto">
 
-            @foreach (var item in Model)
-            {
+
+                    @foreach (var item in Model)
+    {
                 <div class="col-sm-12  mable-CardResult" id="@item.id">
                     <div class="row">
                         <a href="@Url.Action("ResultDetail", new { id = item.id })">
@@ -122,12 +125,15 @@
                                 <div class="mable-CardResult-address">
                                     @item.vicinity
                                 </div>
-                                <i class="fas fa-star"></i> Google Place Rating: @item.rating / 5                            </div>
+                                <i class="fas fa-star"></i> Google Place Rating: @item.rating / 5
+                            </div>
 
                         </a>
                     </div>
                 </div>
-            }
+}
+                </div>
+            <!--end mable results-->
         </div>
     </div>
     <!-- End list-->

@@ -33,7 +33,7 @@
         <li class="active">
             <div class="">
                 <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
-                <label for='sensor' class="btn mable-btn-map"> <p>Real-Time On-Street Parking</p>  <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                <label for='sensor' class="btn mable-btn-map"> <p>Available On-Street Parking</p>  <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
 
             </div>
         </li>
@@ -87,31 +87,59 @@
     <!-- End Map-->
     <!-- Start map info and actions-->
     <div class="col-lg-4 mable-columns">
-
-        <div class="tab-content">
-            <div id="realParkingInfo" class="tab-pane fade in active">
-                <div>
+        <!-- Start informaiton section -->
+        <div class="row">
+            <div class="mable-topicHeading">
+               Information
+            </div>
+            <div class="tab-content">
+                <div id="initialContent" class="tab-pane fade in active">
                     <div class="mable-topicHeading">
                         Information
                     </div>
-                    <button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>
-                    <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
+                    <p>Some content.</p>
+                </div>
+                <div id="tabContent1" class="tab-pane fade">
+                    <p>Get the real-time information about unoccupied on-street parking bays by refreshing the web page. </p>
+                </div>
+                <div id="tabContent2" class="tab-pane fade">
+
+                    <p>The path shown on the map represents the closest toilet from your current location</p>
+                </div>
+                <div id="tabContent3" class="tab-pane fade">
+                    <p>
+                        If you click the marker, parking type and capacity will be shown.
+                        There are two parking types available:
+                        Paid parking
+                        Parking for staff, visitors or customers
+
+                    </p>
+                </div>
+                <div id="tabContent4" class="tab-pane fade">
+                    <p>The free Wi-Fi spot’s details can be found by clicking the marker. Try Navigate Me to open it in google maps..</p>
+
+                </div>
+                <div id="tabContent5" class="tab-pane fade">
+
+                    <p>
+                        Explore quiet places around. There are two types of quiet places information shown:
+                        Libraries
+                        Parks.
+                        Try Navigate Me to open it in google map.
+                    </p>
                 </div>
             </div>
-            <div id="toiletInfo" class="tab-pane fade">
-                <h3>toliet</h3>
-                <p>Some content in menu 1.</p>
-            </div>
-            <div id="quietPlaceInfo" class="tab-pane fade">
-                <h3>quiet places</h3>
-                <p>Some content in menu 2.</p>
-            </div>
-            <div id="wifiInfo" class="tab-pane fade">
-                <h3>wifi</h3>
-                <p>Some content in menu 2.</p>
-            </div>
         </div>
-
+        <!-- end information section-->
+        <!--Start actions section-->
+        <div class="row">
+            <div class="mable-topicHeading">
+                Actions
+            </div>
+            <button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>
+            <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
+        </div>
+        <!-- End actions section-->
     </div>
     <!-- End map info and actions-->
 
@@ -153,32 +181,7 @@
     <li><a data-toggle="tab" href="#tabContent5" id="tab5">tab4</a></li>
 </ul>
 
-<div class="tab-content">
-    <div id="initialContent" class="tab-pane fade in active">
-        <h3>HOME</h3>
-        <p>Some content.</p>
-    </div>
-    <div id="tabContent1" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent2" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent3" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent4" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="tabContent5" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-</div>
+
 
 <script type="text/javascript" src="~/Content/js/map-google.js">
 </script>
