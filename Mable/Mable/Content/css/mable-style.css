@@ -5955,6 +5955,9 @@ h1.mable-CardResult-title {
 
 #map {
   width: 100%;
+  height: 100%; }
+
+.mable-detail-map .col-md-12 {
   height: 60vh; }
 
 input.btn-map {
@@ -6052,6 +6055,14 @@ input.chk-btn:checked + label {
     color: #ffffff; }
     .mable-btn-map:focus img, .mable-btn-map:hover img, .mable-btn-map:active img {
       filter: invert(1); }
+  @media only screen and (max-width: 768px) {
+    .mable-btn-map {
+      width: 100%; } }
+
+@media only screen and (max-width: 425px) {
+  #buttons li {
+    width: 100%;
+    display: block; } }
 
 .mable-topicHeading {
   font-size: 25px;
@@ -6100,8 +6111,8 @@ input.chk-btn:checked + label {
     display: none; }
   .mable-detail-name {
     font-size: 20px !important; }
-  #map {
-    height: 400px; }
+  .mable-detail-map .col-md-12 {
+    height: 300px; }
   .mable-topicHeading {
     font-size: 14px;
     font-weight: 700;

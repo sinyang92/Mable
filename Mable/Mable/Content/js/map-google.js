@@ -355,7 +355,7 @@ function showSensor(sensor) {
             sensor_markers[i].setVisible(true);
         }
         markerCluster_sensor = new MarkerClusterer(map, sensor_markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            imagePath: '../../Content/cluster/m'
         });
 
         document.getElementById("tab1").click();
@@ -463,7 +463,7 @@ function showPark(park) {
             park_markers[i].setVisible(true);
         }
         markerCluster_park = new MarkerClusterer(map, park_markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            imagePath: '../../Content/cluster/m'
         });
         document.getElementById("tab3").click();
     }
@@ -504,7 +504,7 @@ function showWifi(wifi) {
             wifi_markers[i].setVisible(true);
         }
         markerCluster_wifi = new MarkerClusterer(map, wifi_markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            imagePath: '../../Content/cluster/m'
         });
         document.getElementById("tab4").click();
     }
