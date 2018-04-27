@@ -16,6 +16,7 @@ using System.Data.Entity;
 using Quartz;
 using System.Threading.Tasks;
 using Quartz.Impl;
+using System.IO;
 
 namespace Mable.Controllers
 {
@@ -159,9 +160,18 @@ namespace Mable.Controllers
             string dev_string = reader.ReadToEnd().ToString();
             ViewBag.dev = dev_string;
 
-            reader = new StreamReader(Server.MapPath("~/GeoJSON/Footpath steepness.geojson"));
-            string stp_string = reader.ReadToEnd().ToString();
-            ViewBag.stp = stp_string;
+            var time = Stopwatch.StartNew();
+            using (FileStream fs = System.IO.File.Open(Server.MapPath("~/GeoJSON/Footpath steepness_simplified.geojson"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (BufferedStream bs = new BufferedStream(fs))
+            using (StreamReader sr = new StreamReader(bs))
+            {
+                string stp_string = sr.ReadToEnd().ToString();
+                ViewBag.stp = stp_string;
+                Debug.WriteLine("Takes time: " + time.Elapsed.TotalMilliseconds);
+            }
+            //reader = new StreamReader(Server.MapPath("~/GeoJSON/Footpath steepness.geojson"));
+            //string stp_string = reader.ReadToEnd().ToString();
+            //ViewBag.stp = stp_string;
 
             //reader = new StreamReader(Server.MapPath("~/GeoJSON/Road segments, with surface type.geojson"));
             //string con_string = reader.ReadToEnd().ToString();

@@ -338,7 +338,6 @@
     var layer_condition;
     var layer_dev;
     var layer_footpath;
-    var layer_ped;
 
 
     var ped_markers = [];
@@ -357,9 +356,9 @@
             gestureHandling: 'none'
         });
 
-        layer_condition = new google.maps.Data({ map: map });
-        layer_dev = new google.maps.Data({ map: map });
-        layer_footpath = new google.maps.Data({ map: map });
+        layer_condition = new google.maps.Data();
+        layer_dev = new google.maps.Data();
+        layer_footpath = new google.maps.Data();
 
         var infowindow = new google.maps.InfoWindow();
 
@@ -456,12 +455,19 @@
                         };
                     }
         });
-        layer_dev.setStyle({ visible: false });
 
         //foothpath steepness
+        var s1 = performance.now();
         var stp_geojson = @Html.Raw(ViewBag.stp);
-        layer_footpath.addGeoJson(stp_geojson);
+        var e1 = performance.now();
+        console.log("1: " + (e1 - s1));
 
+        var s2 = performance.now();
+        layer_footpath.addGeoJson(stp_geojson);
+        var e2 = performance.now();
+        console.log("2: " + (e2 - s2));
+
+        var s3 = performance.now();
         layer_footpath.setStyle(function (feature) {
             var grade = feature.getProperty('gradepc');
             console.log("abc");
@@ -483,6 +489,8 @@
                 };
             }
         });
+        var e3 = performance.now();
+        console.log("3: " + (e3 - s3));
         layer_footpath.setStyle({ visible: false });
 
         /**
@@ -619,7 +627,7 @@
         }
 
         if (document.getElementById('dev').checked) {
-            layer_dev.setStyle({ visible: true });
+            layer_dev.setMap(map);
             document.getElementById("tab1").click();
         } else {
             unshowDevelopment();
@@ -628,6 +636,7 @@
 
     function unshowDevelopment() {
         layer_dev.setStyle({ visible: false });
+        layer_dev.setMap(null);
         document.getElementById("initialTab").click();
     }
 
@@ -699,7 +708,7 @@
 
         if (document.getElementById('stp').checked) {
             document.getElementById("tab2").click();
-            layer_footpath.setStyle({ visible: true });
+            layer_footpath.setMap(map);
             layer_footpath.setStyle(function (feature) {
                 var grade = feature.getProperty('gradepc');
                // console.log("abc");
@@ -731,7 +740,7 @@
     }
 
     function unshowSteepness() {
-        layer_footpath.setStyle({ visible: false });
+        layer_footpath.setMap(null);
     }
 
 

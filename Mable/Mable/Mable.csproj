@@ -337,6 +337,7 @@
     </Content>
     <Content Include="GeoJSON\3D Development Activity Model Footprints.geojson" />
     <Content Include="GeoJSON\Footpath steepness.geojson" />
+    <Content Include="GeoJSON\Footpath steepness_simplified.geojson" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
