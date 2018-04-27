@@ -293,6 +293,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\cluster\m1.png" />
+    <Content Include="Content\cluster\m2.png" />
+    <Content Include="Content\cluster\m3.png" />
+    <Content Include="Content\cluster\m4.png" />
+    <Content Include="Content\cluster\m5.png" />
     <Content Include="Content\css\mable-style.css" />
     <Content Include="Content\css\nprogress.css" />
     <Content Include="Content\images\icon-congestion.svg" />
@@ -310,8 +315,16 @@
     <Content Include="Content\images\logo-mable-hor.svg" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker-cluster.svg" />
+    <Content Include="Content\images\marker-cluster1.svg" />
+    <Content Include="Content\images\marker-cluster2.svg" />
+    <Content Include="Content\images\marker-cluster3.svg" />
+    <Content Include="Content\images\marker-cluster4.svg" />
+    <Content Include="Content\images\marker-parking.svg" />
     <Content Include="Content\images\marker-pedestrian.svg" />
+    <Content Include="Content\images\marker-quiet-places.svg" />
     <Content Include="Content\images\marker-quiet.svg" />
+    <Content Include="Content\images\marker-toilet.svg" />
+    <Content Include="Content\images\marker-wifi.svg" />
     <Content Include="Content\images\marker1.png" />
     <Content Include="Content\images\marker2.png" />
     <Content Include="Content\images\marker3.png" />

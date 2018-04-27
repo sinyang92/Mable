@@ -17,12 +17,17 @@
         color: #D1C9BE;
         margin-right: 10px;
     }
+
+    .gm-style div
+    {
+        background-repeat: no-repeat;
+    }
 </style>
 
 <!--Start Page Title-->
 <div class="row mable-mainHeading">
     <div class="title">
-        NEAR ME  <span>Find amenities and information</span>
+        NEAR ME  <span>Find accessible amenities and information.</span>
     </div>
 </div>
 
@@ -40,7 +45,7 @@
         <li>
             <div class="">
                 <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="showToilet(this)">
-                <label for='toilet' class="btn mable-btn-map"><p>Wheelchair Accessible Toilet</p>  <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
+                <label for='toilet' class="btn mable-btn-map"><p>Wheelchair Accessible Toilet</p>  <img height="30" class="btn-block" src="~/Content/images/icon-toilet.svg" /></label>
             </div>
         </li>
         <li>
@@ -53,14 +58,14 @@
             <div class="">
 
                 <input type="checkbox" name="filter" id="wifi" class='btn-map' onclick="showWifi(this)">
-                <label for='wifi' class="btn mable-btn-map"><p>Wi-Fi Spots</p> <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                <label for='wifi' class="btn mable-btn-map"><p>Wi-Fi Spots</p> <img height="30" class="btn-block" src="~/Content/images/icon-wifi.svg" /></label>
             </div>
         </li>
         <li>
             <div class="">
                 <input type="checkbox" name="filter" id="quite" class='btn-map' onclick="showQuiet(this)">
                 @*Quite Places*@
-                <label for='quite' class="btn mable-btn-map"><p>Quiet Places</p><img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
+                <label for='quite' class="btn mable-btn-map"><p>Quiet Places</p><img height="30" class="btn-block" src="~/Content/images/marker-quiet-places.svg" /></label>
             </div>
         </li>
     </ul>
@@ -89,42 +94,74 @@
     <div class="col-lg-4 mable-columns">
         <!-- Start informaiton section -->
         <div class="row">
-            <div class="mable-topicHeading">
-               Information
-            </div>
+           
             <div class="tab-content">
                 <div id="initialContent" class="tab-pane fade in active">
+                    @*<div class="mable-topicHeading">
+                        Information
+                    </div>
+                    <p>Some content.</p>*@
+
+                </div>
+                <div id="tabContent1" class="tab-pane fade">
                     <div class="mable-topicHeading">
                         Information
                     </div>
-                    <p>Some content.</p>
-                </div>
-                <div id="tabContent1" class="tab-pane fade">
+                    <p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represents different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
                     <p>Get the real-time information about unoccupied on-street parking bays by refreshing the web page. </p>
                 </div>
                 <div id="tabContent2" class="tab-pane fade">
-
+                    <div class="mable-topicHeading">
+                        Information
+                    </div>
                     <p>The path shown on the map represents the closest toilet from your current location</p>
                 </div>
                 <div id="tabContent3" class="tab-pane fade">
+                    <div class="mable-topicHeading">
+                        Information
+                    </div>
                     <p>
                         If you click the marker, parking type and capacity will be shown.
                         There are two parking types available:
-                        Paid parking
-                        Parking for staff, visitors or customers
-
                     </p>
+                    <ul>
+                        <li>Paid parking</li>
+                        <li>
+                            Parking for staff, visitors or customers
+                        </li>
+                    </ul>
+                    <p><img src="~/Content/cluster/m1.png"  width="30" /> The clusters represents different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
+
+
+
+
                 </div>
                 <div id="tabContent4" class="tab-pane fade">
+                    <div class="mable-topicHeading">
+                        Information
+                    </div>
                     <p>The free Wi-Fi spot’s details can be found by clicking the marker. Try Navigate Me to open it in google maps..</p>
+                    <p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represents different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
+
 
                 </div>
                 <div id="tabContent5" class="tab-pane fade">
-
+                    <div class="mable-topicHeading">
+                        Information
+                    </div>
                     <p>
                         Explore quiet places around. There are two types of quiet places information shown:
-                        Libraries
-                        Parks.
+                    </p>
+                    <ul>
+                        <li>
+                            Parks
+                        </li>
+                        <li>
+                            Libraries
+                        </li>
+                    </ul>
+
+                    <p>
                         Try Navigate Me to open it in google map.
                     </p>
                 </div>

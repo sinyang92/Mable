@@ -28,6 +28,9 @@
             content: "\f005 \f005 \f005 \f005 \f005";
             color: #f8ce0b;
         }
+    .gm-style div {
+        background-repeat: no-repeat;
+    }
 </style>
 
 @model Mable.Classes.PlaceDetail.Result
@@ -59,14 +62,14 @@
                     <div class="col-md-7" style="padding-left: 40px;">
 
                         <!-- Place Title -->
-                        <h1>
+                        <h1 class="mable-detail-name">
                             @Model.name
                         </h1>
                         <div class="mable-detail-rating">
                             <h5>Google Rating:</h5>
                             @*<i class="fas fa-star" data-toggle=“tooltip” title='Google rating'></i>*@
 
-                            <div class="rate">
+                            <div class="rate" style="display: inline-block;">
                                 <div class="stars-outer">
                                     <div class="stars-inner"></div>
                                 </div>
@@ -97,12 +100,12 @@
                 </div>
                 <!--End row-->
                 <!-- Start Buttons-->
-                <div class="row">
-
+                <div class="row mable-mapButtons-details">
+                    <div class="mable-topicHeading">
+                        Accessibility Surroundings
+                    </div>
                     <div class="col-md-12">
-                        <div class="mable-topicHeading">
-                            Accessibility Surroundings
-                        </div>
+
                         <ul id="buttons" class="nav nav-tabs">
                             <li class="active">
                                 <div class="">
@@ -117,11 +120,11 @@
                                 </div>
                             </li>
                             @*<li>
-                <div class="">
-                    <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                    <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-                </div>
-            </li>*@
+                    <div class="">
+                        <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                        <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                    </div>
+                </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
@@ -149,7 +152,7 @@
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
-                                <div name="place location" id="map" style="height:60vh"></div>
+                                <div name="place location" id="map" style="height: 50vh;"></div>
                             </div>
                         </div>
                         <!-- End place map -->
@@ -158,20 +161,23 @@
                     <!-- Start Map Info-->
                     <div class="col-lg-4 mable-columns">
                         <div class="row">
-                            <div class="mable-topicHeading">
-                                Information
-                            </div>
+                            
                             <!-- Start information section -->
                             <div class="tab-content">
                                 <div id="initialContent" class="tab-pane fade in active">
                                 </div>
                                 <div id="tabContent1" class="tab-pane fade">
-
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>The areas shown in dark grey displays the under construction areas.</p>
 
 
                                 </div>
                                 <div id="tabContent2" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>The colors on the map show different gradient and accessibility information.</p>
                                     <p><img src="~/Content/images/steepness-1.svg" width="30" /> Flat and totally accessible</p>
                                     <p><img src="~/Content/images/steepness-2.svg" width="30" /> Manageable steepness</p>
@@ -180,6 +186,9 @@
 
                                 </div>
                                 <div id="tabContent3" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
                                     <p>
                                         If you click the marker, parking type and capacity will be shown.
                                         There are two parking types available:
@@ -187,9 +196,13 @@
                                             <li>Paid parking</li>
                                             <li>Parking for staff, visitors or customers</li>
                                         </ul>
+                                    <p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represents different spots/places grouped together for easier view. Zoom on the clusters to get more detailed view.</p>
                                     </p>
                                 </div>
                                 <div id="tabContent4" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
 
                                     <p>Click the marker and today’s predicted pedestrian congestion trend will show in a bar chart for every hour.</p>
 
@@ -200,7 +213,7 @@
                         </div>
                         <!-- End Information section -->
                         <!-- Start action section-->
-                        <div class="row">
+                        <div class="row mable-actionSection">
                             <div class="mable-topicHeading">
                                 Actions
                             </div>
@@ -225,13 +238,14 @@
                         <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
                             Open in Google Map
                         </button>
+                        <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
                     </div>
                     @*<div class="col-lg-4">
                 <button class="btn mable-btn-primary-outline">Mobility Map</button>
             </div>*@
-                    <div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
-                    </div>
+                    @*<div class="col-lg-4">
+                        
+                    </div>*@
                 </div>
                 <!-- End Other Actions-->
             </div>
@@ -402,7 +416,7 @@
    * Off street parking markers
    */
         var icon3 = {
-            url: "../../Content/images/off-street-parking.png", // url
+            url: "../../Content/images/marker-parking.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -446,6 +460,7 @@
         var dev_geojson = @Html.Raw(ViewBag.dev);
         layer_dev.addGeoJson(dev_geojson);
 
+<<<<<<< HEAD
         layer_dev.setStyle(function (feature) {
                     var status = feature.getProperty('status');
                     if (status == 'UNDER CONSTRUCTION') {
@@ -455,6 +470,18 @@
                         };
                     }
         });
+=======
+        //layer_dev.setStyle(function (feature) {
+        //            var status = feature.getProperty('status');
+        //            if (status == 'UNDER CONSTRUCTION') {
+        //                return {
+        //                    fillColor: 'black',
+        //                    strokeWeight: 1
+        //                };
+        //            }
+        //});
+        layer_dev.setStyle({ visible: false });
+>>>>>>> 470f5c70247a6b575f170164f2319936851cdbcb
 
         //foothpath steepness
         var s1 = performance.now();
@@ -467,6 +494,7 @@
         var e2 = performance.now();
         console.log("2: " + (e2 - s2));
 
+<<<<<<< HEAD
         var s3 = performance.now();
         layer_footpath.setStyle(function (feature) {
             var grade = feature.getProperty('gradepc');
@@ -491,6 +519,29 @@
         });
         var e3 = performance.now();
         console.log("3: " + (e3 - s3));
+=======
+        //layer_footpath.setStyle(function (feature) {
+        //    var grade = feature.getProperty('gradepc');
+        //    console.log("abc");
+        //    if (grade > 0 && grade <= 1) {
+
+        //        return {
+        //            fillColor: 'green',
+        //            strokeWeight: 1
+        //        };
+        //    } else if (grade > 1 && grade <= 6) {
+        //        return {
+        //            fillColor: 'yellow',
+        //            strokeWeight: 1
+        //        };
+        //    } else if (grade > 6) {
+        //        return {
+        //            fillColor: 'red',
+        //            strokeWeight: 1
+        //        };
+        //    }
+        //});
+>>>>>>> 470f5c70247a6b575f170164f2319936851cdbcb
         layer_footpath.setStyle({ visible: false });
 
         /**
@@ -518,7 +569,7 @@
 
 
         var icon4 = {
-            url: "../../Content/images/marker1.png", // url
+            url: "../../Content/images/marker-pedestrian.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -585,8 +636,8 @@
             for (var i = 0; i < park_markers.length; i++) {
                 park_markers[i].setVisible(true);
             }
-            markerCluster_mark = new MarkerClusterer(map, park_markers, {
-                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+            markerCluster_park = new MarkerClusterer(map, park_markers, {
+                imagePath: '../../Content/cluster/m'
             });
             document.getElementById("tab3").click();
         }
@@ -629,6 +680,23 @@
         if (document.getElementById('dev').checked) {
             layer_dev.setMap(map);
             document.getElementById("tab1").click();
+            layer_dev.setStyle(function (feature) {
+                var status = feature.getProperty('status');
+                if (status == 'UNDER CONSTRUCTION') {
+                    return {
+                        fillColor: 'black',
+                        strokeWeight: 1
+                    };
+                }
+                else {
+                    return {
+                        fillColor: null,
+                        strokeWeight: 0,
+                        fillOpacity: 0
+                    };
+                }
+            });
+           
         } else {
             unshowDevelopment();
         }
@@ -715,21 +783,21 @@
                 if (grade > 0 && grade <= 1) {
 
                     return {
-                        fillColor: 'green',
+                        fillColor: '#000000',
                         strokeWeight: 2,
-                        strokeColor: 'green'
+                        strokeColor: '#000000'
                     };
                 } else if (grade > 1 && grade <= 6) {
                     return {
-                        fillColor: 'yellow',
+                        fillColor: '#7ED321',
                         strokeWeight: 2,
-                        strokeColor: 'yellow'
+                        strokeColor: '#7ED321'
                     };
                 } else  {
                     return {
-                        fillColor: 'red',
+                        fillColor: '#D92863',
                         strokeWeight: 2,
-                        strokeColor: 'red'
+                        strokeColor: '#D92863'
                     };
                 }
             });
@@ -804,6 +872,8 @@
     }
 
 </script>
+
+<script src="~/Content/js/markerclusterer.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places&callback=initMap">
 </script>

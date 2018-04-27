@@ -27,13 +27,13 @@
 
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <div class="navbar-form nav navbar-nav" id="mable-menuSearch">
-                    <div class="title">Search</div>
+                    <div class="title">Find</div>
 
                     @using (Html.BeginForm("SearchResult", "Home"))
 
                     {
 
-                        @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more" })
+                        @Html.TextBox("keyword", "", new { placeholder = "restaurants, stores, and more" })
 
                     }
                 </div>
@@ -41,6 +41,12 @@
                     <li class="active">
                         @Html.ActionLink("Home", "Index", "Home")
                     </li>
+
+                    @*<li class="@(pageName == "Index" ? "active" : "")">
+
+                        @Html.ActionLink("Find", "Search", "Home")
+
+                    </li>*@
                     <li class="">
                         @Html.ActionLink("Near Me", "Map", "Home")
                     </li>

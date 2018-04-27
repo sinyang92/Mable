@@ -44,10 +44,13 @@
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
 
                 <ul class="nav navbar-nav navbar-right">
+                    <li class="active">
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
 
                     <li class="@(pageName == "Index" ? "active" : "")">
 
-                        @Html.ActionLink("Discover", "Search", "Home")
+                        @Html.ActionLink("Find", "Search", "Home")
 
                     </li>
 

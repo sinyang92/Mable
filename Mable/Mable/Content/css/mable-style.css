@@ -3936,14 +3936,14 @@ tbody.collapse.in {
   background-color: transparent;
   border-color: transparent; }
   .navbar-default .navbar-brand {
-    color: #777; }
+    color: #000000; }
     .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-      color: #5e5d5d;
+      color: black;
       background-color: transparent; }
   .navbar-default .navbar-text {
-    color: #777; }
+    color: #000000; }
   .navbar-default .navbar-nav > li > a {
-    color: #777; }
+    color: #000000; }
     .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
       color: #333;
       background-color: transparent; }
@@ -3967,7 +3967,7 @@ tbody.collapse.in {
     color: #555; }
   @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-      color: #777; }
+      color: #000000; }
       .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         color: #333;
         background-color: transparent; }
@@ -3978,11 +3978,11 @@ tbody.collapse.in {
       color: #ccc;
       background-color: transparent; } }
   .navbar-default .navbar-link {
-    color: #777; }
+    color: #000000; }
     .navbar-default .navbar-link:hover {
       color: #333; }
   .navbar-default .btn-link {
-    color: #777; }
+    color: #000000; }
     .navbar-default .btn-link:hover, .navbar-default .btn-link:focus {
       color: #333; }
     .navbar-default .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus,
@@ -5957,6 +5957,9 @@ h1.mable-CardResult-title {
   width: 100%;
   height: 100%; }
 
+.mable-detail-map .col-md-12 {
+  height: 60vh; }
+
 input.btn-map {
   display: none; }
 
@@ -6052,6 +6055,14 @@ input.chk-btn:checked + label {
     color: #ffffff; }
     .mable-btn-map:focus img, .mable-btn-map:hover img, .mable-btn-map:active img {
       filter: invert(1); }
+  @media only screen and (max-width: 768px) {
+    .mable-btn-map {
+      width: 100%; } }
+
+@media only screen and (max-width: 425px) {
+  #buttons li {
+    width: 100%;
+    display: block; } }
 
 .mable-topicHeading {
   font-size: 25px;
@@ -6087,7 +6098,33 @@ input.chk-btn:checked + label {
 @media print {
   /* print styles go here */
   body {
-    font-size: 28px; } }
+    font-size: 14px; }
+  .navbar.navbar-default.navbar-static-top {
+    display: none; }
+  .container-fluid.mable-footer {
+    display: none; }
+  .mable-detail-image,
+  .mable-detailBackButton,
+  .mable-mapButtons-details,
+  .mable-actionSection,
+  .mable-detail-moreActions {
+    display: none; }
+  .mable-detail-name {
+    font-size: 20px !important; }
+  .mable-detail-map .col-md-12 {
+    height: 300px; }
+  .mable-topicHeading {
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 4px solid #000000;
+    padding-bottom: 7px;
+    text-transform: uppercase;
+    margin-bottom: 25px; }
+  .mable-detail-rating h5,
+  .mable-detail-website h5,
+  .mable-detail-address h5,
+  .mable-detail-phone h5 {
+    font-size: 14px; } }
 
 .mable-footer {
   margin-top: 50px; }
@@ -6152,6 +6189,8 @@ input.chk-btn:checked + label {
       margin-bottom: 10px; }
       .mable-homeHeader .row .btn-header a {
         padding: 10px 35px; }
+        .mable-homeHeader .row .btn-header a:hover {
+          color: #ffffff; }
 
 .mable-infoHome .row {
   margin: 40px 25px; }
@@ -6218,8 +6257,7 @@ input.chk-btn:checked + label {
   padding: 0 25px; }
   .mable-detail .mable-placeInfo {
     margin-bottom: 25px;
-    padding-bottom: 35px;
-    border-bottom: solid 4px #000000; }
+    padding-bottom: 35px; }
   .mable-detail .mable-detailBackButton {
     margin: 20px 0 35px; }
   .mable-detail .mable-detail-image img {
@@ -6245,6 +6283,12 @@ input.chk-btn:checked + label {
 
 .mable-detail-moreActions {
   margin-bottom: 50px; }
+
+.mable-mapButtons-details {
+  margin-bottom: 25px; }
+
+.nav-tabs {
+  border-bottom: none !important; }
 
 .mable-mapButtons {
   margin: 50px; }

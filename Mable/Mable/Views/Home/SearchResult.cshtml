@@ -81,7 +81,7 @@
 <div class="row mable-searchInput">
     <div class="col-md-12 text-center">
 
-        <div class="title">Discover</div>
+        <div class="title">Find</div>
 
         @using (Html.BeginForm("SearchResult", "Home"))
 
@@ -99,7 +99,7 @@
     <!-- start list-->
     <div class="col-sm-6 ">
         <div class="row" >
-            <div class="mable-topicHeading">
+            <div class="mable-topicHeading" style="margin-left: 20px;">
                 Search Results
             </div>
             @if (ViewBag.HasResult == false)
