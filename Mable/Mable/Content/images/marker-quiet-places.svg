@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="108px" height="108px" viewBox="0 0 108 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>marker-quiet</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mable-v2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="marker-quiet">
+            <circle id="Oval-6-Copy-2" fill="#000000" cx="54" cy="54" r="54"></circle>
+            <g id="Group-18" transform="translate(18.000000, 22.000000)" fill="#FFFFFF">
+                <polygon id="Path-21" points="0 22.0602923 0 43.1522102 15.2766145 43.1522102 36 64 36 0 15.2766145 22.0602923"></polygon>
+                <polygon id="Line-4" fill-rule="nonzero" points="69.021397 16 72 18.978603 46.978603 44 44 41.021397"></polygon>
+                <polygon id="Line-4" fill-rule="nonzero" points="43 18.978603 45.978603 16 71 41.021397 68.021397 44"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
