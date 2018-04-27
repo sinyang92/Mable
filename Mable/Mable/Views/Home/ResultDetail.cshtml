@@ -460,7 +460,6 @@
         var dev_geojson = @Html.Raw(ViewBag.dev);
         layer_dev.addGeoJson(dev_geojson);
 
-<<<<<<< HEAD
         layer_dev.setStyle(function (feature) {
                     var status = feature.getProperty('status');
                     if (status == 'UNDER CONSTRUCTION') {
@@ -470,7 +469,7 @@
                         };
                     }
         });
-=======
+
         //layer_dev.setStyle(function (feature) {
         //            var status = feature.getProperty('status');
         //            if (status == 'UNDER CONSTRUCTION') {
@@ -480,9 +479,8 @@
         //                };
         //            }
         //});
-        layer_dev.setStyle({ visible: false });
->>>>>>> 470f5c70247a6b575f170164f2319936851cdbcb
 
+    
         //foothpath steepness
         var s1 = performance.now();
         var stp_geojson = @Html.Raw(ViewBag.stp);
@@ -494,7 +492,7 @@
         var e2 = performance.now();
         console.log("2: " + (e2 - s2));
 
-<<<<<<< HEAD
+
         var s3 = performance.now();
         layer_footpath.setStyle(function (feature) {
             var grade = feature.getProperty('gradepc');
@@ -519,7 +517,7 @@
         });
         var e3 = performance.now();
         console.log("3: " + (e3 - s3));
-=======
+
         //layer_footpath.setStyle(function (feature) {
         //    var grade = feature.getProperty('gradepc');
         //    console.log("abc");
@@ -541,8 +539,6 @@
         //        };
         //    }
         //});
->>>>>>> 470f5c70247a6b575f170164f2319936851cdbcb
-        layer_footpath.setStyle({ visible: false });
 
         /**
         * Pedestrian congestion
@@ -703,7 +699,6 @@
     }
 
     function unshowDevelopment() {
-        layer_dev.setStyle({ visible: false });
         layer_dev.setMap(null);
         document.getElementById("initialTab").click();
     }
