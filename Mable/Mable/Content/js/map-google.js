@@ -153,7 +153,7 @@ function initMap() {
                     });
                     var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                         + current_location[0] + ',' + current_location[1]
-                        + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
+                        + '&destination=' + data[i].lat + ',' + data[i].lon + '" target="_blank">Navigate Me</a>' + '</div>';
                     infowindow_toilet = new google.maps.InfoWindow();
                     toilet_marker.content = content;
                     google.maps.event.addListener(toilet_marker, 'click', function () {
@@ -208,7 +208,7 @@ function initMap() {
                 var content = '<div>' + 'Parking status: ' + data[i].status + '</div>' +
                     '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
-                    + '&destination=' + data[i].lat + ',' + data[i].lon + '">Navigate Me</a>' + '</div>';
+                    + '&destination=' + data[i].lat + ',' + data[i].lon + '" target="_blank">Navigate Me</a>' + '</div>';
 
                 infowindow_parking = new google.maps.InfoWindow();
                 sensor_marker.content = content;
@@ -230,7 +230,16 @@ function initMap() {
     /**
      * Off street parking markers
      */
-    var icon3 = {
+    // this is the icon for showing private parkings
+    var icon3_P = {
+        url: "../Content/images/marker-toilet.svg", // url
+        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    }
+
+    // the icon to show commercial parkings
+    var icon3_C = {
         url: "../Content/images/marker-parking.svg", // url
         scaledSize: new google.maps.Size(20, 37.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
@@ -241,28 +250,32 @@ function initMap() {
     $.getJSON("https://data.melbourne.vic.gov.au/resource/9xmh-yeh2.json",
         function (data) {
             for (var i = 0; i < data.length; i++) {
+                var icon;
+
                 if (data[i].parking_type == "Residential") {
                     continue;
                 }
                 if (data[i].parking_type == "Commercial") {
                     data[i].parking_type = "Pay & Park";
+                    icon = icon3_C;
                 }
                 if (data[i].parking_type == "Private") {
                     data[i].parking_type = "Parking for staff,visitors or customers";
+                    icon = icon3_P;
                 }
                 var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                 var park_marker = new google.maps.Marker({
                     position: coor,
                     map: map,
                     visible: false,
-                    icon: icon3,
+                    icon: icon,
                     title: "Click for details"
                 });
                 var content = '<div>' + 'Parking Type: ' + data[i].parking_type + '</div>' +
                     '<div>' + 'Parking Spaces: ' + data[i].parking_spaces + '</div>' +
                     '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
-                    + '&destination=' + data[i].y_coordinate + ',' + data[i].x_coordinate_2 + '">Navigate Me</a>' + '</div>';
+                    + '&destination=' + data[i].y_coordinate + ',' + data[i].x_coordinate_2 + '" target="_blank"">Navigate Me</a>' + '</div>';
                 park_marker.content = content;
                 infowindow_parking = new google.maps.InfoWindow();
                 google.maps.event.addListener(park_marker, 'click', function () {
@@ -315,7 +328,7 @@ function initMap() {
                 var content = '<div>' + records[i]['Long Name'] + '</div>' +
                     '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                     + current_location[0] + ',' + current_location[1]
-                    + '&destination=' + records[i].Latitude + ',' + records[i].Longitude + '">Navigate Me</a>' + '</div>';
+                    + '&destination=' + records[i].Latitude + ',' + records[i].Longitude + '" target="_blank"">Navigate Me</a>' + '</div>';
                 wifi_marker.content = content;
                 infowindow_wifi = new google.maps.InfoWindow();
                 google.maps.event.addListener(wifi_marker, 'click', function () {
@@ -418,7 +431,7 @@ function showToilet(toilet) {
                 });
                 directionsDisplay.setDirections(result);
             }
-        })
+        });
         document.getElementById("tab2").click();
     }
     else {
@@ -608,7 +621,7 @@ function callback(results, status) {
             var content = '<div>' + results[i].name + '</div>' +
                 '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
                 + current_location[0] + ',' + current_location[1]
-                + '&destination=' + results[i].geometry.location.lat() + ',' + results[i].geometry.location.lng() + '">Navigate Me</a>' + '</div>';
+                + '&destination=' + results[i].geometry.location.lat() + ',' + results[i].geometry.location.lng() + '" target="_blank"">Navigate Me</a>' + '</div>';
             quiet_marker.content = content;
             infowindow_quiet = new google.maps.InfoWindow();
             google.maps.event.addListener(quiet_marker, 'click', function () {
