@@ -883,6 +883,10 @@
 
     function showRoute() {
         if (document.getElementById("route").checked) {
+            directionsDisplay = new google.maps.DirectionsRenderer({
+                suppressMarkers: true,
+                map: map
+            });
             // Try HTML5 geolocation
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -915,7 +919,7 @@
 
     }
 
-    function DisplayRoute(directionsService,start,end) {
+    function DisplayRoute(directionsService, start, end) {
         var selectedMode = document.getElementById('mode').value;
         var request = {
             origin: start,
@@ -924,10 +928,7 @@
         };
         directionsService.route(request, function (result, status) {
             if (status == 'OK') {
-                directionsDisplay = new google.maps.DirectionsRenderer({
-                    suppressMarkers: true,
-                    map: map
-                });
+                
                 directionsDisplay.setDirections(result);
             } else {
                 console.log(status);
