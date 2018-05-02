@@ -141,7 +141,7 @@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="sensor" onclick="showSensor(this)">
-                                    <label class="btn mable-btn-map" for='ped'><p>Available On-Street Parking</p> <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                    <label class="btn mable-btn-map" for='sensor'><p>Available On-Street Parking</p> <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
                                 </div> 
                             </li>
                         </ul>
@@ -225,6 +225,14 @@
                                     <div id="tableauViz"></div>
 
                                 </div>
+
+                                <div id="tabContent5" class="tab-pane fade">
+                                    <div class="mable-topicHeading">
+                                        Information
+                                    </div>
+                                    <p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represents different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
+                                    <p>Get the real-time information about unoccupied on-street parking bays by refreshing the web page. </p>
+                                </div>
                             </div>
                         </div>
                         <!-- End Information section -->
@@ -281,6 +289,7 @@
     <li><a data-toggle="tab" href="#tabContent2" id="tab2">tab2</a></li>
     <li><a data-toggle="tab" href="#tabContent3" id="tab3">tab3</a></li>
     <li><a data-toggle="tab" href="#tabContent4" id="tab4">tab4</a></li>
+    <li><a data-toggle="tab" href="#tabContent5" id="tab5">tab5</a></li>
 </ul>
 
 
@@ -374,7 +383,7 @@
     var layer_dev;
     var layer_footpath;
 
-
+    var sensor_markers = [];
     var ped_markers = [];
     var infowindow_parking;
     var infowindow_sensor;
@@ -431,12 +440,21 @@
                     infowindow.open(map, this);
                 });
             }
-        });
+            });
 
         /**
-   * Off street parking markers
-   */
-        var icon3 = {
+            * Off street parking markers
+            */
+        // this is the icon for showing private parkings
+        var icon3_P = {
+            url: "../../Content/images/marker-toilet.svg", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        }
+
+        // the icon to show commercial parkings
+        var icon3_C = {
             url: "../../Content/images/marker-parking.svg", // url
             scaledSize: new google.maps.Size(20, 37.57), // scaled size
             origin: new google.maps.Point(0, 0), // origin
@@ -447,26 +465,33 @@
         $.getJSON("https://data.melbourne.vic.gov.au/resource/9xmh-yeh2.json",
             function (data) {
                 for (var i = 0; i < data.length; i++) {
+                    var icon;
+
                     if (data[i].parking_type == "Residential") {
                         continue;
                     }
                     if (data[i].parking_type == "Commercial") {
                         data[i].parking_type = "Pay & Park";
+                        icon = icon3_C;
                     }
                     if (data[i].parking_type == "Private") {
                         data[i].parking_type = "Parking for staff,visitors or customers";
+                        icon = icon3_P;
                     }
-
                     var coor = { lat: parseFloat(data[i].y_coordinate), lng: parseFloat(data[i].x_coordinate_2) };
                     var park_marker = new google.maps.Marker({
                         position: coor,
                         map: map,
                         visible: false,
-                        icon: icon3,
+                        icon: icon,
                         title: "Click for details"
                     });
                     var content = '<div>' + 'Parking Type: ' + data[i].parking_type + '</div>' +
                         '<div>' + 'Parking Spaces: ' + data[i].parking_spaces + '</div>';
+                        //+
+                        //'<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                        //+ current_location[0] + ',' + current_location[1]
+                        //+ '&destination=' + data[i].y_coordinate + ',' + data[i].x_coordinate_2 + '" target="_blank"">Navigate Me</a>' + '</div>';
                     park_marker.content = content;
                     infowindow_parking = new google.maps.InfoWindow();
                     google.maps.event.addListener(park_marker, 'click', function () {
@@ -619,12 +644,54 @@
                 }
             });
 
+        /**
+   * Start on-street parking markers
+   */
+        var icon1 = {
+            url: "../../Content/images/marker-parking.svg", // url
+            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
 
-        // Road Condition
-        //var con_geojson = @Html.Raw(ViewBag.con);
-        //layer_condition.addGeoJson(con_geojson);
+        // Create marker for showing real time on-street parking status
+        $.getJSON("https://data.melbourne.vic.gov.au/resource/dtpv-d4pf.json",
+            function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].status == "Present") {
+                        continue;
+                    }
+                    var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
 
-        //layer_condition.setStyle({ visible: false });
+                    var sensor_marker = new google.maps.Marker({
+                        position: coor,
+                        map: map,
+                        visible: false,
+                        icon: icon1,
+                        title: "Click for details"
+                    });
+
+                    var content = '<div>' + 'Parking status: ' + data[i].status;
+                        //+ '</div>' +
+                        //'<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                        //+ current_location[0] + ',' + current_location[1]
+                        //+ '&destination=' + data[i].lat + ',' + data[i].lon + '" target="_blank">Navigate Me</a>' + '</div>';
+
+                    infowindow_parking = new google.maps.InfoWindow();
+                    sensor_marker.content = content;
+                    google.maps.event.addListener(sensor_marker, 'click', function () {
+                        infowindow_parking.setContent(this.content);
+                        infowindow_parking.open(this.getMap(), this);
+                    })
+                    sensor_markers.push(sensor_marker);
+                }
+
+            });
+    /**
+     * End on-street parking markers
+     */
+
+        
     }
 
     // Filter for parking space
@@ -647,6 +714,12 @@
         if (document.getElementById('ped').checked) {
             document.getElementById('ped').checked = false;
             unshowPed();
+        }
+
+        if (document.getElementById("sensor").checked) {
+            document.getElementById("sensor").checked = false;
+            unshowSensor();
+
         }
 
         if (document.getElementById("park").checked == true) {
@@ -692,6 +765,12 @@
         if (document.getElementById('ped').checked) {
             document.getElementById('ped').checked = false;
             unshowPed();
+        }
+
+        if (document.getElementById("sensor").checked) {
+            document.getElementById("sensor").checked = false;
+            unshowSensor();
+
         }
 
         if (document.getElementById('dev').checked) {
@@ -790,6 +869,12 @@
             unshowPed();
         }
 
+        if (document.getElementById("sensor").checked) {
+            document.getElementById("sensor").checked = false;
+            unshowSensor();
+
+        }
+
         if (document.getElementById('stp').checked) {
             document.getElementById("tab2").click();
             layer_footpath.setMap(map);
@@ -850,6 +935,12 @@
             unshowPark();
         }
 
+        if (document.getElementById("sensor").checked) {
+            document.getElementById("sensor").checked = false;
+            unshowSensor();
+
+        }
+
         if (document.getElementById("ped").checked == true) {
             for (var i = 0; i < ped_markers.length; i++) {
                 ped_markers[i].setVisible(true);
@@ -867,6 +958,52 @@
             ped_markers[i].setVisible(false);
         }
         infowindow_sensor.close();
+    }
+
+    //Filter for real time on-street parking
+    function showSensor(sensor) {
+        if (document.getElementById('dev').checked) {
+            document.getElementById('dev').checked = false;
+            unshowDevelopment();
+        }
+
+        if (document.getElementById('stp').checked) {
+            document.getElementById('stp').checked = false;
+            unshowSteepness();
+        }
+
+        if (document.getElementById('park').checked) {
+            document.getElementById('park').checked = false;
+            unshowPark();
+        }
+        if (document.getElementById('ped').checked) {
+            document.getElementById('ped').checked = false;
+            unshowPed();
+        }
+
+        if (document.getElementById("sensor").checked == true) {
+            for (var i = 0; i < sensor_markers.length; i++) {
+                sensor_markers[i].setVisible(true);
+            }
+            markerCluster_sensor = new MarkerClusterer(map, sensor_markers, {
+                imagePath: '../../Content/cluster/m'
+            });
+
+            document.getElementById("tab5").click();
+           
+        }
+        else {
+            unshowSensor();
+            document.getElementById("initialTab").click();
+        }
+    }
+
+    function unshowSensor() {
+        for (var i = 0; i < sensor_markers.length; i++) {
+            sensor_markers[i].setVisible(false);
+        }
+        markerCluster_sensor.clearMarkers();
+        infowindow_parking.close();
     }
 
     function handleLocationError(browserHasGeolocation, infowindow, pos) {
