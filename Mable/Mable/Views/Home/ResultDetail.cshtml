@@ -95,11 +95,21 @@
                             @Model.formatted_phone_number
                         </div>
 
-                        <div>
-                            <button id="rateBtn1" onclick="AjaxUpdateRating_lv1()">@Model.rating_lv1</button>
-                            <button id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</button>
-                            <button id="rateBtn3" onclick="AjaxUpdateRating_lv3()">@Model.rating_lv3</button>
-                            <button id="rateBtn4" onclick="AjaxUpdateRating_lv4()">@Model.rating_lv4</button>
+                        <div class="mable-detail-counter">
+                            <h5>Public Accessibility Rating:</h5>
+                            <p>Contribute by giving your feedback</p>
+                            <div style="display: inline-block;">
+                                <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
+                            </div>
+                            <div style="display: inline-block;">
+                                <i class="fab fa-accessible-icon"></i> Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</buttontitle="Add>
+                            </div>
+                            <div style="display: inline-block;">
+                                <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</buttontitle="Add>
+                            </div>
+                            
+                            
+                            @*<button id="rateBtn4" onclick="AjaxUpdateRating_lv4()">@Model.rating_lv4</button>*@
                         </div>
 
 
@@ -115,28 +125,16 @@
                     <div class="col-md-12">
 
                         <ul id="buttons" class="nav nav-tabs">
-                            <li class="active">
-                                <div class="">
-                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
-                                    <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-dev-activity.svg" /></label>
-                                </div>
-                            </li>
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="stp" onclick="showSteepness(this)">
                                     <label class="btn mable-btn-map" for='stp'><p>Footpath Steepness</p> <img height="30" class="btn-block" src="~/Content/images/icon-steepness.svg" /></label>
                                 </div>
                             </li>
-                            @*<li>
-            <div class="">
-                <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-            </div>
-        </li>*@
-                            <li>
+                            <li class="">
                                 <div class="">
-                                    <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
-                                    <label class="btn mable-btn-map" for='park'><p>Off-Street Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                    <input type="checkbox" name="filter" class='btn-map' id="dev" onclick="showDevelopment(this)">
+                                    <label class="btn mable-btn-map" for='dev'><p>Development Activities</p> <img height="30" class="btn-block" src="~/Content/images/icon-dev-activity.svg" /></label>
                                 </div>
                             </li>
                             <li>
@@ -145,12 +143,28 @@
                                     <label class="btn mable-btn-map" for='ped'><p>Pedestrian Congestion</p> <img height="30" class="btn-block" src="~/Content/images/icon-congestion.svg" /></label>
                                 </div>
                             </li>
+
+                            @*<li>
+            <div class="">
+                <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+            </div>
+        </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="sensor" onclick="showSensor(this)">
                                     <label class="btn mable-btn-map" for='sensor'><p>Available On-Street Parking</p> <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
-                                </div> 
+                                </div>
                             </li>
+
+                            <li>
+                                <div class="">
+                                    <input type="checkbox" name="filter" class='btn-map' id="park" onclick="showPark(this)">
+                                    <label class="btn mable-btn-map" for='park'><p>Off-Street Parking</p><img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+                                </div>
+                            </li>
+
+
                         </ul>
 
                     </div>
@@ -158,15 +172,7 @@
                 <!-- End buttons-->
                 <!--Start map and info-->
                 <div class="row">
-                    <!-- Travel mode selector -->
-                    <div id="floating-panel" style="display:none">
-                        <b>Model of Travel:</b>
-                        <select id="mode">
-                            <option value="DRIVING">Driving</option>
-                            <option value="WALKING">Walking</option>
-                            <option value="TRANSIT">Public Transport</option>
-                        </select>
-                    </div>
+                    
                     <!-- Start Map-->
                     <div class="col-lg-8 mable-columns">
                         @*<div class="mable-topicHeading">
@@ -175,7 +181,7 @@
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
-                                <div name="place location" id="map" style="height: 50vh;"></div>
+                                <div name="place location" id="map" style="min-height: 300px;"></div>
                             </div>
                         </div>
                         <!-- End place map -->
@@ -229,7 +235,7 @@
 
                                     <p>Click the marker and today’s predicted pedestrian congestion trend will show in a bar chart for every hour.</p>
 
-                                    <div id="tableauViz"></div>
+                                    <div id="tableauViz" style="width: 100%; height:200px;"></div>
 
                                 </div>
 
@@ -244,11 +250,32 @@
                         </div>
                         <!-- End Information section -->
                         <!-- Start action section-->
-                        <div class="row mable-actionSection">
+                        @*<div class="row mable-actionSection">
                             <div class="mable-topicHeading">
                                 Actions
                             </div>
+                        </div>*@
+                        <!-- End action section -->
+                        <!-- Start action section-->
+                        <div class="row mable-actionSection">
+                            <div class="mable-topicHeading">
+                                Options
+                            </div>
                             <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
+
+                            <input type="checkbox" name="route" class="btn-map" id="route" onclick="showRoute(this)">
+                            <label class="btn mable-btn-primary-outline" for='route'>Show Route</label>
+                            <!-- Travel mode selector -->
+                            <div id="floating-panel" style="display:none">
+                                <p>Model of Travel:</p>
+                                <select id="mode">
+                                    <option value="DRIVING">Driving</option>
+                                    <option value="WALKING">Walking</option>
+                                    <option value="TRANSIT">Public Transport</option>
+                                </select>
+                            </div>
+
+
                         </div>
                         <!-- End action section -->
                     </div>
@@ -271,8 +298,7 @@
                         </button>
                         <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
 
-                        <input type="checkbox" name="route" class='btn mable-btn-primary-outline' id="route" onclick="showRoute(this)">
-                        <label class="btn mable-btn-map" for='route'><p>Show Route</p></label>
+                       
                     </div>
                     @*<div class="col-lg-4">
                             <button class="btn mable-btn-primary-outline">Mobility Map</button>

@@ -35,25 +35,14 @@
 <!-- Start Map Buttons-->
 <div class="row mable-mapButtons">
     <ul id="buttons" class="nav nav-tabs">
-        <li class="active">
-            <div class="">
-                <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
-                <label for='sensor' class="btn mable-btn-map"> <p>Available On-Street Parking</p>  <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
 
-            </div>
-        </li>
         <li>
             <div class="">
                 <input type="checkbox" name="filter" id="toilet" class='btn-map' onclick="showToilet(this)">
                 <label for='toilet' class="btn mable-btn-map"><p>Wheelchair Accessible Toilet</p>  <img height="30" class="btn-block" src="~/Content/images/icon-toilet.svg" /></label>
             </div>
         </li>
-        <li>
-            <div class="">
-                <input type="checkbox" name="filter" id="park" class='btn-map' onclick="showPark(this)">
-                <label for='park' class="btn mable-btn-map"><p>Off-Street Parking</p>  <img class="btn-block" height="30" src="~/Content/images/icon-parking.svg" /></label>
-            </div>
-        </li>
+
         <li>
             <div class="">
 
@@ -66,6 +55,19 @@
                 <input type="checkbox" name="filter" id="quite" class='btn-map' onclick="showQuiet(this)">
                 @*Quite Places*@
                 <label for='quite' class="btn mable-btn-map"><p>Quiet Places</p><img height="30" class="btn-block" src="~/Content/images/marker-quiet-places.svg" /></label>
+            </div>
+        </li>
+        <li class="">
+            <div class="">
+                <input type="checkbox" name="filter" id="sensor" class='btn-map' onclick="showSensor(this)">
+                <label for='sensor' class="btn mable-btn-map"> <p>Available On-Street Parking</p>  <img height="30" class="btn-block" src="~/Content/images/icon-parking.svg" /></label>
+
+            </div>
+        </li>
+        <li>
+            <div class="">
+                <input type="checkbox" name="filter" id="park" class='btn-map' onclick="showPark(this)">
+                <label for='park' class="btn mable-btn-map"><p>Off-Street Parking</p>  <img class="btn-block" height="30" src="~/Content/images/icon-parking.svg" /></label>
             </div>
         </li>
     </ul>
@@ -171,7 +173,7 @@
         <!--Start actions section-->
         <div class="row">
             <div class="mable-topicHeading">
-                Actions
+                Options
             </div>
             <button class="btn mable-btn-primary-outline" onclick="centerTocurrent()"> Current Location</button>
             <button class="btn mable-btn-primary-outline" onclick="requestFullscreen()">Fullscreen</button>
