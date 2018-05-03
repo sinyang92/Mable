@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PlaceRatingModelStoreContainer" CdmEntityContainer="PlaceRatingEntity">
+    <EntitySetMapping Name="place_rating">
+      <EntityTypeMapping TypeName="PlaceRatingModel.place_rating">
+        <MappingFragment StoreEntitySet="place_rating">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="place_id" ColumnName="place_id" />
+          <ScalarProperty Name="num_lv1" ColumnName="num_lv1" />
+          <ScalarProperty Name="num_lv2" ColumnName="num_lv2" />
+          <ScalarProperty Name="num_lv3" ColumnName="num_lv3" />
+          <ScalarProperty Name="num_lv4" ColumnName="num_lv4" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

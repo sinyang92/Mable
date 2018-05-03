@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlaceRatingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="place_rating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="place_id" Type="nvarchar" MaxLength="100" />
+    <Property Name="num_lv1" Type="int" />
+    <Property Name="num_lv2" Type="int" />
+    <Property Name="num_lv3" Type="int" />
+    <Property Name="num_lv4" Type="int" />
+  </EntityType>
+  <EntityContainer Name="PlaceRatingModelStoreContainer">
+    <EntitySet Name="place_rating" EntityType="Self.place_rating" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

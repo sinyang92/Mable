@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlaceRatingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="place_rating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="place_id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="num_lv1" Type="Int32" />
+    <Property Name="num_lv2" Type="Int32" />
+    <Property Name="num_lv3" Type="Int32" />
+    <Property Name="num_lv4" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="PlaceRatingEntity" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="place_rating" EntityType="Self.place_rating" />
+  </EntityContainer>
+</Schema>

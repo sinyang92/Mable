@@ -17,6 +17,7 @@ using Quartz;
 using System.Threading.Tasks;
 using Quartz.Impl;
 using System.IO;
+using Mable.Models;
 
 namespace Mable.Controllers
 {
@@ -120,12 +121,12 @@ namespace Mable.Controllers
                 //    }
 
                 //}
-                place_details.Add(detailResult);
-
-                // sort by accessibility rating first, then sort by rating
-                place_details = place_details.OrderByDescending(p => p.rating).ToList();
-
+                place_details.Add(detailResult);            
             }
+
+            // sort by accessibility rating first, then sort by rating
+            place_details = place_details.OrderByDescending(p => p.rating).ToList();
+
             TempData["place_details"] = place_details;
 
             // Uncomment this to enable paged display
@@ -142,15 +143,17 @@ namespace Mable.Controllers
             return View();
         }
 
-        public ActionResult ResultDetail(string id)
+        public ActionResult ResultDetail(string place_id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             List<PlaceDetail.Result> place_details = (List<PlaceDetail.Result>)TempData["place_details"];
             TempData["place_details"] = place_details;
-            PlaceDetail.Result detail = place_details.Where(d => d.id == id).First();
+            Debug.WriteLine("Passed: " + place_id);
+            Debug.WriteLine("Compare: " + place_details[0].place_id);
+            PlaceDetail.Result detail = place_details.Where(d => d.place_id == place_id).First();
             if (detail == null)
             {
                 return HttpNotFound();
@@ -176,6 +179,28 @@ namespace Mable.Controllers
             //reader = new StreamReader(Server.MapPath("~/GeoJSON/Road segments, with surface type.geojson"));
             //string con_string = reader.ReadToEnd().ToString();
             //ViewBag.con = con_string;
+            PlaceRatingEntity db = new PlaceRatingEntity();
+            var db_place = (from place in db.place_rating where place.place_id == detail.place_id select place).FirstOrDefault();
+            if (db_place == null) // if this place has no record in database
+            {
+                place_rating place_Rating = new place_rating
+                {
+                    place_id = detail.place_id,
+                    num_lv1 = 0,
+                    num_lv2 = 0,
+                    num_lv3 = 0,
+                    num_lv4 = 0
+                };
+                db.place_rating.Add(place_Rating);
+                db.SaveChanges();
+;            }
+            else
+            {
+                detail.rating_lv1 = (int)db_place.num_lv1;
+                detail.rating_lv2 = (int)db_place.num_lv2;
+                detail.rating_lv3 = (int)db_place.num_lv3;
+                detail.rating_lv4 = (int)db_place.num_lv4;
+            }
 
             return View(detail);
         }
@@ -264,5 +289,53 @@ namespace Mable.Controllers
         //    }
         //    db.SaveChanges();
         //}
+        
+        public int UpdateRating_lv1(string place_id, int num_lv1)
+        {
+            PlaceRatingEntity db = new PlaceRatingEntity();
+            var db_place = (from place in db.place_rating where place.place_id == place_id select place).FirstOrDefault();
+            if (db_place != null)
+            {
+                db_place.num_lv1 = num_lv1;
+                db.SaveChanges();
+            }
+            return num_lv1;
+        }
+
+        public int UpdateRating_lv2(string place_id, int num_lv2)
+        {
+            PlaceRatingEntity db = new PlaceRatingEntity();
+            var db_place = (from place in db.place_rating where place.place_id == place_id select place).FirstOrDefault();
+            if (db_place != null)
+            {
+                db_place.num_lv2 = num_lv2;
+                db.SaveChanges();
+            }
+            return num_lv2;
+        }
+
+        public int UpdateRating_lv3(string place_id, int num_lv3)
+        {
+            PlaceRatingEntity db = new PlaceRatingEntity();
+            var db_place = (from place in db.place_rating where place.place_id == place_id select place).FirstOrDefault();
+            if (db_place != null)
+            {
+                db_place.num_lv3 = num_lv3;
+                db.SaveChanges();
+            }
+            return num_lv3;
+        }
+
+        public int UpdateRating_lv4(string place_id, int num_lv4)
+        {
+            PlaceRatingEntity db = new PlaceRatingEntity();
+            var db_place = (from place in db.place_rating where place.place_id == place_id select place).FirstOrDefault();
+            if (db_place != null)
+            {
+                db_place.num_lv4 = num_lv4;
+                db.SaveChanges();
+            }
+            return num_lv4;
+        }
     }
 }

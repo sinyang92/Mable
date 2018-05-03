@@ -35,6 +35,7 @@
 </style>
 
 @model Mable.Classes.PlaceDetail.Result
+@using Mable.Controllers;
 
 <div class="section">
     <div class="container-fluid">
@@ -94,6 +95,12 @@
                             @Model.formatted_phone_number
                         </div>
 
+                        <div>
+                            <button id="rateBtn1" onclick="AjaxUpdateRating_lv1()">@Model.rating_lv1</button>
+                            <button id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</button>
+                            <button id="rateBtn3" onclick="AjaxUpdateRating_lv3()">@Model.rating_lv3</button>
+                            <button id="rateBtn4" onclick="AjaxUpdateRating_lv4()">@Model.rating_lv4</button>
+                        </div>
 
 
                     </div>
@@ -1076,6 +1083,62 @@
             } else {
                 console.log(status);
             }
+        });
+    }
+
+    function AjaxUpdateRating_lv1() {
+        var val = parseInt($('#rateBtn1').html());
+        val += 1;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateRating_lv1","Home")',
+            data: JSON.stringify({ place_id: '@Model.place_id', num_lv1: val}),
+            dataType: 'json',
+            contentType: "application/json",
+        }).done(function (data) {
+            $('#rateBtn1').html(data);
+        });
+    }
+    
+    function AjaxUpdateRating_lv2() {
+        var val = parseInt($('#rateBtn2').html());
+        val += 1;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateRating_lv2","Home")',
+            data: JSON.stringify({ place_id: '@Model.place_id', num_lv2: val}),
+            dataType: 'json',
+            contentType: "application/json",
+        }).done(function (data) {
+            $('#rateBtn2').html(data);
+        });
+    }
+
+    function AjaxUpdateRating_lv3() {
+        var val = parseInt($('#rateBtn3').html());
+        val += 1;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateRating_lv3","Home")',
+            data: JSON.stringify({ place_id: '@Model.place_id', num_lv3: val}),
+            dataType: 'json',
+            contentType: "application/json",
+        }).done(function (data) {
+            $('#rateBtn3').html(data);
+        });
+    }
+
+    function AjaxUpdateRating_lv4() {
+        var val = parseInt($('#rateBtn4').html());
+        val += 1;
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateRating_lv4","Home")',
+            data: JSON.stringify({ place_id: '@Model.place_id', num_lv4: val}),
+            dataType: 'json',
+            contentType: "application/json",
+        }).done(function (data) {
+            $('#rateBtn4').html(data);
         });
     }
 

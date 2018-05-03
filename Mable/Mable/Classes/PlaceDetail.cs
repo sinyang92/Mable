@@ -39,6 +39,11 @@ namespace Mable.Classes
             public string accessibility_rating { get; set; }
             public string accessibility_description { get; set; }
             public string photo_reference { get; set; }
+
+            public int rating_lv1 { get; set; }
+            public int rating_lv2 { get; set; }
+            public int rating_lv3 { get; set; }
+            public int rating_lv4 { get; set; }
         }
 
         public class Geometry
