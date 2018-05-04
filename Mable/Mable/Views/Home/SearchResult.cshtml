@@ -120,7 +120,7 @@
 
                     @foreach (var item in Model)
     {
-                <div class="col-sm-12  mable-CardResult" id="@item.place_id">
+                <div class="col-sm-12 animated fadeInUp mable-CardResult" id="@item.place_id">
                     <div class="row">
                         <a href="@Url.Action("ResultDetail", new { place_id = item.place_id })" onclick="startNProgress()">
                             <div class="col-lg-8">
