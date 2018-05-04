@@ -47,7 +47,7 @@
                 visible: true,
             });
             var place_id = result_list[i].place_id;
-            var link = '@Url.Action("ResultDetail", new { id = "-1" })';
+            var link = '@Url.Action("ResultDetail", new { place_id = "-1" })';
             link = link.replace("-1", place_id);
             var content = '<div>' + result_list[i].name + '</div>' +
                 '<div><a href="' + link + '">Detail</a>' + '</div>';
