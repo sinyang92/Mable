@@ -339,6 +339,7 @@
     <Content Include="Content\images\marker-cluster2.svg" />
     <Content Include="Content\images\marker-cluster3.svg" />
     <Content Include="Content\images\marker-cluster4.svg" />
+    <Content Include="Content\images\marker-parking-new.svg" />
     <Content Include="Content\images\marker-parking.svg" />
     <Content Include="Content\images\marker-pedestrian.svg" />
     <Content Include="Content\images\marker-quiet-places.svg" />
