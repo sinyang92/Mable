@@ -35,7 +35,8 @@
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: pyrmont,
-            zoom: 15
+            zoom: 15,
+            clickableIcons: false
         });
 
         result_list = @Html.Raw(Json.Encode(Model));
@@ -74,6 +75,10 @@
 
             result_markers.push(result_marker);
         }
+    }
+
+    function startNProgress() {
+        NProgress.start();
     }
 </script>
 
@@ -117,7 +122,7 @@
     {
                 <div class="col-sm-12  mable-CardResult" id="@item.place_id">
                     <div class="row">
-                        <a href="@Url.Action("ResultDetail", new { place_id = item.place_id })">
+                        <a href="@Url.Action("ResultDetail", new { place_id = item.place_id })" onclick="startNProgress()">
                             <div class="col-lg-8">
                                 <h1 class="mable-CardResult-title">
                                     @item.name
