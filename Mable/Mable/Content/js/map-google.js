@@ -126,7 +126,7 @@ function initMap() {
      */
         var icon2 = {
             url: "../Content/images/marker-toilet.svg", // url
-            scaledSize: new google.maps.Size(20, 37.57), // scaled size
+            scaledSize: new google.maps.Size(25, 25), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
         };
@@ -183,7 +183,7 @@ function initMap() {
      */
     var icon1 = {
         url: "../Content/images/marker-parking.svg", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        scaledSize: new google.maps.Size(20, 27.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
@@ -232,8 +232,8 @@ function initMap() {
      */
     // this is the icon for showing private parkings
     var icon3_P = {
-        url: "../Content/images/marker-toilet.svg", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        url: "../Content/images/marker-parking-new.svg", // url
+        scaledSize: new google.maps.Size(20, 27.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     }
@@ -241,7 +241,7 @@ function initMap() {
     // the icon to show commercial parkings
     var icon3_C = {
         url: "../Content/images/marker-parking.svg", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        scaledSize: new google.maps.Size(20, 27.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
@@ -290,7 +290,7 @@ function initMap() {
     */
     icon5 = {
         url: "../Content/images/marker-quiet-places.svg", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        scaledSize: new google.maps.Size(20, 27.57), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
@@ -300,7 +300,7 @@ function initMap() {
 
     var icon4 = {
         url: "../Content/images/marker-wifi.svg", // url
-        scaledSize: new google.maps.Size(20, 37.57), // scaled size
+        scaledSize: new google.maps.Size(25, 25), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
