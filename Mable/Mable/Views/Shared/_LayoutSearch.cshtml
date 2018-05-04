@@ -44,14 +44,19 @@
 
                     @*<li class="@(pageName == "Index" ? "active" : "")">
 
-                        @Html.ActionLink("Find", "Search", "Home")
+            @Html.ActionLink("Find", "Search", "Home")
 
-                    </li>*@
+        </li>*@
                     <li class="">
                         @Html.ActionLink("Near Me", "Map", "Home")
                     </li>
                     <li>
                         @Html.ActionLink("About", "About", "Home")
+                    </li>
+                    <li>
+
+                        @Html.ActionLink("Resources", "Resources", "Home")
+
                     </li>
                 </ul>
             </div>

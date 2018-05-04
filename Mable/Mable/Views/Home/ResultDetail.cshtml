@@ -37,6 +37,19 @@
 @model Mable.Classes.PlaceDetail.Result
 @using Mable.Controllers;
 
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+
+<script>
+    $(document).ready(function () {
+        NProgress.start();
+    })
+
+    window.onload = function () {
+        NProgress.done();
+    }
+</script>
+
 <div class="section">
     <div class="container-fluid">
         <div class="row">
@@ -107,8 +120,8 @@
                             <div style="display: inline-block;">
                                 <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</buttontitle="Add>
                             </div>
-                            
-                            
+
+
                             @*<button id="rateBtn4" onclick="AjaxUpdateRating_lv4()">@Model.rating_lv4</button>*@
                         </div>
 
@@ -145,11 +158,11 @@
                             </li>
 
                             @*<li>
-            <div class="">
-                <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
-                <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
-            </div>
-        </li>*@
+                                    <div class="">
+                                        <input type="checkbox" name="filter" class='btn-map' id="con" onclick="showCondition(this)">
+                                        <label class="btn mable-btn-map" for='con'><p>Road Condition</p> <img class="btn-block" height="30" src="~/Content/images/icon-path-condition.svg" /></label>
+                                    </div>
+                                </li>*@
                             <li>
                                 <div class="">
                                     <input type="checkbox" name="filter" class='btn-map' id="sensor" onclick="showSensor(this)">
@@ -172,7 +185,7 @@
                 <!-- End buttons-->
                 <!--Start map and info-->
                 <div class="row">
-                    
+
                     <!-- Start Map-->
                     <div class="col-lg-8 mable-columns">
                         @*<div class="mable-topicHeading">
@@ -251,10 +264,10 @@
                         <!-- End Information section -->
                         <!-- Start action section-->
                         @*<div class="row mable-actionSection">
-                            <div class="mable-topicHeading">
-                                Actions
-                            </div>
-                        </div>*@
+                                <div class="mable-topicHeading">
+                                    Actions
+                                </div>
+                            </div>*@
                         <!-- End action section -->
                         <!-- Start action section-->
                         <div class="row mable-actionSection">
@@ -276,8 +289,9 @@
                             </div>
 
                             <!--- Arrival Time-->
-                            <div>
+                            <div id="arrival-time">
                                 <!-- Hi Sin, here you can add the code for arrival time -->
+
                             </div>
 
                         </div>
@@ -297,12 +311,12 @@
 
                     </div>
                     <div class="col-lg-4">
-                        <button class="btn mable-btn-primary-outline" onclick="location.href='https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng'">
+                        <button class="btn mable-btn-primary-outline" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=@Model.geometry.location.lat,@Model.geometry.location.lng')">
                             Open in Google Map
                         </button>
                         <button class="btn mable-btn-primary-outline" onclick="showPrintPreview()">Print Map</button>
 
-                       
+
                     </div>
                     @*<div class="col-lg-4">
                             <button class="btn mable-btn-primary-outline">Mobility Map</button>
@@ -328,8 +342,6 @@
     <li><a data-toggle="tab" href="#tabContent4" id="tab4">tab4</a></li>
     <li><a data-toggle="tab" href="#tabContent5" id="tab5">tab5</a></li>
 </ul>
-
-
 
 <script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 <script>
@@ -434,6 +446,7 @@
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: lat, lng: lng },
             zoom: 15,
+            clickableIcons: false
             //gestureHandling: 'none'
         });
 
@@ -728,7 +741,7 @@
      * End on-street parking markers
      */
 
-        
+
     }
 
     // Filter for parking space
@@ -1027,7 +1040,7 @@
             });
 
             document.getElementById("tab5").click();
-           
+
         }
         else {
             unshowSensor();
@@ -1108,8 +1121,9 @@
         };
         directionsService.route(request, function (result, status) {
             if (status == 'OK') {
-                
+
                 directionsDisplay.setDirections(result);
+                directionsDisplay.setPanel(document.getElementById('arrival-time'));
             } else {
                 console.log(status);
             }
@@ -1129,7 +1143,7 @@
             $('#rateBtn1').html(data);
         });
     }
-    
+
     function AjaxUpdateRating_lv2() {
         var val = parseInt($('#rateBtn2').html());
         val += 1;

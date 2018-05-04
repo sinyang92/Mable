@@ -205,6 +205,11 @@ namespace Mable.Controllers
             return View(detail);
         }
 
+        public ActionResult Resources()
+        {
+            return View();
+        }
+
         public static string Download_JSON(string url)
         {
             WebClient client = new WebClient();
