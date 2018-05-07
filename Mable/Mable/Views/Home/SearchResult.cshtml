@@ -80,6 +80,16 @@
     function startNProgress() {
         NProgress.start();
     }
+
+    function HighlightMarker(place_id) {
+        var marker = result_markers.find(m => m.place_id == place_id);
+        marker.setIcon('../Content/images/marker-parking.svg');  // TODO: change to a proper icon
+    }
+
+    function UnHighlightMarker(place_id) {
+        var marker = result_markers.find(m => m.place_id == place_id);
+        marker.setIcon();
+    }
 </script>
 
 <!-- Start Search input -->
@@ -120,7 +130,7 @@
 
                     @foreach (var item in Model)
     {
-                <div class="col-sm-12 animated fadeInUp mable-CardResult" id="@item.place_id">
+                <div class="col-sm-12 animated fadeInUp mable-CardResult" id="@item.place_id" onmouseover="HighlightMarker('@item.place_id')" onmouseout="UnHighlightMarker('@item.place_id')">
                     <div class="row">
                         <a href="@Url.Action("ResultDetail", new { place_id = item.place_id })" onclick="startNProgress()">
                             <div class="col-lg-8">
