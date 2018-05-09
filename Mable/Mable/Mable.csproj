@@ -353,12 +353,14 @@
     <Content Include="Content\images\off-street-parking.png" />
     <Content Include="Content\images\on-street-parking.png" />
     <Content Include="Content\images\public-toilets.png" />
+    <Content Include="Content\images\resources-melway.jpg" />
     <Content Include="Content\images\steepness-1.svg" />
     <Content Include="Content\images\steepness-2.svg" />
     <Content Include="Content\images\steepness-3.svg" />
     <Content Include="Content\images\wheelchair-people.svg" />
     <Content Include="Content\js\map-google.js" />
     <Content Include="Content\js\markerclusterer.js" />
+    <Content Include="Content\js\masonry.pkgd.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
