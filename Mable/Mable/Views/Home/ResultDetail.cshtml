@@ -442,7 +442,7 @@
     }
 
     if (@Model.rating_lv1  == 0 && @Model.rating_lv2  == 0 && @Model.rating_lv3  == 0) {
-        documet.getElementById("fa-ban").classList.add("mable-publicRating");
+        document.getElementById("fa-ban").classList.add("mable-publicRating");
     } else {
         var avg = (@Model.rating_lv2 + 2 * @Model.rating_lv3) / (@Model.rating_lv1 + @Model.rating_lv2 + @Model.rating_lv3);
         if (avg <= 0.5) {
@@ -1143,8 +1143,10 @@
         } else {
             if (typeof directionsDisplay != 'undefined') {
                 directionsDisplay.setMap(null);
+                directionsDisplay.setPanel(null);
             }
             document.getElementById('floating-panel').style.display = "none";
+            
         }
 
     }
