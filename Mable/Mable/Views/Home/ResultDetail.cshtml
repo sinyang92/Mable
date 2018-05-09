@@ -112,13 +112,13 @@
                             <h5>Public Accessibility Rating:</h5>
                             <p>Contribute by giving your feedback</p>
                             <div style="display: inline-block;">
-                                <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
+                                <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</button>
                             </div>
                             <div style="display: inline-block;">
-                                <i class="fab fa-accessible-icon"></i> Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</buttontitle="Add>
+                                <i class="fab fa-accessible-icon"></i> Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</button>
                             </div>
                             <div style="display: inline-block;">
-                                <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</buttontitle="Add>
+                                <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
                             </div>
 
 
@@ -1141,6 +1141,7 @@
             contentType: "application/json",
         }).done(function (data) {
             $('#rateBtn1').html(data);
+            UpdateAverage(data, @Model.rating_lv2, @Model.rating_lv3);
         });
     }
 
@@ -1155,6 +1156,7 @@
             contentType: "application/json",
         }).done(function (data) {
             $('#rateBtn2').html(data);
+            UpdateAverage(@Model.rating_lv1, data, @Model.rating_lv3);
         });
     }
 
@@ -1169,21 +1171,13 @@
             contentType: "application/json",
         }).done(function (data) {
             $('#rateBtn3').html(data);
+            UpdateAverage(@Model.rating_lv1, @Model.rating_lv2, data);
         });
     }
 
-    function AjaxUpdateRating_lv4() {
-        var val = parseInt($('#rateBtn4').html());
-        val += 1;
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("UpdateRating_lv4","Home")',
-            data: JSON.stringify({ place_id: '@Model.place_id', num_lv4: val}),
-            dataType: 'json',
-            contentType: "application/json",
-        }).done(function (data) {
-            $('#rateBtn4').html(data);
-        });
+    function UpdateAverage(l1, l2, l3) {
+        var avg = (l2 + 2 * l3) / (l1 + l2 + l3);
+
     }
 
 </script>
