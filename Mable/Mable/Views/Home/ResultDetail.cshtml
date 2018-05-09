@@ -32,6 +32,10 @@
     .gm-style div {
         background-repeat: no-repeat;
     }
+
+    .mable-publicRating {
+        color: #ffd000;
+    }
 </style>
 
 @model Mable.Classes.PlaceDetail.Result
@@ -109,9 +113,22 @@
                         </div>
 
                         <div class="mable-detail-counter">
+
+                           
+
+
+
                             <h5>Public Accessibility Rating:</h5>
                             <p>Contribute by giving your feedback</p>
+
                             <div style="display: inline-block;">
+                                <i class="fas fa-ban" style="font-size: 30px;"></i>
+                                <i class="fas fa-frown" style="font-size: 30px;"></i>
+                                <i class="fas fa-meh" style="font-size: 30px;"></i>
+                                <i class="fas fa-smile mable-publicRating" style="font-size: 30px;"></i>
+                            </div>
+                            <div style="display: inline-block;">
+<<<<<<< HEAD
                                 <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</button>
                             </div>
                             <div style="display: inline-block;">
@@ -119,6 +136,15 @@
                             </div>
                             <div style="display: inline-block;">
                                 <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
+=======
+                                Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
+                            </div>
+                            <div style="display: inline-block;">
+                                Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</buttontitle="Add>
+                            </div>
+                            <div style="display: inline-block;">
+                               Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</buttontitle="Add>
+>>>>>>> 89811e6eddbef0d8de1f8b30fc2286608a98b6eb
                             </div>
 
 
