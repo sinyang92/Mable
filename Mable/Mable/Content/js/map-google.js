@@ -47,28 +47,6 @@ function initMap() {
 
     locInfoWindow = new google.maps.InfoWindow({ map: map });
 
-    
-
-    // Try HTML5 geolocation
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            current_location.push(position.coords.latitude);
-            current_location.push(position.coords.longitude);
-            currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
-            //locInfoWindow.setPosition(pos);
-            //locInfoWindow.setContent('Your current location');
-            map.setCenter(pos);
-        }, function () {
-            handleLocationError(true, locInfoWindow, map.getCenter());
-        });
-    } else {
-        handleLocationError(false, locInfoWindow, map.getCenter());
-    }
-
     // Bias the SearchBox results towards current map's viewport
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
@@ -121,61 +99,52 @@ function initMap() {
      * End Search function inside the map
      */
 
-    google.maps.event.addListenerOnce(map, 'idle', function () {
-        /**
+    /**
      * Start toilet markers
-     */
-        var icon2 = {
-            url: "../Content/images/marker-toilet.svg", // url
-            scaledSize: new google.maps.Size(25, 25), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
-        };
+    */
+    var icon2 = {
+        url: "../Content/images/marker-toilet.svg", // url
+        scaledSize: new google.maps.Size(25, 25), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
 
-        // Create marker for showing toilet accessibility
-        $.ajax({
-            cache: false,
-            url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
-            dataType: "json",
-            success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
-                        continue;
-                    }
-                    var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
-                    var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
-
-                    var toilet_marker = new google.maps.Marker({
-                        position: coor,
-                        map: map,
-                        visible: false,
-                        icon: icon2,
-                        title: "Click for details"
-                    });
-                    var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
-                        + current_location[0] + ',' + current_location[1]
-                        + '&destination=' + data[i].lat + ',' + data[i].lon + '" target="_blank">Navigate Me</a>' + '</div>';
-                    infowindow_toilet = new google.maps.InfoWindow();
-                    toilet_marker.content = content;
-                    google.maps.event.addListener(toilet_marker, 'click', function () {
-                        infowindow_toilet.setContent(this.content);
-                        infowindow_toilet.open(this.getMap(), this);
-                    });
-                    toilet_markers.push(toilet_marker);
-
-
-
-                    var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
-                    distance_toilet.push(dist);
-                    if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
-                        cloest_toilet = distance_toilet.indexOf(dist);
-                    }
+    // Create marker for showing toilet accessibility
+    $.ajax({
+        cache: false,
+        url: "https://data.melbourne.vic.gov.au/resource/dsec-5y6t.json",
+        dataType: "json",
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].wheelchair == "U" || data[i].wheelchair == "no") {
+                    continue;
                 }
-                //alert(distance_toilet[cloest_toilet]/1000 + 'km');
+                var coor = { lat: parseFloat(data[i].lat), lng: parseFloat(data[i].lon) };
+                var latlng = new google.maps.LatLng(parseFloat(data[i].lat), parseFloat(data[i].lon));
+
+                var toilet_marker = new google.maps.Marker({
+                    position: coor,
+                    map: map,
+                    visible: false,
+                    icon: icon2,
+                    title: "Click for details"
+                });
+                var content = '<div>' + '<a href="' + 'https://www.google.com/maps/dir/?api=1&origin='
+                    + current_location[0] + ',' + current_location[1]
+                    + '&destination=' + data[i].lat + ',' + data[i].lon + '" target="_blank">Navigate Me</a>' + '</div>';
+                infowindow_toilet = new google.maps.InfoWindow();
+                toilet_marker.content = content;
+                google.maps.event.addListener(toilet_marker, 'click', function () {
+                    infowindow_toilet.setContent(this.content);
+                    infowindow_toilet.open(this.getMap(), this);
+                });
+                toilet_markers.push(toilet_marker);
 
             }
+            //alert(distance_toilet[cloest_toilet]/1000 + 'km');
 
-        });
+        }
+
     });
 
 
@@ -415,24 +384,56 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
-        console.log("toilet_markers.length: " + toilet_markers.length);
-        console.log("distance_toilet.length: " + distance_toilet.length);
-        console.log("cloest_toilet: " + cloest_toilet);
-        var request = {
-            origin: currentLatLng,
-            destination: toilet_markers[cloest_toilet].position,
-            travelMode: 'WALKING'
-        };
-        var directionsService = new google.maps.DirectionsService();
-        directionsService.route(request, function (result, status) {
-            if (status == 'OK') {
-                directionsDisplay = new google.maps.DirectionsRenderer({
-                    map: map,
-                    suppressMarkers: true
-                });
-                directionsDisplay.setDirections(result);
-            }
-        });
+
+        // Try HTML5 geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                current_location = [];
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                current_location.push(position.coords.latitude);
+                current_location.push(position.coords.longitude);
+                currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
+
+                for (var i = 0; i < toilet_markers.length; i++) {
+                    var pos = toilet_markers[i].position;
+                    var latlng = new google.maps.LatLng(pos.lat(), pos.lng());
+                    var dist = google.maps.geometry.spherical.computeDistanceBetween(currentLatLng, latlng);
+                    distance_toilet.push(dist);
+                    if (cloest_toilet == -1 || dist < distance_toilet[cloest_toilet]) {
+                        cloest_toilet = distance_toilet.indexOf(dist);
+                    }
+                }
+                console.log("toilet_markers.length: " + toilet_markers.length);
+                console.log("distance_toilet.length: " + distance_toilet.length);
+                console.log("cloest_toilet: " + cloest_toilet);
+
+                if (cloest_toilet != -1) {
+                    var request = {
+                        origin: currentLatLng,
+                        destination: toilet_markers[cloest_toilet].position,
+                        travelMode: 'WALKING'
+                    };
+                    var directionsService = new google.maps.DirectionsService();
+                    directionsService.route(request, function (result, status) {
+                        if (status == 'OK') {
+                            directionsDisplay = new google.maps.DirectionsRenderer({
+                                map: map,
+                                suppressMarkers: true
+                            });
+                            directionsDisplay.setDirections(result);
+                        }
+                    });
+                }
+            }, function () {
+                handleLocationError(true, locInfoWindow, map.getCenter());
+            });
+        } else {
+            handleLocationError(false, locInfoWindow, map.getCenter());
+        }
+        
         document.getElementById("tab2").click();
     }
     else {
@@ -450,7 +451,8 @@ function unshowToilet() {
     if (typeof directionsDisplay != 'undefined') {
         directionsDisplay.setMap(null);
     }
-    
+
+    distance_toilet = [];
 }
 
 // Filter for parking space
@@ -640,6 +642,7 @@ function requestFullscreen() {
 }
 
 function centerTocurrent() {
+    getCurrentLocation();
     map.setCenter(currentLatLng);
     var currentLoc_marker = new google.maps.Marker({
         position: currentLatLng,
@@ -647,5 +650,29 @@ function centerTocurrent() {
         visible: true,
         title: "Your current position"
     });
+}
+
+function getCurrentLocation() {
+    // Try HTML5 geolocation
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            current_location = [];
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            current_location.push(position.coords.latitude);
+            current_location.push(position.coords.longitude);
+            currentLatLng = new google.maps.LatLng(current_location[0], current_location[1]);
+            //locInfoWindow.setPosition(pos);
+            //locInfoWindow.setContent('Your current location');
+            map.setCenter(pos);
+
+        }, function () {
+            handleLocationError(true, locInfoWindow, map.getCenter());
+        });
+    } else {
+        handleLocationError(false, locInfoWindow, map.getCenter());
+    }
 }
 
