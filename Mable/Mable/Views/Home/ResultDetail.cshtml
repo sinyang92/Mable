@@ -122,31 +122,25 @@
                             <p>Contribute by giving your feedback</p>
 
                             <div style="display: inline-block;">
-                                <i class="fas fa-ban" style="font-size: 30px;"></i>
-                                <i class="fas fa-frown" style="font-size: 30px;"></i>
-                                <i class="fas fa-meh" style="font-size: 30px;"></i>
-                                <i class="fas fa-smile mable-publicRating" style="font-size: 30px;"></i>
+                                <i id="fa-ban" class="fas fa-ban" style="font-size: 30px;"></i>
+                                <i id="fa-frown" class="fas fa-frown" style="font-size: 30px;"></i>
+                                <i id="fa-meh" class="fas fa-meh" style="font-size: 30px;"></i>
+                                <i id="fa-smile" class="fas fa-smile" style="font-size: 30px;"></i>
                             </div>
-                            <div style="display: inline-block;">
-<<<<<<< HEAD
-                                <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</button>
+                            <div id="rating_btns">
+                                <div style="display: inline-block;">
+                                    <i class="fab fa-accessible-icon"></i> Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</button>
+                                </div>
+                                <div style="display: inline-block;">
+                                    <i class="fab fa-accessible-icon"></i> Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</button>
+                                </div>
+                                <div style="display: inline-block;">
+                                    <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
+                                </div>
                             </div>
-                            <div style="display: inline-block;">
-                                <i class="fab fa-accessible-icon"></i> Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</button>
+                            <div id="text_rated" style="display:none">
+                                Thank you for your feedback!
                             </div>
-                            <div style="display: inline-block;">
-                                <i class="fab fa-accessible-icon"></i> Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
-=======
-                                Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn1" onclick="AjaxUpdateRating_lv1()"> @Model.rating_lv1</button>
-                            </div>
-                            <div style="display: inline-block;">
-                                Partially Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn2" onclick="AjaxUpdateRating_lv2()">@Model.rating_lv2</buttontitle="Add>
-                            </div>
-                            <div style="display: inline-block;">
-                               Not Accessible <button title="Add one point" class="btn btn-sm mable-btn-primary-outline" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> @Model.rating_lv3</buttontitle="Add>
->>>>>>> 89811e6eddbef0d8de1f8b30fc2286608a98b6eb
-                            </div>
-
 
                             @*<button id="rateBtn4" onclick="AjaxUpdateRating_lv4()">@Model.rating_lv4</button>*@
                         </div>
@@ -446,6 +440,23 @@
         const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
         document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
     }
+
+    if (@Model.rating_lv1  == 0 && @Model.rating_lv2  == 0 && @Model.rating_lv3  == 0) {
+        documet.getElementById("fa-ban").classList.add("mable-publicRating");
+    } else {
+        var avg = (@Model.rating_lv2 + 2 * @Model.rating_lv3) / (@Model.rating_lv1 + @Model.rating_lv2 + @Model.rating_lv3);
+        if (avg <= 0.5) {
+            document.getElementById("fa-frown").classList.add("mable-publicRating");
+        }
+        if (avg > 0.5 && avg <= 1.3) {
+            document.getElementById("fa-meh").classList.add("mable-publicRating");
+        }
+        if (avg > 1.3) {
+            document.getElementById("fa-smile").classList.add("mable-publicRating");
+        }
+    }
+
+    
 </script>
 
 <script>
@@ -1204,6 +1215,24 @@
     function UpdateAverage(l1, l2, l3) {
         var avg = (l2 + 2 * l3) / (l1 + l2 + l3);
 
+        document.getElementById("fa-ban").classList.remove("mable-publicRating");
+        document.getElementById("fa-frown").classList.remove("mable-publicRating");
+        document.getElementById("fa-meh").classList.remove("mable-publicRating");
+        document.getElementById("fa-smile").classList.remove("mable-publicRating");
+
+
+        if (avg <= 0.5) {
+            document.getElementById("fa-frown").classList.add("mable-publicRating");
+        }
+        if (avg > 0.5 && avg <= 1.3) {
+            document.getElementById("fa-meh").classList.add("mable-publicRating");
+        }
+        if (avg > 1.3) {
+            document.getElementById("fa-smile").classList.add("mable-publicRating");
+        }
+
+        document.getElementById("rating_btns").style.display = "none";
+        document.getElementById("text_rated").style.display = "initial";
     }
 
 </script>
