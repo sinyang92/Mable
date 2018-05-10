@@ -6050,7 +6050,7 @@ input.chk-btn:checked + label {
   .mable-btn-primary-outline a {
     color: #000000; }
     .mable-btn-primary-outline a:focus, .mable-btn-primary-outline a:hover, .mable-btn-primary-outline a:active {
-      color: #000000; }
+      color: #ffffff; }
 
 .mable-btn-secondary {
   background: #FFE200;
@@ -6147,7 +6147,8 @@ input.chk-btn:checked + label {
 @media print {
   /* print styles go here */
   body {
-    font-size: 14px; }
+    font-size: 14px;
+    transform: scale(0.9); }
   .navbar.navbar-default.navbar-static-top {
     display: none; }
   .container-fluid.mable-footer {
@@ -6318,7 +6319,7 @@ input.chk-btn:checked + label {
     .mable-homeSearch ul {
       display: none; } }
   .mable-homeSearch ul .legendText {
-    width: 200px; }
+    width: 250px; }
     @media only screen and (max-width: 1270px) {
       .mable-homeSearch ul .legendText {
         display: block;
