@@ -6,27 +6,72 @@
 
     <div class="container-fluid mable-homeHeader">
 
-        <div class="row">
+        <div class="row mable-homeHeading">
             <h1>
-                Look for new places and gain <span>insights on its accessibility</span> information or check the <span>accessible amenities</span> when on the spot.
+                <span>Search </span>and get to know the immediate <span>accessibility surroundings</span> of places.
             </h1>
             <h5>City of Melbourne</h5>
         </div>
-        <div class="row">
-            <div class="btn mable-btn-primary btn-header">
-                @Html.ActionLink("Find", "Search", "Home")
 
-            </div>
-            <div class="btn mable-btn-primary-outline btn-header">
-                @Html.ActionLink("Near Me", "Map", "Home")
+        <!-- Start Search input -->
+        <div class="row mable-homeSearch">
+            <div class="col-md-10 SearchBox" id="SearchBox">
+
+                <div class="row">
+                    <div class="col-md-12 SearchBox-input" >
+                        <img src="~/Content/images/icon-searchHome.svg" alt="Alternate Text" />
+
+                        @using (Html.BeginForm("SearchResult", "Home"))
+
+                        {
+
+                            @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and more in the City of Melbourne", id = "SearchBox" })
+
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        <ul>
+                            <li class="legendText">
+                                You can find & discover new places using keywords to check:
+                            </li>
+                            <li>
+                                <img src="~/Content/images/icon-steepness.svg" alt="Steepness Icon" />
+                                <p>Footpath Steepness</p>
+                            </li>
+                            <li>
+                                <img src="~/Content/images/icon-dev-activity.svg" alt="Steepness Icon" />
+                                <p>Development Activites</p>
+                            </li>
+                            <li>
+                                <img src="~/Content/images/icon-parking.svg" alt="Steepness Icon" />
+                                <p>Parking</p>
+                            </li>
+                            <li>
+                                <img src="~/Content/images/icon-congestion.svg" alt="Steepness Icon" />
+                                <p>Pedestrian Congestion</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-
+        <!--End Search Input -->
     </div>
 
+    <div class="row mable-home-SupportInfo">
+        <h3>Also, you can check accessibility amenities on the spot and access to useful links. </h3>
 
+        <div class="btn mable-btn-primary-outline btn-header">
+            @Html.ActionLink("Near Me", "Map", "Home")
+        </div>
+        <div class="btn mable-btn-primary btn-header">
+            @Html.ActionLink("Useful Links", "Resources", "Home")
+
+        </div>
+    </div>
 </div>
 <!-- End Section -->
+
 <!-- Info Module-->
 <div class="container-fluid bg-primary mable-infoHome">
     <div class="row">
@@ -53,17 +98,19 @@
 
 <!--End Info Module-->
 <!--Start More Info Module-->
-@*<div class="row">
+<div class="row">
         <div class="col-md-12 mable-homeCallToInfo">
             <h1>
-                Check also useful links and services in the City of Melbourne.
+               Let's improve Mable and rate places
             </h1>
-            <button class="btn mable-btn-secondary">
-                Go to Links
-            </button>
+            <a href="#SearchBox">
+                <button class="btn mable-btn-secondary">
+                    Search
+                </button>
+            </a>
 
         </div>
-    </div>*@
+    </div>
 <!--End More Info Module-->
 
 
