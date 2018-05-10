@@ -6074,10 +6074,14 @@ input.chk-btn:checked + label {
   font-weight: 700;
   padding: 10px 25px;
   border-radius: 0px;
-  margin-left: 5px;
+  margin-right: 5px;
   white-space: normal;
   margin-bottom: 5px;
-  width: 100%; }
+  width: 99%;
+  height: 125px; }
+  @media only screen and (max-width: 768px) {
+    .mable-btn-map {
+      margin-right: 0; } }
   .mable-btn-map:focus, .mable-btn-map:hover, .mable-btn-map:active {
     background: #000000;
     color: #ffffff; }
