@@ -121,9 +121,12 @@
             @if (ViewBag.HasResult == false)
             {
                 <!--Start No Results Message -->
-                <div class="col-sm-8 col-sm-offset-2">
-                    No result
-                </div>
+            <div class="col-sm-8 col-sm-offset-2 text-center" style="margin-top: 35px">
+
+                <i class="fas fa-exclamation-circle " style="font-size: 55px;"></i>
+
+                <p class="text-center" style="margin-top:15px;">Oh no! We could not find any results, please try again.</p>
+            </div>
             }
             <!-- start mable results-->
             <div class="mable-listResults" style="height:60vh; overflow-y:auto">
