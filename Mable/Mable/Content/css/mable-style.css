@@ -5936,6 +5936,9 @@ a.navbar-brand {
   @media only screen and (max-width: 767px) {
     .mable-CardResult {
       margin: 7px; } }
+  .mable-CardResult:hover {
+    border: solid 4px #FFE200;
+    transition: 0.1s; }
 
 h1.mable-CardResult-title {
   font-size: 22px !important;

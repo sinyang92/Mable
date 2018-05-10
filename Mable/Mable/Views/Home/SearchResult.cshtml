@@ -66,6 +66,7 @@
             // when mouse enters the area of marker icon
             google.maps.event.addListener(result_marker, 'mouseover', function () {
                 document.getElementById(this.place_id).style.border = "4px solid #FFE200";
+                document.getElementById(this.place_id).style.transition = "0.1s";
             });
 
             // when mouse leaves the area of mouse icon
@@ -83,7 +84,7 @@
 
     function HighlightMarker(place_id) {
         var marker = result_markers.find(m => m.place_id == place_id);
-        marker.setIcon('../Content/images/marker-parking.svg');  // TODO: change to a proper icon
+        marker.setIcon('../Content/images/marker-hover.svg');  // TODO: change to a proper icon
     }
 
     function UnHighlightMarker(place_id) {
@@ -94,9 +95,9 @@
 
 <!-- Start Search input -->
 <div class="row mable-searchInput">
-    <div class="col-md-12 text-center">
+    <div class="col-md-12">
 
-        <div class="title">Find</div>
+        <div class="title"><img src="~/Content/images/icon-searchHome.svg" alt="Search for places" /> Find</div>
 
         @using (Html.BeginForm("SearchResult", "Home"))
 
