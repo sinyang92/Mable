@@ -70,10 +70,10 @@ namespace Mable.Controllers
             /*
              Get the search result from Google Place API
              Centre: Melbourne CBD
-             Distance: 14 km
+             Distance: 7 km
              */
             var url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" +
-                keyword + "&location=-37.808163434,144.957829502&radius=14000&region=au&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
+                keyword + "&location=-37.808163434,144.957829502&radius=7000&region=au&key=AIzaSyDvXKR7iiGAvHykADgGEOxuurUSr4ukJ08";
             var jsonString = Download_JSON(url);
             //Debug.WriteLine(jsonString);
             var searchResponse = JsonConvert.DeserializeObject<SearchResponse.RootObject>(jsonString);

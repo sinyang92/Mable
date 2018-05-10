@@ -142,6 +142,26 @@
                                     @item.vicinity
                                 </div>
                                 <i class="fas fa-star"></i> Google Place Rating: @item.rating / 5
+                                
+                                @if (item.rating_lv1 == 0 && item.rating_lv2 == 0 && item.rating_lv3 == 0)
+                                {
+                                    //put html element for the face here
+                                }
+
+                                @if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 0.5)
+                                {
+                                    //put html element for the face here
+                                }
+
+                                @if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 0.5)
+                                {
+                                    //put html element for the face here
+                                }
+
+                                @if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 0.5)
+                                {
+                                    //put html element for the face here
+                                }
                             </div>
 
                         </a>
