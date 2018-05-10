@@ -5873,9 +5873,9 @@ button.close {
       vertical-align: text-bottom;
       width: 300px;
       padding-top: 5px; }
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 768px) {
         #mable-menuSearch form input {
-          width: 70%; } }
+          width: 100%; } }
       #mable-menuSearch form input:focus {
         outline-width: 0; }
 
@@ -6157,7 +6157,8 @@ input.chk-btn:checked + label {
   .mable-detailBackButton,
   .mable-mapButtons-details,
   .mable-actionSection,
-  .mable-detail-moreActions {
+  .mable-detail-moreActions,
+  #rating_btns {
     display: none; }
   .mable-detail-name {
     font-size: 20px !important; }
