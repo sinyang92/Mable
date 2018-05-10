@@ -21,7 +21,7 @@ using Mable.Models;
 
 namespace Mable.Controllers
 {
-   [Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -56,16 +56,16 @@ namespace Mable.Controllers
             ViewBag.searchKeyWord = keyword;
             ViewBag.HasResult = true;
 
-            
+
 
             //UpdateDBNow();
-            
+
 
             //var db = new BuildingContext();
             //var query = from b in db.Buildinginfoes select b;
             //List<Buildinginfo> buildings = query.ToList();
             //Debug.WriteLine("HELLO" + buildings.Count());
-            
+
 
             /*
              Get the search result from Google Place API
@@ -86,6 +86,7 @@ namespace Mable.Controllers
              For each search result, get the detail from Google Detail API
              */
             List<PlaceDetail.Result> place_details = new List<PlaceDetail.Result>();
+            PlaceRatingEntity db = new PlaceRatingEntity();
             foreach (Result r in searchResult)
             {
                 var place_id = r.place_id;
@@ -100,6 +101,29 @@ namespace Mable.Controllers
                     detailResult.photo_reference = r.photos[0].photo_reference;
                 }
 
+
+                var db_place = (from place in db.place_rating where place.place_id == place_id select place).FirstOrDefault();
+                if (db_place == null) // if this place has no record in database
+                {
+                    place_rating place_Rating = new place_rating
+                    {
+                        place_id = place_id,
+                        num_lv1 = 0,
+                        num_lv2 = 0,
+                        num_lv3 = 0,
+                        num_lv4 = 0
+                    };
+                    db.place_rating.Add(place_Rating);
+                    db.SaveChanges();
+                    ;
+                }
+                else
+                {
+                    detailResult.rating_lv1 = (int)db_place.num_lv1;
+                    detailResult.rating_lv2 = (int)db_place.num_lv2;
+                    detailResult.rating_lv3 = (int)db_place.num_lv3;
+                    detailResult.rating_lv4 = (int)db_place.num_lv4;
+                }
                 //Debug.WriteLine(detailResult.name);
 
                 //foreach (Buildinginfo b in buildings)
@@ -121,7 +145,7 @@ namespace Mable.Controllers
                 //    }
 
                 //}
-                place_details.Add(detailResult);            
+                place_details.Add(detailResult);
             }
 
             // sort by accessibility rating first, then sort by rating
@@ -159,7 +183,7 @@ namespace Mable.Controllers
                 return HttpNotFound();
             }
 
-            StreamReader reader = new StreamReader(Server.MapPath("~/GeoJSON/3D Development Activity Model Footprints.geojson"),System.Text.Encoding.Default);
+            StreamReader reader = new StreamReader(Server.MapPath("~/GeoJSON/3D Development Activity Model Footprints.geojson"), System.Text.Encoding.Default);
             string dev_string = reader.ReadToEnd().ToString();
             ViewBag.dev = dev_string;
 
@@ -193,7 +217,8 @@ namespace Mable.Controllers
                 };
                 db.place_rating.Add(place_Rating);
                 db.SaveChanges();
-;            }
+                ;
+            }
             else
             {
                 detail.rating_lv1 = (int)db_place.num_lv1;
@@ -258,7 +283,7 @@ namespace Mable.Controllers
         //{
         //    public BuildingContext(): base("DefaultConnection")
         //    {
-                
+
         //    }
         //    public DbSet<Buildinginfo> Buildinginfoes { get; set; }
         //}
@@ -294,7 +319,7 @@ namespace Mable.Controllers
         //    }
         //    db.SaveChanges();
         //}
-        
+
         public int UpdateRating_lv1(string place_id, int num_lv1)
         {
             PlaceRatingEntity db = new PlaceRatingEntity();
