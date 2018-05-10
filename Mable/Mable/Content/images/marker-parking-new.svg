@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="85px" height="114px" viewBox="0 0 85 114" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>marker-parking-new</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.0001 0 28.09 0 28.09 43 0.0001 43"></polygon>
+        <polygon id="path-3" points="0.0001 0 28.09 0 28.09 43 0.0001 43"></polygon>
+    </defs>
+    <g id="Mable-v3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="marker-parking-new" transform="translate(2.000000, 2.000000)">
+            <path d="M40.3534312,109.211955 C67.2557187,78.1639954 80.7068624,55.2111543 80.7068624,40.3534312 C80.7068624,18.0668466 62.6400159,0 40.3534312,0 C18.0668466,0 0,18.0668466 0,40.3534312 C0,55.2111543 13.4511437,78.1639954 40.3534312,109.211955 Z" id="Oval-5" stroke="#000000" stroke-width="3" fill="#FFFFFF"></path>
+            <g id="Page-1" transform="translate(29.000000, 20.000000)">
+                <g id="Group-3">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M14.1201,21 L7.0001,21 L7.0001,8 L14.1201,8 C17.8201,8 21.5101,9.46 21.5101,14.5 C21.5101,19.54 17.8201,21 14.1201,21 M13.7501,0 L6.5801,0 L0.0001,0 L0.0001,42.59 C0.0001,43 0.1901,43 0.5991,43 L5.8301,43 C6.2401,43 7.0001,43 7.0001,42.59 L7.0001,29 L13.7501,29 C20.9201,29 28.0901,25.09 28.0901,14.5 C28.0901,3.91 20.9201,0 13.7501,0" id="Fill-1" fill="#000000" mask="url(#mask-2)"></path>
+                </g>
+                <g id="Group-6">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Clip-5"></g>
+                    <path d="M14.1201,21 L7.0001,21 L7.0001,8 L14.1201,8 C17.8201,8 21.5101,9.46 21.5101,14.5 C21.5101,19.54 17.8201,21 14.1201,21 M13.7501,0 L6.5801,0 L0.0001,0 L0.0001,42.59 C0.0001,43 0.1901,43 0.5991,43 L5.8301,43 C6.2401,43 7.0001,43 7.0001,42.59 L7.0001,29 L13.7501,29 C20.9201,29 28.0901,25.09 28.0901,14.5 C28.0901,3.91 20.9201,0 13.7501,0" id="Fill-4" fill="#000000" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
