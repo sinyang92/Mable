@@ -6096,6 +6096,18 @@ input.chk-btn:checked + label {
     width: 100%;
     display: block; } }
 
+.mable-accRatingButton {
+  border: solid 3px #000000;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #000000;
+  background: #ffffff;
+  border-radius: 0px;
+  font-weight: 500; }
+  .mable-accRatingButton:hover {
+    background: #FFE200;
+    color: #000000; }
+
 .mable-topicHeading {
   font-size: 25px;
   font-weight: 700;

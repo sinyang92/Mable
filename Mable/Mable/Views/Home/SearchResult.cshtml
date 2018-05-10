@@ -142,32 +142,41 @@
                                         @item.vicinity
                                     </div>
                                     <i class="fas fa-star"></i> Google Place Rating: @item.rating / 5
+                                </div>
+
+                                <div class="col-lg-4 text-center">
+
+                                    <h4>Accessibility Rating</h4>
 
                                     @if (item.rating_lv1 == 0 && item.rating_lv2 == 0 && item.rating_lv3 == 0)
                                     {
-                                        //put html element for the face here
-                                    }
-                                    else
-                                    {
-                                        if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 0.5)
-                                        {
-                                            //put html element for the face here
-                                        }
+                                <i id="fa-ban" class="fas fa-question-circle" style="font-size: 30px;"></i>
+}
+else
+{
+if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 0.5)
+{
+                                <i id="fa-frown" class="fas fa-frown" style="font-size: 30px;"></i>
+}
 
-                                        if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) > 0.5 &&
-                                            ((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 1.3)
-                                        {
-                                            //put html element for the face here
-                                        }
+if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) > 0.5 &&
+((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) <= 1.3)
+{
+                                <i id="fa-meh" class="fas fa-meh" style="font-size: 30px;"></i>
+}
 
-                                        if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) > 1.3)
-                                        {
-                                            //put html element for the face here
-                                        }
-                                    }
+if (((item.rating_lv2 + item.rating_lv3 * 2) / (item.rating_lv1 + item.rating_lv2 + item.rating_lv3)) > 1.3)
+{
+                                <i id="fa-smile" class="fas fa-smile" style="font-size: 30px;"></i>
+}
+}
+
 
 
                                 </div>
+
+
+                              
 
                             </a>
                         </div>
