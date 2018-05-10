@@ -6348,6 +6348,9 @@ input.chk-btn:checked + label {
     font-weight: 700;
     color: #000000;
     line-height: 1.3em; }
+    @media only screen and (max-width: 1380px) {
+      .mable-home-SupportInfo h3 {
+        display: block; } }
 
 .mable-searchFeatures {
   margin-bottom: 150px; }
