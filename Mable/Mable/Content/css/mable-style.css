@@ -5942,6 +5942,26 @@ h1.mable-CardResult-title {
   font-weight: 500;
   margin: 5px 0 5px 0; }
 
+.mable-infoCard {
+  padding: 15px; }
+  @media only screen and (max-width: 767px) {
+    .mable-infoCard {
+      padding: 7px; } }
+  .mable-infoCard .mable-infoCard-image {
+    padding: 35px 35px 0;
+    width: 100%; }
+    @media only screen and (max-width: 767px) {
+      .mable-infoCard .mable-infoCard-image {
+        padding: 15px; } }
+  .mable-infoCard .mable-infoCard-content {
+    padding: 35px; }
+    @media only screen and (max-width: 767px) {
+      .mable-infoCard .mable-infoCard-content {
+        padding: 15px; } }
+    .mable-infoCard .mable-infoCard-content h3 {
+      margin: 0;
+      margin-bottom: 20px; }
+
 .mable-error {
   position: absolute;
   top: 50%;
@@ -6053,7 +6073,8 @@ input.chk-btn:checked + label {
   border-radius: 0px;
   margin-left: 5px;
   white-space: normal;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  width: 100%; }
   .mable-btn-map:focus, .mable-btn-map:hover, .mable-btn-map:active {
     background: #000000;
     color: #ffffff; }
@@ -6323,3 +6344,22 @@ input.chk-btn:checked + label {
   @media only screen and (max-width: 768px) {
     .mable-mapInfo {
       margin: 20px; } }
+
+.mable-cardWrapper {
+  margin: 50px; }
+  @media only screen and (max-width: 768px) {
+    .mable-cardWrapper {
+      margin: 5px; } }
+
+.mable-infoCard--black {
+  background: #000000;
+  color: #ffffff; }
+
+.mable-infoCard--white {
+  background: #ffffff;
+  border: 6px solid #000000;
+  color: #000000; }
+
+.mable-infoCard--yellow {
+  background: #FFE200;
+  color: #000000; }
