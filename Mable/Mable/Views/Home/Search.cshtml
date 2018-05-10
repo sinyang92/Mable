@@ -29,7 +29,7 @@
             You can search & discover new places by keywords or places and check:
         </div>
     </div>
-   
+
     <!-- Start icons-->
     <div class="row" style="opacity: 60%;">
         <div class="col-md-2 col-md-offset-2 mable-searchFeatures-blurb">
@@ -57,11 +57,17 @@
 <script src='~/Scripts/nprogress.js'></script>
 <link rel='stylesheet' href='~/Content/css/nprogress.css' />
 <script>
+    $(document).ready(function () {
+        NProgress.start();
+    })
+
+    window.onload = function () {
+        NProgress.done();
+    }
+
     $("#SearchBox").keyup(function (event) {
         if (event.keyCode == 13) {
             NProgress.start();
         }
     });
-
-    
 </script>

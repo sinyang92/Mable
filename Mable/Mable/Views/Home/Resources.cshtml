@@ -126,3 +126,16 @@
         percentPosition: true
     });
 </script>
+
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+
+<script>
+    $(document).ready(function () {
+        NProgress.start();
+    })
+
+    window.onload = function () {
+        NProgress.done();
+    }
+</script>
