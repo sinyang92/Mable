@@ -450,7 +450,7 @@
     if (@Model.rating_lv1  == 0 && @Model.rating_lv2  == 0 && @Model.rating_lv3  == 0) {
         document.getElementById("fa-ban").classList.add("mable-publicRating");
     } else {
-        var avg = (@Model.rating_lv2 + 2 * @Model.rating_lv3) / (@Model.rating_lv1 + @Model.rating_lv2 + @Model.rating_lv3);
+        var avg = (@Model.rating_lv2 + (2 * @Model.rating_lv3)) / (@Model.rating_lv1 + @Model.rating_lv2 + @Model.rating_lv3);
         if (avg <= 0.5) {
             document.getElementById("fa-frown").classList.add("mable-publicRating");
         }
@@ -1176,7 +1176,8 @@
     }
 
     function AjaxUpdateRating_lv1() {
-        var val = parseInt($('#rateBtn1').html());
+        //var val = parseInt($('#rateBtn1').html());
+        var val = @Model.rating_lv1;
         val += 1;
         $.ajax({
             type: 'POST',
@@ -1191,7 +1192,8 @@
     }
 
     function AjaxUpdateRating_lv2() {
-        var val = parseInt($('#rateBtn2').html());
+        //var val = parseInt($('#rateBtn2').html());
+        var val = @Model.rating_lv2;
         val += 1;
         $.ajax({
             type: 'POST',
@@ -1206,7 +1208,8 @@
     }
 
     function AjaxUpdateRating_lv3() {
-        var val = parseInt($('#rateBtn3').html());
+        //var val = parseInt($('#rateBtn3').html());
+        var val = @Model.rating_lv3;
         val += 1;
         $.ajax({
             type: 'POST',
@@ -1221,7 +1224,7 @@
     }
 
     function UpdateAverage(l1, l2, l3) {
-        var avg = (l2 + 2 * l3) / (l1 + l2 + l3);
+        var avg = (l2 + (2 * l3)) / (l1 + l2 + l3);
 
         document.getElementById("fa-ban").classList.remove("mable-publicRating");
         document.getElementById("fa-frown").classList.remove("mable-publicRating");
