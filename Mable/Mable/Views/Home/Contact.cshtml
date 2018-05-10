@@ -15,3 +15,16 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+<script src='~/Scripts/nprogress.js'></script>
+<link rel='stylesheet' href='~/Content/css/nprogress.css' />
+
+<script>
+    $(document).ready(function () {
+        NProgress.start();
+    })
+
+    window.onload = function () {
+        NProgress.done();
+    }
+</script>
