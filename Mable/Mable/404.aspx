@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>@ViewBag.Title - Mable</title>
+<title>404 - Mable</title>
 
 <script type="text/javascript" src="../Scripts/jquery-1.10.2.min.js"></script>
 
