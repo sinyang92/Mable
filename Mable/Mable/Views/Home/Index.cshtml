@@ -21,22 +21,19 @@
                     <div class="col-md-12 SearchBox-input">
                         <img src="~/Content/images/icon-searchHome.svg" alt="Search for places" />
 
+
                         @using (Html.BeginForm("SearchResult", "Home"))
 
-<<<<<<< HEAD
                         {
 
-                            @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and other places in the City of Melbourne", id = "SearchBox" })
-                            <input type="submit" value="SearchResult" />
-=======
-    {
+    
                         <div class="input-group">
-                            @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and more in the City of Melbourne", id = "SearchBox" })
+                            @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and other places in the City of Melbourne", id = "SearchBox" })
                             <div class="input-group-btn">
                                 <button class="btn mable-btn-search" type="submit" value="SearchResult">Search</button>
                             </div>
                         </div>
->>>>>>> 10f0438b7b5cbbec46c8d591399ca1dbe5e86523
+
                         }
                     </div>
                     <div class="col-md-12">
@@ -149,7 +146,7 @@
     var input = document.getElementById('SearchBox');
     var searchBox = new google.maps.places.Autocomplete(input, {
         componentRestrictions: { country: 'au' },
-        types: ['establishment'],
+        types: ['geocode'],
         strictBounds: true
     });
     var circle = new google.maps.Circle({

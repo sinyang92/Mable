@@ -83,7 +83,7 @@
     var input = document.getElementById('SearchBox');
     var searchBox = new google.maps.places.Autocomplete(input, {
         componentRestrictions: { country: 'au' },
-        types: ['establishment'],
+        types: ['geocode'],
         strictBounds: true
     });
     var circle = new google.maps.Circle({

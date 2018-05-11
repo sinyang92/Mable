@@ -103,18 +103,15 @@
         @using (Html.BeginForm("SearchResult", "Home"))
 
         {
+
+
             <div class="input-group">
-                @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and more", id = "SearchBox" })
-
-<<<<<<< HEAD
-            @Html.TextBox("keyword", "", new { placeholder = "Find restaurants, stores, and other places in City of Melbourne", id = "SearchBox" })
-
-=======
+                @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and other places in the City of Melbourne", id = "SearchBox" })
                 <div class="input-group-btn">
                     <button class="btn mable-btn-search" type="submit" value="SearchResult">Search</button>
                 </div>
             </div>
->>>>>>> 10f0438b7b5cbbec46c8d591399ca1dbe5e86523
+
         }
 
 
@@ -229,4 +226,23 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+</script>
+
+<script>
+    var centre = {
+        lat: -37.808163434,
+        lng: 144.957829502
+    }
+    var radius = 7000;
+    var input = document.getElementById('SearchBox');
+    var searchBox = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'au' },
+        types: ['geocode'],
+        strictBounds: true
+    });
+    var circle = new google.maps.Circle({
+        center: centre,
+        radius: radius
+    });
+    searchBox.setBounds(circle.getBounds());
 </script>
