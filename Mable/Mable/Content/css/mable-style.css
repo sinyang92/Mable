@@ -5845,7 +5845,7 @@ button.close {
       border: solid 2px #000000;
       background: #ffffff;
       vertical-align: text-bottom;
-      width: 100%; }
+      width: 99%; }
       .mable-searchInput form input:focus {
         outline-width: 0; }
 
@@ -6031,8 +6031,19 @@ input.chk-btn:checked + label {
   font-size: 20px;
   font-weight: 700;
   border: 3px solid #000000;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-primary a {
+    color: #ffffff; }
+
+.mable-btn-search {
+  background: #000000;
+  color: #ffffff;
+  border-radius: 0px;
+  padding: 6px 25px;
+  font-size: 20px;
+  font-weight: 700;
+  border: 3px solid #000000; }
+  .mable-btn-search a {
     color: #ffffff; }
 
 .mable-btn-primary-outline {
@@ -6043,7 +6054,7 @@ input.chk-btn:checked + label {
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-primary-outline:focus, .mable-btn-primary-outline:hover, .mable-btn-primary-outline:active {
     color: #ffffff;
     background: #000000; }
@@ -6060,7 +6071,7 @@ input.chk-btn:checked + label {
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-secondary a {
     color: #000000; }
     .mable-btn-secondary a:focus, .mable-btn-secondary a:hover, .mable-btn-secondary a:active {
@@ -6309,8 +6320,8 @@ input.chk-btn:checked + label {
     padding: 10px;
     border: solid 2px #000000;
     background: #ffffff;
-    vertical-align: text-bottom;
-    width: 100%; }
+    vertical-align: middle;
+    width: 99%; }
     .mable-homeSearch form input:focus {
       outline-width: 0; }
 

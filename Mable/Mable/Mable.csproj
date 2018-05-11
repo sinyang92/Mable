@@ -324,6 +324,7 @@
     <Content Include="Content\images\icon-currentLocation.svg" />
     <Content Include="Content\images\icon-dev-activity.svg" />
     <Content Include="Content\images\icon-fullscreen.svg" />
+    <Content Include="Content\images\icon-nearme.svg" />
     <Content Include="Content\images\icon-parking.svg" />
     <Content Include="Content\images\icon-path-condition.svg" />
     <Content Include="Content\images\icon-printer.svg" />
