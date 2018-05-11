@@ -5965,6 +5965,12 @@ h1.mable-CardResult-title {
       margin: 0;
       margin-bottom: 20px; }
 
+.mable-cardResult-accRating {
+  text-align: center; }
+  @media only screen and (max-width: 1200px) {
+    .mable-cardResult-accRating {
+      text-align: left; } }
+
 .mable-error {
   position: absolute;
   top: 50%;
