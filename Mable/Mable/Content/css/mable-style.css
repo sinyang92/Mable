@@ -6031,7 +6031,7 @@ input.chk-btn:checked + label {
   font-size: 20px;
   font-weight: 700;
   border: 3px solid #000000;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-primary a {
     color: #ffffff; }
 
@@ -6043,7 +6043,7 @@ input.chk-btn:checked + label {
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-primary-outline:focus, .mable-btn-primary-outline:hover, .mable-btn-primary-outline:active {
     color: #ffffff;
     background: #000000; }
@@ -6060,7 +6060,7 @@ input.chk-btn:checked + label {
   padding: 10px 25px;
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 5px; }
+  margin: 5px; }
   .mable-btn-secondary a {
     color: #000000; }
     .mable-btn-secondary a:focus, .mable-btn-secondary a:hover, .mable-btn-secondary a:active {
