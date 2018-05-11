@@ -18,15 +18,18 @@
             <div class="col-md-10 SearchBox">
 
                 <div class="row">
-                    <div class="col-md-12 SearchBox-input" >
+                    <div class="col-md-12 SearchBox-input">
                         <img src="~/Content/images/icon-searchHome.svg" alt="Search for places" />
 
                         @using (Html.BeginForm("SearchResult", "Home"))
 
-                        {
-
+    {
+                        <div class="input-group">
                             @Html.TextBox("keyword", "", new { placeholder = "Restaurants, stores, and more in the City of Melbourne", id = "SearchBox" })
-                            <input type="submit" value="SearchResult" />
+                            <div class="input-group-btn">
+                                <button class="btn mable-btn-search" type="submit" value="SearchResult">Search</button>
+                            </div>
+                        </div>
                         }
                     </div>
                     <div class="col-md-12">
@@ -52,7 +55,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
         <!--End Search Input -->
