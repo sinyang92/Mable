@@ -71,3 +71,24 @@
         }
     });
 </script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgWw5yvhJAS5LsXo2RGJa0o-cPWMNNPLo&libraries=places">
+</script>
+<script>
+    var centre = {
+        lat: -37.808163434,
+        lng: 144.957829502
+    }
+    var radius = 7000;
+    var input = document.getElementById('SearchBox');
+    var searchBox = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'au' },
+        types: ['establishment'],
+        strictBounds: true
+    });
+    var circle = new google.maps.Circle({
+        center: centre,
+        radius: radius
+    });
+    searchBox.setBounds(circle.getBounds());
+</script>
