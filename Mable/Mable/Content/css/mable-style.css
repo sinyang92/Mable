@@ -6423,13 +6423,15 @@ input.chk-btn:checked + label {
 .mable-detail {
   background: #ffffff;
   border-radius: 10px;
-  padding: 0 25px; }
+  padding: 10px 25px; }
   .mable-detail .mable-placeInfo {
     margin-bottom: 25px;
-    padding-bottom: 35px;
-    padding-left: 40px; }
+    padding-bottom: 35px; }
     .mable-detail .mable-placeInfo .mable-placeInfo-details {
-      padding-left: 0; }
+      padding-left: 40px; }
+      @media only screen and (max-width: 768px) {
+        .mable-detail .mable-placeInfo .mable-placeInfo-details {
+          padding-left: 0px; } }
   .mable-detail .mable-detailBackButton {
     margin: 20px 0 35px; }
   .mable-detail .mable-detail-image {

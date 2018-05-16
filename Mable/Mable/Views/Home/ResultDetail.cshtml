@@ -131,24 +131,7 @@
                                 <i id="fa-ban" class="fas fa-question-circle" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Not rated"></i>
 
                             </div>
-<<<<<<< HEAD
-                           
-                            
-=======
 
-                            <p style="font-size: 14px; font-weight:300;">Contribute by giving your feedback</p>
-                            <div id="rating_btns" style="display: inline-block;" class="hidden-print">
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> Accessible @*@Model.rating_lv3*@</button>
-                                </div>
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn2" onclick="AjaxUpdateRating_lv2()"> Partially Accessible @*@Model.rating_lv2*@</button>
-                                </div>
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn1" onclick="AjaxUpdateRating_lv1()">  Not Accessible @*@Model.rating_lv1*@</button>
-                                </div>
-                            </div>
->>>>>>> faf6578f68e031c866bcc9483fbb371d983bfd7e
                             <div id="text_rated" style="display:none">
                                 Thank you for your feedback!
                             </div>
@@ -926,6 +909,12 @@
                     };
                 }
             });
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
 
         } else {
             unshowDevelopment();
