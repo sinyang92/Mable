@@ -645,22 +645,25 @@
         var s3 = performance.now();
         layer_footpath.setStyle(function (feature) {
             var grade = feature.getProperty('gradepc');
-            console.log("abc");
+            // console.log("abc");
             if (grade > 0 && grade <= 1) {
 
                 return {
-                    fillColor: 'green',
-                    strokeWeight: 1
+                    fillColor: '#000000',
+                    strokeWeight: 1,
+                    strokeColor: '#000000'
                 };
             } else if (grade > 1 && grade <= 6) {
                 return {
-                    fillColor: 'yellow',
-                    strokeWeight: 1
+                    fillColor: '#7ED321',
+                    strokeWeight: 1,
+                    strokeColor: '#7ED321'
                 };
-            } else if (grade > 6) {
+            } else {
                 return {
-                    fillColor: 'red',
-                    strokeWeight: 1
+                    fillColor: '#D92863',
+                    strokeWeight: 1,
+                    strokeColor: '#D92863'
                 };
             }
         });
@@ -985,30 +988,7 @@
                 document.getElementById("mapLoader").style.display = "none";
             });
             layer_footpath.setMap(map);
-            layer_footpath.setStyle(function (feature) {
-                var grade = feature.getProperty('gradepc');
-               // console.log("abc");
-                if (grade > 0 && grade <= 1) {
-
-                    return {
-                        fillColor: '#000000',
-                        strokeWeight: 1,
-                        strokeColor: '#000000'
-                    };
-                } else if (grade > 1 && grade <= 6) {
-                    return {
-                        fillColor: '#7ED321',
-                        strokeWeight: 1,
-                        strokeColor: '#7ED321'
-                    };
-                } else  {
-                    return {
-                        fillColor: '#D92863',
-                        strokeWeight: 1,
-                        strokeColor: '#D92863'
-                    };
-                }
-            });
+            
         } else {
             unshowSteepness();
             document.getElementById("initialTab").click();
