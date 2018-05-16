@@ -6102,7 +6102,12 @@ input.chk-btn:checked + label {
   @media only screen and (max-width: 768px) {
     .mable-btn-map {
       margin-right: 0;
-      font-size: 14px; } }
+      font-size: 14px;
+      height: inherit; }
+      .mable-btn-map img {
+        margin-right: auto;
+        margin-left: auto;
+        widows: 20%; } }
   .mable-btn-map:focus, .mable-btn-map:hover, .mable-btn-map:active {
     background: #000000;
     color: #ffffff; }
@@ -6421,7 +6426,10 @@ input.chk-btn:checked + label {
   padding: 0 25px; }
   .mable-detail .mable-placeInfo {
     margin-bottom: 25px;
-    padding-bottom: 35px; }
+    padding-bottom: 35px;
+    padding-left: 40px; }
+    .mable-detail .mable-placeInfo .mable-placeInfo-details {
+      padding-left: 0; }
   .mable-detail .mable-detailBackButton {
     margin: 20px 0 35px; }
   .mable-detail .mable-detail-image {

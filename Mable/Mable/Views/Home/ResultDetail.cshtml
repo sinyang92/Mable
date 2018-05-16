@@ -35,8 +35,8 @@
 
     .mable-publicRating {
         color: #ffd000;
-        transform: scale(1.4);
-        padding: 0 5px;
+        transform: scale(2.4);
+        margin: 15px 15px 0;
         opacity: 1 !important;
     }
 
@@ -86,7 +86,7 @@
                     </div>
                     <!-- End Photo -->
                     <!-- Place details -->
-                    <div class="col-md-7" style="padding-left: 40px;">
+                    <div class="col-md-7 mable-placeInfo-details">
 
                         <!-- Place Title -->
                         <h1 class="mable-detail-name">
@@ -120,29 +120,20 @@
                             @Model.formatted_phone_number
                         </div>
 
-                        <div class="mable-detail-counter" style="border: 3px solid black; padding: 10px; margin-top:10px;">
+                        <div class="mable-detail-counter">
 
-                            <h5 style="display: inline-block;">Public Accessibility Rating: </h5>
+                            <h5>Public Accessibility Rating: </h5>
 
                             <div style="display: inline-block; padding-right: 10px; vertical-align: middle;">
-                                <i id="fa-ban" class="fas fa-question-circle" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Not rated"></i>
-                                <i id="fa-frown" class="fas fa-frown" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Not wheelchair accessible - all entrances have steps"></i>
-                                <i id="fa-meh" class="fas fa-meh" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Partially wheelchair accessible - alternative entrance is step free"></i>
-                                <i id="fa-smile" class="fas fa-smile" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Totally wheelchair accessible - main entrance is step free"></i>
+                                <i id="fa-smile" class="fas fa-smile" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Totally wheelchair accessible - main entrance is step free"></i>
+                                <i id="fa-meh" class="fas fa-meh" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Partially wheelchair accessible - alternative entrance is step free"></i>
+
+                                <i id="fa-frown" class="fas fa-frown" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Not wheelchair accessible - all entrances have steps"></i>
+                                <i id="fa-ban" class="fas fa-question-circle" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Not rated"></i>
+
                             </div>
                            
-                            <p style="font-size: 14px; font-weight:300;">Contribute by giving your feedback</p>
-                            <div id="rating_btns" style="display: inline-block;" class="hidden-print">
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> Accessible @*@Model.rating_lv3*@</button>
-                                </div>
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn2" onclick="AjaxUpdateRating_lv2()"> Partially Accessible @*@Model.rating_lv2*@</button>
-                                </div>
-                                <div style="display: inline-block;">
-                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn1" onclick="AjaxUpdateRating_lv1()">  Not Accessible @*@Model.rating_lv1*@</button>
-                                </div>
-                            </div>
+                            
                             <div id="text_rated" style="display:none">
                                 Thank you for your feedback!
                             </div>
@@ -360,6 +351,23 @@
                         </div>*@
                 </div>
                 <!-- End Other Actions-->
+
+                <!-- Contribution Section-->
+                <div class="col-lg-12 text-center">
+                    <p style="font-size: 14px; font-weight:300;">Contribute by giving your feedback</p>
+                    <div id="rating_btns" style="display: inline-block;" class="hidden-print">
+                        <div style="display: inline-block;">
+                            <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> Accessible @*@Model.rating_lv3*@</button>
+                        </div>
+                        <div style="display: inline-block;">
+                            <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn2" onclick="AjaxUpdateRating_lv2()"> Partially Accessible @*@Model.rating_lv2*@</button>
+                        </div>
+                        <div style="display: inline-block;">
+                            <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn1" onclick="AjaxUpdateRating_lv1()">  Not Accessible @*@Model.rating_lv1*@</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
