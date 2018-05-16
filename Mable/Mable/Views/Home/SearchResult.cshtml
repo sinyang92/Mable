@@ -83,9 +83,15 @@
         NProgress.start();
     }
 
+    /*
+     Highlight marker and center to the marker on map
+     */
     function HighlightMarker(place_id) {
         var marker = result_markers.find(m => m.place_id == place_id);
         marker.setIcon('../Content/images/marker-hover.svg');  // TODO: change to a proper icon
+
+        var latlng = marker.getPosition();
+        map.setCenter(latlng);
     }
 
     function UnHighlightMarker(place_id) {
