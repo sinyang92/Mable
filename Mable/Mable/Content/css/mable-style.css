@@ -3945,11 +3945,13 @@ tbody.collapse.in {
   .navbar-default .navbar-nav > li > a {
     color: #000000; }
     .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-      color: #333;
-      background-color: transparent; }
+      color: #FFE200;
+      background-color: transparent;
+      font-weight: 700; }
   .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: transparent; }
+    color: #000000;
+    background-color: transparent;
+    font-weight: 700; }
   .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
     color: #ccc;
     background-color: transparent; }
@@ -3964,15 +3966,15 @@ tbody.collapse.in {
     border-color: transparent; }
   .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: transparent;
-    color: #555; }
+    color: #000000; }
   @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
       color: #000000; }
       .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #333;
+        color: #FFE200;
         background-color: transparent; }
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-      color: #555;
+      color: #000000;
       background-color: transparent; }
     .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
       color: #ccc;
@@ -3980,11 +3982,11 @@ tbody.collapse.in {
   .navbar-default .navbar-link {
     color: #000000; }
     .navbar-default .navbar-link:hover {
-      color: #333; }
+      color: #FFE200; }
   .navbar-default .btn-link {
     color: #000000; }
     .navbar-default .btn-link:hover, .navbar-default .btn-link:focus {
-      color: #333; }
+      color: #FFE200; }
     .navbar-default .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus,
     fieldset[disabled] .navbar-default .btn-link:hover,
     fieldset[disabled] .navbar-default .btn-link:focus {
@@ -5815,7 +5817,7 @@ button.close {
     display: none !important; } }
 
 .mable-searchInput {
-  margin: 30px;
+  margin: 5px 30px 30px;
   padding: 10px 0 5px;
   border-top: 2px solid #000000;
   border-bottom: 2px solid #000000; }
@@ -6062,8 +6064,9 @@ input.chk-btn:checked + label {
   font-weight: 700;
   margin: 5px; }
   .mable-btn-primary-outline:focus, .mable-btn-primary-outline:hover, .mable-btn-primary-outline:active {
-    color: #ffffff;
     background: #000000; }
+    .mable-btn-primary-outline:focus a, .mable-btn-primary-outline:hover a, .mable-btn-primary-outline:active a {
+      color: #ffffff; }
   .mable-btn-primary-outline a {
     color: #000000; }
     .mable-btn-primary-outline a:focus, .mable-btn-primary-outline a:hover, .mable-btn-primary-outline a:active {
@@ -6086,7 +6089,7 @@ input.chk-btn:checked + label {
 .mable-btn-map {
   background: #ffffff;
   color: #000000;
-  font-size: 20px;
+  font-size: 14px;
   border: 2px solid #000000;
   font-weight: 700;
   padding: 10px 25px;
@@ -6221,6 +6224,15 @@ input.chk-btn:checked + label {
     @media only screen and (max-width: 768px) {
       .mable-footer .row.mable-footer-info {
         padding: 5px 20px; } }
+
+.mable-footer-image {
+  margin-top: -180px;
+  width: 300px;
+  right: 0;
+  position: absolute; }
+  @media only screen and (max-width: 1024px) {
+    .mable-footer-image {
+      display: none; } }
 
 .mable-homeHeader {
   background-image: url(../../Content/images/melbourneBg.svg);

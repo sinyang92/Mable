@@ -320,6 +320,7 @@
     <Content Include="Content\cluster\m5.png" />
     <Content Include="Content\css\mable-style.css" />
     <Content Include="Content\css\nprogress.css" />
+    <Content Include="Content\images\footer-markers.svg" />
     <Content Include="Content\images\icon-congestion.svg" />
     <Content Include="Content\images\icon-currentLocation.svg" />
     <Content Include="Content\images\icon-dev-activity.svg" />

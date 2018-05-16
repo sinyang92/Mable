@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="388px" height="446px" viewBox="0 0 388 446" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 13</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mable-v3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-963.000000, -1858.000000)">
+            <g id="Group-13" transform="translate(970.000000, 1864.000000)">
+                <path d="M232.023109,427.920458 C326.705181,289.61369 374.046217,194.314573 374.046217,142.023109 C374.046217,63.5859116 310.460306,0 232.023109,0 C153.585912,0 90,63.5859116 90,142.023109 C90,194.314573 137.341036,289.61369 232.023109,427.920458 Z" id="Oval-17-Copy" stroke="#FFFFFF" stroke-width="12" fill="#000000"></path>
+                <circle id="Oval-18" fill="#FFFFFF" cx="232" cy="140" r="89"></circle>
+                <path d="M95.5583163,427.920458 C159.263861,334.862631 191.116633,270.741917 191.116633,235.558316 C191.116633,182.782916 148.333717,140 95.5583163,140 C42.7829155,140 0,182.782916 0,235.558316 C0,270.741917 31.8527721,334.862631 95.5583163,427.920458 Z" id="Oval-17" stroke="#000000" stroke-width="13" fill="#FFFFFF"></path>
+                <circle id="Oval" fill="#000000" cx="95.5" cy="225.5" r="46.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

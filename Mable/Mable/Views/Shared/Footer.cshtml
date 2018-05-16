@@ -1,17 +1,22 @@
 ﻿    <div class="container-fluid mable-footer"> 
         <div class="row mable-footer-links">
             <div class="col-md-4">
+                <img src="~/Content/images/logo-mable.svg" alt="Alternate Text" width="250"  style="margin-bottom: 25px;"/>
+
+               
+           
                 <ul>
-                    Look for accessible places:
-                    @*<li>Experiences</li>*@
-                    
-                </ul>
-                <ul>
-                    @Html.ActionLink("Find", "Index", "Home")
+                    @Html.ActionLink("Find Places", "Index", "Home")
                 </ul>
                 <ul>
                     @Html.ActionLink("Near Me", "Map", "Home")
                 </ul>
+                <ul>
+                @Html.ActionLink("Useful Links", "Resources", "Home")
+                </ul>
+            </div>
+            <div class="col-lg-offset-4 col-lg-4">
+                <img src="~/Content/images/footer-markers.svg" alt="Alternate Text" class="mable-footer-image"/>
             </div>
         </div>
         <div class="row mable-footer-info">
