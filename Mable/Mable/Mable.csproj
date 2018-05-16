@@ -456,7 +456,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\head.cshtml" />
-    <Content Include="Views\Home\Resources.cshtml" />
+    <Content Include="Views\Home\UsefulLinks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

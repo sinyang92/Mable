@@ -21,7 +21,7 @@ using Mable.Models;
 
 namespace Mable.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -230,7 +230,7 @@ namespace Mable.Controllers
             return View(detail);
         }
 
-        public ActionResult Resources()
+        public ActionResult UsefulLinks()
         {
             return View();
         }

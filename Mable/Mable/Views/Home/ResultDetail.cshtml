@@ -980,6 +980,10 @@
 
         if (document.getElementById('stp').checked) {
             document.getElementById("tab2").click();
+            document.getElementById("mapLoader").style.display = "initial";
+            map.addEventListener('idle', function () {
+                document.getElementById("mapLoader").style.display = "none";
+            });
             layer_footpath.setMap(map);
             layer_footpath.setStyle(function (feature) {
                 var grade = feature.getProperty('gradepc');
