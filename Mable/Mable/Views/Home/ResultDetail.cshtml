@@ -40,9 +40,8 @@
         opacity: 1 !important;
     }
 
-    .adp-directions
-    {
-        display:none;
+    .adp-directions {
+        display: none;
     }
 </style>
 
@@ -130,7 +129,7 @@
                                 <i id="fa-meh" class="fas fa-meh" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Partially wheelchair accessible - alternative entrance is step free"></i>
                                 <i id="fa-smile" class="fas fa-smile" style="font-size: 30px; opacity:0.2;" data-toggle="tooltip" title="Totally wheelchair accessible - main entrance is step free"></i>
                             </div>
-                           
+
                             <p style="font-size: 14px; font-weight:300;">Contribute by giving your feedback</p>
                             <div id="rating_btns" style="display: inline-block;" class="hidden-print">
                                 <div style="display: inline-block;">
@@ -292,10 +291,10 @@
                         <!-- End Information section -->
                         <!-- Start action section-->
                         @*<div class="row mable-actionSection">
-            <div class="mable-topicHeading">
-                Actions
-            </div>
-        </div>*@
+                                <div class="mable-topicHeading">
+                                    Actions
+                                </div>
+                            </div>*@
                         <!-- End action section -->
                         <!-- Travel mode selector -->
                         <div id="floating-panel" style="display:none">
@@ -326,7 +325,7 @@
                             <label class="btn mable-btn-primary-outline" for='route'>Show Route</label>
 
 
-                           
+
 
                         </div>
                         <!-- End action section -->
@@ -477,7 +476,7 @@
         }
     }
 
-    
+
 </script>
 
 <script>
@@ -991,7 +990,14 @@
             document.getElementById("mapLoader").style.display = "initial";
             layer_footpath.setMap(map);
             document.getElementById("mapLoader").style.display = "none";
-            
+
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
+
         } else {
             unshowSteepness();
             document.getElementById("initialTab").click();
@@ -1036,6 +1042,12 @@
                 ped_markers[i].setVisible(true);
             }
             document.getElementById("tab4").click();
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
         }
         else {
             unshowPed();
@@ -1080,6 +1092,13 @@
             });
 
             document.getElementById("tab5").click();
+
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
 
         }
         else {
@@ -1149,7 +1168,7 @@
                 directionsDisplay.setPanel(null);
             }
             document.getElementById('floating-panel').style.display = "none";
-            
+
         }
 
     }
@@ -1242,6 +1261,10 @@
         document.getElementById("rating_btns").style.display = "none";
         document.getElementById("text_rated").style.display = "initial";
     }
+
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
 
 </script>
 
