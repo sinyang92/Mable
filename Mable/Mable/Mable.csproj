@@ -336,6 +336,7 @@
     <Content Include="Content\images\icon-toilet.svg" />
     <Content Include="Content\images\icon-vote.png" />
     <Content Include="Content\images\icon-wifi.svg" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\logo-mable-hor.svg" />
     <Content Include="Content\images\logo-mable.svg" />
     <Content Include="Content\images\marker-cluster.svg" />

@@ -216,6 +216,10 @@
                         @*<div class="mable-topicHeading">
                                 Map
                             </div>*@
+
+                        <div id="mapLoader" style="display:none">
+                            <img src="~/Content/images/loader.gif" alt="Alternate Text" />
+                        </div>
                         <!-- Start place Map -->
                         <div class="row mable-detail-map clearfix">
                             <div class="col-md-12">
@@ -985,10 +989,8 @@
         if (document.getElementById('stp').checked) {
             document.getElementById("tab2").click();
             document.getElementById("mapLoader").style.display = "initial";
-            map.addEventListener('idle', function () {
-                document.getElementById("mapLoader").style.display = "none";
-            });
             layer_footpath.setMap(map);
+            document.getElementById("mapLoader").style.display = "none";
             
         } else {
             unshowSteepness();
