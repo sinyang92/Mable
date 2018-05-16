@@ -40,9 +40,8 @@
         opacity: 1 !important;
     }
 
-    .adp-directions
-    {
-        display:none;
+    .adp-directions {
+        display: none;
     }
 </style>
 
@@ -132,8 +131,24 @@
                                 <i id="fa-ban" class="fas fa-question-circle" style="font-size: 20px; opacity:0.2;" data-toggle="tooltip" title="Not rated"></i>
 
                             </div>
+<<<<<<< HEAD
                            
                             
+=======
+
+                            <p style="font-size: 14px; font-weight:300;">Contribute by giving your feedback</p>
+                            <div id="rating_btns" style="display: inline-block;" class="hidden-print">
+                                <div style="display: inline-block;">
+                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn3" onclick="AjaxUpdateRating_lv3()"> Accessible @*@Model.rating_lv3*@</button>
+                                </div>
+                                <div style="display: inline-block;">
+                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn2" onclick="AjaxUpdateRating_lv2()"> Partially Accessible @*@Model.rating_lv2*@</button>
+                                </div>
+                                <div style="display: inline-block;">
+                                    <button title="Add one point" class="btn btn-sm mable-accRatingButton" id="rateBtn1" onclick="AjaxUpdateRating_lv1()">  Not Accessible @*@Model.rating_lv1*@</button>
+                                </div>
+                            </div>
+>>>>>>> faf6578f68e031c866bcc9483fbb371d983bfd7e
                             <div id="text_rated" style="display:none">
                                 Thank you for your feedback!
                             </div>
@@ -283,10 +298,10 @@
                         <!-- End Information section -->
                         <!-- Start action section-->
                         @*<div class="row mable-actionSection">
-            <div class="mable-topicHeading">
-                Actions
-            </div>
-        </div>*@
+                                <div class="mable-topicHeading">
+                                    Actions
+                                </div>
+                            </div>*@
                         <!-- End action section -->
                         <!-- Travel mode selector -->
                         <div id="floating-panel" style="display:none">
@@ -317,7 +332,7 @@
                             <label class="btn mable-btn-primary-outline" for='route'>Show Route</label>
 
 
-                           
+
 
                         </div>
                         <!-- End action section -->
@@ -485,7 +500,7 @@
         }
     }
 
-    
+
 </script>
 
 <script>
@@ -999,7 +1014,14 @@
             document.getElementById("mapLoader").style.display = "initial";
             layer_footpath.setMap(map);
             document.getElementById("mapLoader").style.display = "none";
-            
+
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
+
         } else {
             unshowSteepness();
             document.getElementById("initialTab").click();
@@ -1044,6 +1066,12 @@
                 ped_markers[i].setVisible(true);
             }
             document.getElementById("tab4").click();
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
         }
         else {
             unshowPed();
@@ -1088,6 +1116,13 @@
             });
 
             document.getElementById("tab5").click();
+
+            if (isMobileDevice()) {
+                console.log('Mobile!');
+                $('html, body').animate({
+                    scrollTop: $('#map').offset().top
+                }, 1000);
+            }
 
         }
         else {
@@ -1157,7 +1192,7 @@
                 directionsDisplay.setPanel(null);
             }
             document.getElementById('floating-panel').style.display = "none";
-            
+
         }
 
     }
@@ -1250,6 +1285,10 @@
         document.getElementById("rating_btns").style.display = "none";
         document.getElementById("text_rated").style.display = "initial";
     }
+
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
 
 </script>
 

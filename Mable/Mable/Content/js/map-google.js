@@ -203,7 +203,7 @@ function initMap() {
      */
 
 
-    
+
 
     /**
      * Off street parking markers
@@ -355,6 +355,12 @@ function showSensor(sensor) {
         //document.getElementById("").style.visibility = "hidden";
         //document.getElementById("").style.visibility = "hidden";
         //document.getElementById("").style.visibility = "visible";
+        if (isMobileDevice()) {
+            console.log('Mobile!');
+            $('html, body').animate({
+                scrollTop: $('#map').offset().top
+            }, 1000);
+        }
     }
     else {
         unshowSensor();
@@ -441,8 +447,14 @@ function showToilet(toilet) {
         } else {
             handleLocationError(false, locInfoWindow, map.getCenter());
         }
-        
+
         document.getElementById("tab2").click();
+        if (isMobileDevice()) {
+            console.log('Mobile!');
+            $('html, body').animate({
+                scrollTop: $('#map').offset().top
+            }, 1000);
+        }
     }
     else {
         unshowToilet();
@@ -490,6 +502,12 @@ function showPark(park) {
             imagePath: '../../Content/cluster/m'
         });
         document.getElementById("tab3").click();
+        if (isMobileDevice()) {
+            console.log('Mobile!');
+            $('html, body').animate({
+                scrollTop: $('#map').offset().top
+            }, 1000);
+        }
     }
     else {
         unshowPark();
@@ -531,6 +549,12 @@ function showWifi(wifi) {
             imagePath: '../../Content/cluster/m'
         });
         document.getElementById("tab4").click();
+        if (isMobileDevice()) {
+            console.log('Mobile!');
+            $('html, body').animate({
+                scrollTop: $('#map').offset().top
+            }, 1000);
+        }
     }
     else {
         unshowWifi();
@@ -569,6 +593,12 @@ function showQuiet(quite) {
             quiet_markers[i].setVisible(true);
         }
         document.getElementById("tab5").click();
+        if (isMobileDevice()) {
+            console.log('Mobile!');
+            $('html, body').animate({
+                scrollTop: $('#map').offset().top
+            }, 1000);
+        }
     }
     else {
         unshowQuiet();
@@ -683,4 +713,8 @@ function getCurrentLocation() {
         handleLocationError(false, locInfoWindow, map.getCenter());
     }
 }
+
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+};
 
