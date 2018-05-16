@@ -39,6 +39,11 @@
         padding: 0 5px;
         opacity: 1 !important;
     }
+
+    .adp-directions
+    {
+        display:none;
+    }
 </style>
 
 @model Mable.Classes.PlaceDetail.Result
@@ -254,10 +259,10 @@
                                     <p>
                                         If you click the marker, parking type and capacity will be shown. Two parking types are available:
                                         <ul>
-                                            <li><img src="~/Content/images/marker-parking.svg" alt="Alternate Text" width="20"/> Paid parking</li>
+                                            <li><img src="~/Content/images/marker-parking.svg" alt="Alternate Text" width="20" /> Paid parking</li>
                                             <li><img src="~/Content/images/marker-parking-new.svg" alt="Alternate Text" width="20" /> Parking for staff, visitors or customers</li>
                                         </ul>
-<p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represent different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
+                                    <p><img src="~/Content/cluster/m1.png" width="30" /> The clusters represent different spots/places grouped together for easier view. Click on the clusters to get more detailed view.</p>
                                     </p>
                                 </div>
                                 <div id="tabContent4" class="tab-pane fade">
@@ -283,11 +288,24 @@
                         <!-- End Information section -->
                         <!-- Start action section-->
                         @*<div class="row mable-actionSection">
-                                <div class="mable-topicHeading">
-                                    Actions
-                                </div>
-                            </div>*@
+            <div class="mable-topicHeading">
+                Actions
+            </div>
+        </div>*@
                         <!-- End action section -->
+                        <!-- Travel mode selector -->
+                        <div id="floating-panel" style="display:none">
+                            <div class="mable-topicHeading">
+                                Route Info
+                            </div>
+                            <p>Model of Travel:</p>
+                            <select id="mode" style="max-height: 200px;">
+                                <option value="DRIVING">Driving</option>
+                                <option value="WALKING">Walking</option>
+                                <option value="TRANSIT">Public Transport</option>
+                            </select>
+                        </div>
+
                         <!-- Start action section-->
                         <div class="row mable-actionSection">
                             <div class="mable-topicHeading">
@@ -297,15 +315,7 @@
 
                             <input type="checkbox" name="route" class="btn-map" id="route" onclick="showRoute(this)">
                             <label class="btn mable-btn-primary-outline" for='route'>Show Route</label>
-                            <!-- Travel mode selector -->
-                            <div id="floating-panel" style="display:none">
-                                <p>Model of Travel:</p>
-                                <select id="mode">
-                                    <option value="DRIVING">Driving</option>
-                                    <option value="WALKING">Walking</option>
-                                    <option value="TRANSIT">Public Transport</option>
-                                </select>
-                            </div>
+
 
                             <!--- Arrival Time-->
                             <div id="arrival-time">
