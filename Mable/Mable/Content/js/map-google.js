@@ -398,6 +398,9 @@ function showToilet(toilet) {
         for (var i = 0; i < toilet_markers.length; i++) {
             toilet_markers[i].setVisible(true);
         }
+        if (typeof directionsDisplay != 'undefined') {
+            directionsDisplay.setMap(null);
+        }
 
         // Try HTML5 geolocation
         if (navigator.geolocation) {
